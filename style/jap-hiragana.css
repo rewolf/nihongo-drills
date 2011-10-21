@@ -1,0 +1,13 @@
+
+
+.jap-audio {
+	visibility:		hidden;
+}
+
+#hira-char {
+	cursor:			pointer;
+	font-size:		40px;
+	margin:			20px;
+	text-align: 	center;
+	width:			100px;
+}
