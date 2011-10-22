@@ -1,39 +1,78 @@
-from web_build import *
+from rewolf.web_builder import WebApp
+import sys
+import os
 
 VERSION = "1_0"
 
 js_files = [
 	"script/common.js", 
-	"script/jap-hiragana.js"
+	"script/hiragana.js"
 ]
 
 css_files = [
-	"style/jap-hiragana.css"
+	"style/hiragana.css"
 ]
 
 
 js_mods = {
 	"hira-main" : [
 		"script/common.js", 
-		"script/jap-hiragana.js"
+		"script/hiragana.js"
 	]
 }
 
 css_mods = {
 	"hira-main" : [
-		"style/jap-hiragana.css"
+		"style/hiragana.css"
 	]
 }
 
 pages = {
-	"jap-hiragana.php" : {
+	"hiragana.php" : {
 		"js":	[
 			"hira-main"
 		],
 		"css":	[
 			"hira-main"
 		]
+	},
+	"index.php" : {
+		"js":	[
+		],
+		"css":	[
+		]
 	}
 }
 
-deploy_app(VERSION, js_files, css_files, js_mods, css_mods, pages, True)
+res = [
+	"res"
+]
+
+def main():
+	minify	= "-m" in sys.argv or "--minify" in sys.argv
+
+	app = WebApp("nihongo", VERSION, js_files, css_files, res)
+
+	app.build(js_mods, css_mods, pages, minify)
+	app.deploy("/var/www/nihongo")
+	app.cleanup()
+
+
+
+
+def print_usage():
+	args = [
+		("-m, --minify", "Code will be minified by removing all non-syntactic whitespace")
+	]
+	options = "\n".join([ "\t"+o.ljust(25) + e for o,e in args ])
+	os.system( "echo \""+\
+"""
+Usage: python build.py [OPTION]...
+
+$(tput bold)OPTIONS$(tput sgr0)
+%s"
+""" % options)
+
+
+if __name__=="__main__":
+	main()

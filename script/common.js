@@ -524,5 +524,8 @@ document.head 	= document.head || document.getElementsByTagName("head")[0];
 		this.timeoutTimer = setTimeout(function(){self.__doTimeout__(self)}, this.timeout);
 		return true;
 	}
-})( JAP.namespace("JAP.util") );
 
+	window.$id		= ns.getId;
+	window.$cls		= ns.getCls;
+	window.$tag		= ns.getTag;
+})( JAP.namespace("JAP.util") );

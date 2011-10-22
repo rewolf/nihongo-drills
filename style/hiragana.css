@@ -1,0 +1,68 @@
+
+body {
+	background-color:		#444;
+    background:             -webkit-gradient(linear, left top, left bottom, from(#666), to(#222)); 
+	margin:					0px;
+	overflow:				hidden;
+}
+
+header {
+	height:					50px;
+}
+
+footer {
+	height:					50px;
+}
+
+#layout-middle {
+	box-shadow:				inset 0px 0px 3px 1px #000;
+	padding:				6px 0px;
+	-webkit-transition:		background-color 1s ease;
+}
+
+.dark-panel {
+	background-color:		#151515;
+    background:             -webkit-gradient(linear, left top, left bottom, from(#151515), to(#050505)); 
+    background:             -moz-linear-gradient(90deg, #151515, #050505);                               
+    background:             -o-linear-gradient(#151515, #050505); 
+}
+
+.module-row {
+	clear:					both;
+	overflow:				hidden;
+	width:					100%;
+}
+
+.module {
+	float:					left;
+}
+
+.mod-cover {
+	background-color:		#090707;
+	border-radius:			10px;
+	box-shadow:				inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
+	margin:					7px;
+}
+
+.mod-cover:hover {
+	box-shadow:				0px 0px 20px 4px rgba(100,0,0,.8), 2px 2px 5px #000;
+}
+
+
+
+
+
+
+
+
+.jap-audio {
+	visibility:		hidden;
+}
+
+#hira-char {
+	cursor:			pointer;
+	font-size:		40px;
+	margin:			20px;
+	text-align: 	center;
+	width:			100px;
+}

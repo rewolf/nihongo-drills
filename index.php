@@ -1,3 +1,6 @@
+<?php
+	header ("Location: hiragana.php");
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
