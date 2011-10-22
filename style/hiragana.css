@@ -31,12 +31,19 @@ footer {
 
 #layout-middle {
 	box-shadow:				inset 0px 0px 3px 1px #000;
+	-moz-box-shadow:		inset 0px 0px 3px 1px #000;
+	-webkit-box-shadow:		inset 0px 0px 3px 1px #000;
+	-o-box-shadow:			inset 0px 0px 3px 1px #000;
+	-ms-box-shadow:			inset 0px 0px 3px 1px #000;
 	height:					0px;
 	padding:				6px 0px;
 }
 
 .open-anim {
 	-webkit-transition:		background-color 1s ease, height .5s linear;
+	-moz-transition:		background-color 1s ease, height .5s linear;
+	-o-transition:			background-color 1s ease, height .5s linear;
+	-ms-transition:			background-color 1s ease, height .5s linear;
 }
 
 .dark-panel {
@@ -60,6 +67,9 @@ footer {
 
 .module-slide {
 	-webkit-animation:		module-slide .5s linear;
+	-moz-animation:			module-slide .5s linear;
+	-o-animation:			module-slide .5s linear;
+	-ms-animation:			module-slide .5s linear;
 }
 
 
@@ -68,17 +78,50 @@ footer {
 		left: 2000px;
 	}
 }
+@-moz-keyframes module-slide {
+	from {
+		left: 2000px;
+	}
+}
+@-o-keyframes module-slide {
+	from {
+		left: 2000px;
+	}
+}
+@-ms-keyframes module-slide {
+	from {
+		left: 2000px;
+	}
+}
 
 .mod-cover {
 	background-color:		#090707;
 	border-radius:			20px;
+	-moz-border-radius:		20px;
+	-webkit-border-radius:	20px;
+	-o-border-radius:		20px;
+	-ms-border-radius:		20px;
 	box-shadow:				inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
+	-moz-box-shadow:		inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
+	-webkit-box-shadow:		inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
+	-o-box-shadow:			inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
+	-ms-box-shadow:			inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
 	cursor:					pointer;
 	margin:					7px;
 }
 
 .mod-cover:hover {
 	box-shadow:				0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
+	-moz-box-shadow:		0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
+	-webkit-box-shadow:		0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
+	-o-box-shadow:			0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
+	-ms-box-shadow:			0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
+}
+
+#mod-char-htv .mod-cover {
+	background-image:		url("../res/images/htv.png");
+	background-repeat:		no-repeat;
+	background-position:	center center;
 }
 
 #screen-block {
@@ -88,19 +131,3 @@ footer {
 	z-index:				100;
 }
 
-
-
-
-
-
-.jap-audio {
-	visibility:		hidden;
-}
-
-#hira-char {
-	cursor:			pointer;
-	font-size:		40px;
-	margin:			20px;
-	text-align: 	center;
-	width:			100px;
-}

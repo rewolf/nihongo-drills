@@ -3,9 +3,11 @@
 <head>
     <meta charset="utf-8" />
 	<title>Hiragana</title>
-    <link rel="stylesheet" href="style/jap-hiragana.css" />
+    <link rel="shortcut icon" href="res/images/favicon.gif" />
+    <link rel="stylesheet" href="style/common.css" />
+    <link rel="stylesheet" href="style/hiragana.css" />
     <script type="text/javascript" src="script/common.js"></script>
-    <script type="text/javascript" src="script/jap-hiragana.js"></script>
+    <script type="text/javascript" src="script/hiragana.js"></script>
 </head>
 <body>
 	<header id="layout-top" class="dark-panel">
@@ -36,7 +38,7 @@
 				</div>
 			</div>
 			<div id="mod-word-lth" class="module invisible">
-				<div class="mod-cover dark-panel">
+				<div class="mod-cover">
 				</div>
 			</div>
 		</div>
