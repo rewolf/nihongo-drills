@@ -1,13 +1,28 @@
+@font-face {
+	font-family:    "Incubus";
+	/*src:            url('../res/fonts/brankovic.eot');*/
+	src:            local('☺'),
+					/*url('../res/fonts/brankovic.eot'),*/
+					url('res/fonts/incubus.ttf');
+}
+
+.invisible {
+	visibility:				hidden;
+}
 
 body {
-	background-color:		#444;
-    background:             -webkit-gradient(linear, left top, left bottom, from(#666), to(#222)); 
+	background-color:		#000;
 	margin:					0px;
 	overflow:				hidden;
 }
 
 header {
+	color:					#d00;
+	font-family:			"Incubus";
+	font-size:				x-large;
+	line-height:			50px;
 	height:					50px;
+	padding-left:			20px;
 }
 
 footer {
@@ -16,8 +31,12 @@ footer {
 
 #layout-middle {
 	box-shadow:				inset 0px 0px 3px 1px #000;
+	height:					0px;
 	padding:				6px 0px;
-	-webkit-transition:		background-color 1s ease;
+}
+
+.open-anim {
+	-webkit-transition:		background-color 1s ease, height .5s linear;
 }
 
 .dark-panel {
@@ -35,20 +54,39 @@ footer {
 
 .module {
 	float:					left;
+	position:				relative;
+	left:					0px;
+}
+
+.module-slide {
+	-webkit-animation:		module-slide .5s linear;
+}
+
+
+@-webkit-keyframes module-slide {
+	from {
+		left: 2000px;
+	}
 }
 
 .mod-cover {
 	background-color:		#090707;
-	border-radius:			10px;
+	border-radius:			20px;
 	box-shadow:				inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
+	cursor:					pointer;
 	margin:					7px;
 }
 
 .mod-cover:hover {
-	box-shadow:				0px 0px 20px 4px rgba(100,0,0,.8), 2px 2px 5px #000;
+	box-shadow:				0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
 }
 
-
+#screen-block {
+	left:					0px;
+	position:				absolute;
+	top:					0px;
+	z-index:				100;
+}
 
 
 

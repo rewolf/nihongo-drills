@@ -1,0 +1,31 @@
+
+/* make HTML5 tags be block-style for old browsers */
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section { 
+    display:			block;
+}
+
+a, a img {
+	border:				none;
+	outline:			none;
+}
+
+
+.centred-X, .centred-Y {
+	position:					absolute;
+}
+
+
+.nothing {
+	display:					none !important;
+}
+
+.invisible {
+	visibility:					hidden  !important;
+}
+
+.offscreen {
+	position:					absolute !important;
+	left:						-9999px !important;
+}
+

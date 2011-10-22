@@ -10,6 +10,7 @@ js_files = [
 ]
 
 css_files = [
+	"style/common.css",
 	"style/hiragana.css"
 ]
 
@@ -23,6 +24,7 @@ js_mods = {
 
 css_mods = {
 	"hira-main" : [
+		"style/common.css",
 		"style/hiragana.css"
 	]
 }
