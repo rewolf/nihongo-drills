@@ -1,14 +1,26 @@
 
+JAP.image.loadBatch("essential",
+	[
+		"res/images/htv.png"
+	]
+);
+
 (function (hira) {
 
 	var _ = JAP.util;
-	_.addEvent(window, "load", init);
+	_.addEvent(window, "load", onLoad);
 
 
 	/*
 		Finished loading -> open up the screen
 	*/
-	function init () {
+	function onLoad () {
+		JAP.image.watchBatch("essential", {
+			onImagesReady:	onReady
+		});
+	}
+
+	function onReady () {
 		_.removeClass($id("screen-block"), "nothing");
 		setTimeout(setup, 600);
 		$id("layout-middle").style.backgroundColor = "#222";

@@ -6,6 +6,7 @@ VERSION = "1_0"
 
 js_files = [
 	"script/common.js", 
+	"script/image.js", 
 	"script/hiragana.js"
 ]
 
@@ -18,6 +19,7 @@ css_files = [
 js_mods = {
 	"hira-main" : [
 		"script/common.js", 
+		"script/image.js", 
 		"script/hiragana.js"
 	]
 }

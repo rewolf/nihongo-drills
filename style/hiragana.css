@@ -3,7 +3,7 @@
 	/*src:            url('../res/fonts/brankovic.eot');*/
 	src:            local('☺'),
 					/*url('../res/fonts/brankovic.eot'),*/
-					url('res/fonts/incubus.ttf');
+					url('../res/fonts/incubus.ttf');
 }
 
 .invisible {
