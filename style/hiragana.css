@@ -9,6 +9,8 @@
 
 body {
 	background-color:		#000;
+	font-family:			Arial, sans-serif;
+	font-size:				12px;
 	margin:					0px;
 	overflow:				hidden;
 }
@@ -24,6 +26,38 @@ header {
 
 footer {
 	height:					50px;
+}
+
+#footer-links {
+	float:					right;
+	line-height:			50px;
+	text-transform:			uppercase;
+}
+
+#footer-links a {
+	color:					#444;
+	float:					left;
+	padding:				0px 10px;
+	text-decoration:		none;
+}
+#footer-links a:hover {
+    background:             -webkit-gradient(linear, left top, left bottom, from(#150000), to(#050000)); 
+    background:             -moz-linear-gradient(90deg, #150000, #050000);                               
+    background:             -o-linear-gradient(#150000, #050000); 
+	color:					#d00;
+}
+#footer-ad {
+	float:					left;
+	margin:					17px 5px;
+	width:					500px;
+}
+
+.footer-link-separator {
+	float:					left;
+	background-color:		#333;
+	height:					50px;
+	margin-top:				0px;
+	width:					1px;
 }
 
 #layout-middle {
@@ -57,11 +91,6 @@ footer {
 	width:					100%;
 }
 
-.tiny {
-	-webkit-transform:		scale(.05);
-}
-
-
 .menu-item {
 	cursor:					pointer;
 	display:				block;
@@ -70,6 +99,10 @@ footer {
 	margin:					7px;
 	position:				relative;
 	-webkit-transition:		-webkit-transform .4s linear, left .5s linear;
+	-moz-transition:		-moz-transform .4s linear, left .5s linear;
+	-o-transition:			-o-transform .4s linear, left .5s linear;
+	-ms-transition:			-ms-transform .4s linear, left .5s linear;
+	transition:				transform .4s linear, left .5s linear;
 }
 
 
@@ -114,7 +147,10 @@ footer {
 	display:				block;
 	background-image:		url("../res/images/home-menu.png");
 	height:					60px;
+	left:					0px;
 	margin:					4px;
+	position:				absolute;
+	top:					0px;
 	width:					60px;
 }
 
@@ -139,3 +175,29 @@ footer {
 	-o-box-shadow:			0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
 	-ms-box-shadow:			0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
 }
+
+.module {
+	width:					100%;
+}
+
+.module-settings {
+	position:				absolute;
+	right:					0px;
+	top:					0px;
+	width:					130px;
+}
+
+#links-mod-text {
+	display:				block;
+	max-width:				400px;
+	margin:					20px auto;
+	text-align:				center;
+}
+
+#about-mod-text {
+	display:				block;
+	max-width:				400px;
+	margin:					20px auto;
+	text-align:				center;
+}
+

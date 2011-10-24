@@ -11,26 +11,7 @@ JAP.image.loadBatch("essential",
 		contentPane;
 	_.addEvent(window, "load", onLoad);
 	
-	ns.MOD_TABLE = {
-		"char-htv":		{
-			title:	"Hiragana Character-to-Voice Drill"
-		},
-		"char-vth":		{
-			title:	"Hiragana Voice-to-Character Drill"
-		},
-		"word-htv":		{
-			title:	"Hiragana Word-to-Voice Drill"
-		},
-		"word-vth":		{
-			title:	"Hiragana Voice-to-Word Drill"
-		},
-		"lang-htl":		{
-			title:	"Hiragana Word-to-English Drill"
-		},
-		"lang-lth":		{
-			title:	"Hiragana English-to-Word Drill"
-		}
-	};
+	hira.currentModule = null;
 
 	/*
 		Finished loading -> open up the screen
@@ -39,6 +20,36 @@ JAP.image.loadBatch("essential",
 		JAP.image.watchBatch("essential", {
 			onImagesReady:	onReady
 		});
+
+		hira.MOD_TABLE = {
+			"char-htv":		{
+				title:	"Hiragana Character-to-Voice Drill",
+				module:	new JAP.hira.mods.CharHTV()
+			},
+			"char-vth":		{
+				title:	"Hiragana Voice-to-Character Drill"
+			},
+			"word-htv":		{
+				title:	"Hiragana Word-to-Voice Drill"
+			},
+			"word-vth":		{
+				title:	"Hiragana Voice-to-Word Drill"
+			},
+			"lang-htl":		{
+				title:	"Hiragana Word-to-English Drill"
+			},
+			"lang-lth":		{
+				title:	"Hiragana English-to-Word Drill"
+			},
+			"links": 		{
+				title:	"Japanese Learning Links",
+				module:	new JAP.hira.mods.Links()
+			},
+			"about": 		{
+				title:	"About Hiragana Drills",
+				module:	new JAP.hira.mods.About()
+			}
+		};
 	}
 
 	function onReady () {
@@ -175,6 +186,8 @@ JAP.image.loadBatch("essential",
 			this.node.style.height = this.container.clientHeight + "px";
 			if (this.visible) {
 				// move to the new centre
+				this.node.style.left = this.container.clientWidth/2 - this.fullWidth/2 + "px";
+				this.node.style.width = this.fullWidth + "px";
 			}
 		};
 	}
@@ -224,31 +237,19 @@ JAP.image.loadBatch("essential",
 				var mod = full;
 			}
 
-			hideMenu();
+			var modinfo = hira.MOD_TABLE[full];
 
-/*
-			if (MM.exists(MM.items[mod])) {
-				// First select the navlink
-				var navlink = MM.getId("nav-"+mod);
-				if (navlink) {
-					MM.addClass(navlink, "selected");
+			if (modinfo.module) {
+				if (!contentPane.visible) {
+					hideMenu();
 				}
-				if (MM.currentModule) {
-					MM.currentModule.xhr.fetch.stop();
-				}
-				MM.removeClass("button-add", "nothing");
-				MM.getId("main-panel").innerHTML = "Loading";
-				MM.items[mod].load(full);
+				
+				document.title = modinfo.title;
+				modinfo.module.show();
 			}
-			else if (full=="about") {
-				MM.getId("main-panel").innerHTML = MM.getId("about-text").innerHTML;
-			}
-			else if (full=="contact") {
-				MM.getId("main-panel").innerHTML = MM.getId("contact-text").innerHTML;
-			}
-			*/
 		}
 		else {
+			document.title = "Japanese Hiragana | Drills";
 			if (contentPane.visible) {
 				contentPane.hide();
 				setTimeout(showMenu, 500);
