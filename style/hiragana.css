@@ -63,17 +63,6 @@ footer {
 
 
 .menu-item {
-	background-color:		#090707;
-	border-radius:			2px;
-	-moz-border-radius:		2px;
-	-webkit-border-radius:	2px;
-	-o-border-radius:		2px;
-	-ms-border-radius:		2px;
-	box-shadow:				inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
-	-moz-box-shadow:		inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
-	-webkit-box-shadow:		inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
-	-o-box-shadow:			inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
-	-ms-box-shadow:			inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
 	cursor:					pointer;
 	display:				block;
 	float:					left;
@@ -83,13 +72,6 @@ footer {
 	-webkit-transition:		-webkit-transform .4s linear, left .5s linear;
 }
 
-.menu-item:hover {
-	box-shadow:				0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
-	-moz-box-shadow:		0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
-	-webkit-box-shadow:		0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
-	-o-box-shadow:			0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
-	-ms-box-shadow:			0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
-}
 
 .offscreen-item {
 	left:					2000px;
@@ -123,13 +105,37 @@ footer {
 	-webkit-box-shadow:		inset 0px 0px 5px 3px #000;
 	-o-box-shadow:			inset 0px 0px 5px 3px #000;
 	-ms-box-shadow:			inset 0px 0px 5px 3px #000;
+	overflow:				hidden;
 	position:				absolute;
 	z-index;				3;
 }
 
-#home-button {
-	display:				block
-	height:					25px;
-	width:					30px;
+#menu-button {
+	display:				block;
+	background-image:		url("../res/images/home-menu.png");
+	height:					60px;
+	margin:					4px;
+	width:					60px;
 }
 
+.panel-link {
+	background-color:		#090707;
+	border-radius:			2px;
+	-moz-border-radius:		2px;
+	-webkit-border-radius:	2px;
+	-o-border-radius:		2px;
+	-ms-border-radius:		2px;
+	box-shadow:				inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
+	-moz-box-shadow:		inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
+	-webkit-box-shadow:		inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
+	-o-box-shadow:			inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
+	-ms-box-shadow:			inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
+}
+
+.panel-link:hover {
+	box-shadow:				0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
+	-moz-box-shadow:		0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
+	-webkit-box-shadow:		0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
+	-o-box-shadow:			0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
+	-ms-box-shadow:			0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
+}

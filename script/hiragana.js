@@ -10,6 +10,27 @@ JAP.image.loadBatch("essential",
 	var _ = JAP.util,
 		contentPane;
 	_.addEvent(window, "load", onLoad);
+	
+	ns.MOD_TABLE = {
+		"char-htv":		{
+			title:	"Hiragana Character-to-Voice Drill"
+		},
+		"char-vth":		{
+			title:	"Hiragana Voice-to-Character Drill"
+		},
+		"word-htv":		{
+			title:	"Hiragana Word-to-Voice Drill"
+		},
+		"word-vth":		{
+			title:	"Hiragana Voice-to-Word Drill"
+		},
+		"lang-htl":		{
+			title:	"Hiragana Word-to-English Drill"
+		},
+		"lang-lth":		{
+			title:	"Hiragana English-to-Word Drill"
+		}
+	};
 
 	/*
 		Finished loading -> open up the screen

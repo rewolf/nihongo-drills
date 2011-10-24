@@ -30,24 +30,23 @@
 	</header>
 	<div id="layout-middle" class="open-anim">
 		<div class="menu-row">
-			<a href="#!/char-htv" id="item-char-htv" class="menu-item invisible offscreen-item">
+			<a href="#!/char-htv" id="item-char-htv" class="menu-item panel-link invisible offscreen-item" title="Drill your recognition of hiragana characters. Speak it as you see it.">
 			</a>
-			<a href="#!/word-htv" id="item-word-htv" class="menu-item invisible offscreen-item">
+			<a href="#!/word-htv" id="item-word-htv" class="menu-item panel-link invisible offscreen-item" title="Drill your pronunciation of hiragana words.  Speak them as you see them.">
 			</a>
-			<a href="#!/lang-htl" id="item-lang-htl" class="menu-item invisible offscreen-item">
+			<a href="#!/lang-htl" id="item-lang-htl" class="menu-item panel-link invisible offscreen-item" title="Drill your recognition of hiragana words. Choose the english meaning.">
 			</a>
 		</div>
 		<div class="menu-row">
-			<a href="#!/char-htv" id="item-char-vth" class="menu-item invisible offscreen-item">
+			<a href="#!/char-htv" id="item-char-vth" class="menu-item panel-link invisible offscreen-item" title="Drill your memory of hiragana characters. Choose the character matching the sound.">
 			</a>
-			<a href="#!/word-htv" id="item-word-vth" class="menu-item invisible offscreen-item">
+			<a href="#!/word-htv" id="item-word-vth" class="menu-item panel-link invisible offscreen-item" title="Drill your memory of hiragana words.  Choose the word matching the sounds.">
 			</a>
-			<a href="#!/lang-htl" id="item-lang-lth" class="menu-item invisible offscreen-item">
+			<a href="#!/lang-htl" id="item-lang-lth" class="menu-item panel-link invisible offscreen-item" title="Drill your japanese vocabulary.  Choose the hiragana word equivalent of the english word.">
 			</a>
 		</div>
 		<div id="content-pane" class="nothing zero-width">
-			<a href="#!/" id="menu-button" class="dark-panel">
-				Home
+			<a href="#!/" id="menu-button" class="panel-link" title="Back to Hiragan Home Menu">
 			</a>
 		</div>
 	</div>
