@@ -6,9 +6,6 @@
 					url('../res/fonts/incubus.ttf');
 }
 
-.invisible {
-	visibility:				hidden;
-}
 
 body {
 	background-color:		#000;
@@ -37,6 +34,7 @@ footer {
 	-ms-box-shadow:			inset 0px 0px 3px 1px #000;
 	height:					0px;
 	padding:				6px 0px;
+	position:				relative;
 }
 
 .open-anim {
@@ -53,64 +51,39 @@ footer {
     background:             -o-linear-gradient(#151515, #050505); 
 }
 
-.module-row {
+.menu-row {
 	clear:					both;
 	overflow:				hidden;
 	width:					100%;
 }
 
-.module {
-	float:					left;
-	position:				relative;
-	left:					0px;
-}
-
-.module-slide {
-	-webkit-animation:		module-slide .5s linear;
-	-moz-animation:			module-slide .5s linear;
-	-o-animation:			module-slide .5s linear;
-	-ms-animation:			module-slide .5s linear;
+.tiny {
+	-webkit-transform:		scale(.05);
 }
 
 
-@-webkit-keyframes module-slide {
-	from {
-		left: 2000px;
-	}
-}
-@-moz-keyframes module-slide {
-	from {
-		left: 2000px;
-	}
-}
-@-o-keyframes module-slide {
-	from {
-		left: 2000px;
-	}
-}
-@-ms-keyframes module-slide {
-	from {
-		left: 2000px;
-	}
-}
-
-.mod-cover {
+.menu-item {
 	background-color:		#090707;
-	border-radius:			20px;
-	-moz-border-radius:		20px;
-	-webkit-border-radius:	20px;
-	-o-border-radius:		20px;
-	-ms-border-radius:		20px;
+	border-radius:			2px;
+	-moz-border-radius:		2px;
+	-webkit-border-radius:	2px;
+	-o-border-radius:		2px;
+	-ms-border-radius:		2px;
 	box-shadow:				inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
 	-moz-box-shadow:		inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
 	-webkit-box-shadow:		inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
 	-o-box-shadow:			inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
 	-ms-box-shadow:			inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
 	cursor:					pointer;
+	display:				block;
+	float:					left;
+	left:					0px;
 	margin:					7px;
+	position:				relative;
+	-webkit-transition:		-webkit-transform .4s linear, left .5s linear;
 }
 
-.mod-cover:hover {
+.menu-item:hover {
 	box-shadow:				0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
 	-moz-box-shadow:		0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
 	-webkit-box-shadow:		0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
@@ -118,7 +91,11 @@ footer {
 	-ms-box-shadow:			0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
 }
 
-#mod-char-htv .mod-cover {
+.offscreen-item {
+	left:					2000px;
+}
+
+#item-char-htv {
 	background-image:		url("../res/images/htv.png");
 	background-repeat:		no-repeat;
 	background-position:	center center;
@@ -129,5 +106,30 @@ footer {
 	position:				absolute;
 	top:					0px;
 	z-index:				100;
+}
+
+.expandable {
+	-webkit-transition:		left .5s ease, width .5s ease;
+	-moz-transition:		left .5s ease, width .5s ease;
+	-o-transition:			left .5s ease, width .5s ease;
+	-ms-transition:			left .5s ease, width .5s ease;
+	transition:				left .5s ease, width .5s ease;
+}
+
+#content-pane {
+	background-color:		#aaa;
+	box-shadow:				inset 0px 0px 5px 3px #000;
+	-moz-box-shadow:		inset 0px 0px 5px 3px #000;
+	-webkit-box-shadow:		inset 0px 0px 5px 3px #000;
+	-o-box-shadow:			inset 0px 0px 5px 3px #000;
+	-ms-box-shadow:			inset 0px 0px 5px 3px #000;
+	position:				absolute;
+	z-index;				3;
+}
+
+#home-button {
+	display:				block
+	height:					25px;
+	width:					30px;
 }
 

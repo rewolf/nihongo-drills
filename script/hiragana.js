@@ -7,9 +7,9 @@ JAP.image.loadBatch("essential",
 
 (function (hira) {
 
-	var _ = JAP.util;
+	var _ = JAP.util,
+		contentPane;
 	_.addEvent(window, "load", onLoad);
-
 
 	/*
 		Finished loading -> open up the screen
@@ -29,23 +29,11 @@ JAP.image.loadBatch("essential",
 	}
 
 	function setup () {
+		var items 	= $cls("menu-item");
 		_.removeClass($id("layout-middle"), "open-anim");
 		_.addEvent(window, "resize", onResize);
 
-		// Put modules off screen
-		var mods = $cls("module");
-		for (var i =0 ; i < mods.length; i ++) {
-			setTimeout( function (mod) {
-				return function () {
-					_.removeClass(mod, "invisible");
-					_.addClass(mod, "module-slide");
-				};
-			}(mods[i]), (i%3) * 200 + parseInt(i/3)*100);
-		}
-
-		setTimeout(function () {
-			_.addClass($id("screen-block"), "nothing");
-		}, 1000);
+		contentPane	= new ContentPane();
 
 		onResize();
 
@@ -65,13 +53,116 @@ JAP.image.loadBatch("essential",
 			}, 100);
 		}
 		loadHashBang();
+
+	}
+
+	function showMenu () {
+		_.removeClass($id("screen-block"), "nothing");
+		
+		if (contentPane.visible) {
+			setTimeout(showMenu, 500);
+			contentPane.hide();
+			return;
+		}
+
+		// Put items off screen
+		var items = $cls("menu-item");
+		for (var i =0 ; i < items.length; i ++) {
+			setTimeout( function (mod) {
+				return function () {
+					_.removeClass(mod, "invisible");
+					_.removeClass(mod, "offscreen-item");
+				};
+			}(items[i]), (i%3) * 200 + parseInt(i/3)*100);
+		}
+
+		setTimeout(function () {
+			_.addClass($id("screen-block"), "nothing");
+		}, 1000);
+	}
+
+	function hideMenu () {
+		_.removeClass($id("screen-block"), "nothing");
+
+		// Put items off screen
+		var items = $cls("menu-item");
+		for (var i =0 ; i < items.length; i ++) {
+			setTimeout( function (mod) {
+				return function () {
+					_.addClass(mod, "offscreen-item");
+				};
+			}(items[items.length - 1 - i]), (i%3) * 200 + parseInt(i/3)*100);
+		}
+
+		setTimeout(function () {
+			_.addClass($id("screen-block"), "nothing");
+			for (var i =0 ; i < items.length; i ++) {
+				_.addClass(items[i], "invisible");
+			}
+
+			// Show content pane
+			contentPane.show();
+		}, 1000);
+	}
+
+
+	function ContentPane () {
+		this.visible	= false;
+		this.node		= $id("content-pane");
+		this.container	= $id("layout-middle");
+		this.fullWidth	= 0; // adjusted on resize
+		var self = this;
+
+		this.show = function () {
+			this.visible 	= true;
+			_.removeClass(this.node, "nothing");
+
+			// First centre the zero-width pane and make it visible
+			var contW	= this.container.clientWidth,
+				contH	= this.container.clientHeight;
+
+			this.node.style.left = contW/2 + "px";
+			this.node.style.top	 = "0px";
+			this.node.clientWidth = this.node.clientWidth; // reflow before we start the expansion 
+			
+			// Start the expansion
+			_.addClass(this.node, "expandable");
+			this.node.style.left = contW/2 - this.fullWidth/2 + "px";
+			this.node.style.width = this.fullWidth + "px";
+			_.removeClass(this.node, "zero-width");
+
+			setTimeout(function () {
+				_.removeClass(self.node, "expandable");
+			}, 500);
+
+		};
+
+		this.hide = function () {
+			this.visible 	= false;
+
+			_.addClass(this.node, "expandable");
+			_.addClass(this.node, "zero-width");
+			this.node.style.left = this.container.clientWidth/2 + "px";
+			setTimeout(function () {
+				_.addClass(self.node, "nothing");
+				_.removeClass(self.node, "expandable");
+			}, 500);
+		};
+
+		this.onResize = function () {
+			this.fullWidth	= parseInt(this.container.clientWidth * .666);
+			this.node.style.height = this.container.clientHeight + "px";
+			if (this.visible) {
+				// move to the new centre
+			}
+		};
 	}
 
 	function onResize() {
 		var midlayout		= $id("layout-middle"),
 			header			= $id("layout-top"),
 			footer			= $id("layout-bottom"),
-			modules			= $cls("module");
+			items			= $cls("menu-item");
 
 		if (window.innerWidth) { 
 			JAP.winW = window.innerWidth;    
@@ -89,13 +180,13 @@ JAP.image.loadBatch("essential",
 
 
 
-		for (var i = 0; i < modules.length;  i++) {
-			modules[i].style.width		= Math.floor(midlayout.clientWidth/3) + "px";
-			modules[i].style.height		= Math.floor(midHeight/2) + "px";
+		for (var i = 0; i < items.length;  i++) {
+			items[i].style.width		= Math.floor(midlayout.clientWidth/3) -14 + "px";
+			items[i].style.height		= Math.floor(midHeight/2) -14 + "px";
+		}
 
-			var cover = $cls("mod-cover", modules[i])[0];
-			cover.style.width			= modules[i].clientWidth-14 + "px";
-			cover.style.height			= modules[i].clientHeight-14 + "px";
+		if (contentPane) {
+			contentPane.onResize();
 		}
 	}
 
@@ -103,7 +194,7 @@ JAP.image.loadBatch("essential",
 		var newHash 	= window.location.hash;
 
 		// If there is a new hashbang link
-		if (newHash.trim().length > 0){
+		if (newHash.trim().length > 3 ){
 			var full = newHash.substring(3);
 			if (full.indexOf("/")!=-1) {
 				var mod	 = full.substring(0, full.indexOf("/"));
@@ -112,8 +203,10 @@ JAP.image.loadBatch("essential",
 				var mod = full;
 			}
 
+			hideMenu();
+
 /*
-			if (MM.exists(MM.modules[mod])) {
+			if (MM.exists(MM.items[mod])) {
 				// First select the navlink
 				var navlink = MM.getId("nav-"+mod);
 				if (navlink) {
@@ -124,7 +217,7 @@ JAP.image.loadBatch("essential",
 				}
 				MM.removeClass("button-add", "nothing");
 				MM.getId("main-panel").innerHTML = "Loading";
-				MM.modules[mod].load(full);
+				MM.items[mod].load(full);
 			}
 			else if (full=="about") {
 				MM.getId("main-panel").innerHTML = MM.getId("about-text").innerHTML;
@@ -135,6 +228,13 @@ JAP.image.loadBatch("essential",
 			*/
 		}
 		else {
+			if (contentPane.visible) {
+				contentPane.hide();
+				setTimeout(showMenu, 500);
+			}
+			else {
+				showMenu();
+			}
 		}
 	}
 

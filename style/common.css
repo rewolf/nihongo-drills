@@ -29,3 +29,7 @@ a, a img {
 	left:						-9999px !important;
 }
 
+.zero-width {
+	width:						0px !important;
+}
+
