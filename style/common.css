@@ -33,3 +33,8 @@ a, a img {
 	width:						0px !important;
 }
 
+.zero-opacity {
+	opacity:					0 !important;
+	filter:						alpha(opacity=0) !important;
+}
+

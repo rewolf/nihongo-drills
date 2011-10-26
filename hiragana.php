@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8" />
 	<title>Japanese Hiragana | Drills</title>
+    <meta name="description" content="Practise your memorising of Japanese hiragana characters and their pronunciations using the drills on this site." />
+    <meta name="keywords" content="japanese,nihongo,practise,drill,memorise,pronounce,speak,learn" />
     <link rel="shortcut icon" href="res/images/favicon.gif" />
     <link rel="stylesheet" href="style/common.css" />
     <link rel="stylesheet" href="style/hiragana.css" />

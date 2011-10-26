@@ -242,10 +242,12 @@ JAP.image.loadBatch("essential",
 			if (modinfo.module) {
 				if (!contentPane.visible) {
 					hideMenu();
+					setTimeout(function(){modinfo.module.show();}, 600);
+				}else {
+					modinfo.module.show();
 				}
 				
 				document.title = modinfo.title;
-				modinfo.module.show();
 			}
 		}
 		else {
