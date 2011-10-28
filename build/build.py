@@ -52,7 +52,12 @@ pages = {
 		],
 		"css":	[
 		]
+	},
+	"get_audio.php" : {
+		"js":	[],
+		"css":	[]
 	}
+	
 }
 
 res = [

@@ -50,6 +50,7 @@ JAP.image.loadBatch("essential",
 				module:	new JAP.hira.mods.About()
 			}
 		};
+		preloadAudio();
 	}
 
 	function onReady () {
@@ -85,6 +86,68 @@ JAP.image.loadBatch("essential",
 			}, 100);
 		}
 		loadHashBang();
+
+	}
+
+	function preloadAudio () {
+		// create audio component for preloading
+		var audio2 	= document.createElement("audio"),
+			codes 	= JAP.hira.mods.UNICODE_MAP,
+			gooId 	= -1,
+			clipId	= -1,
+			audio1	= null;
+
+		audio2.className = "nothing";
+		document.body.appendChild(audio2);
+
+		function pad (n) {
+			return n < 10 ? "0"+n : n;
+		}
+		function load1() {
+			while (true) {
+				clipId++;
+				if (clipId >= codes.length) {
+					return;	
+				}
+				if (codes[clipId] != 0) {
+					break;
+				}
+			}
+			if (audio1) {
+				document.body.removeChild(audio1);
+			}
+			var src1 = document.createElement("source"),
+				src2 = document.createElement("source"),
+				filename = "hiragana_"+pad(parseInt(clipId/5)+1)+"_"+pad(clipId%5+1);
+			audio1	= document.createElement("audio");
+			audio1.className = "nothing";
+			_.addEvent(audio1, "loadeddata", load1);
+			src1.src = "res/audio/ogg/"+filename+".ogg";
+			src2.src = "res/audio/mp3/"+filename+".mp3";
+			audio1.appendChild(src1);
+			audio1.appendChild(src2);
+			document.body.appendChild(audio1);
+		}
+		function load2() {
+			while (true) {
+				gooId++;
+				if (gooId >= codes.length) {
+					return;	
+				}
+				if (codes[gooId] != 0) {
+					break;
+				}
+			}
+			var code = codes[gooId];
+			//audio2.src = "get_audio.php?tl=ja&text=" + encodeURIComponent(String.fromCharCode(code));
+		}
+
+		_.addEvent(audio2, "loadeddata", load2);
+
+		load1();
+		load2();
+
+
 
 	}
 
@@ -211,12 +274,14 @@ JAP.image.loadBatch("essential",
 
 		var midHeight = JAP.winH - header.clientHeight - footer.clientHeight - 12;
 		midlayout.style.height = midHeight + "px";
+		var numCols = $cls("menu-item", $cls("menu-row")[0]).length;
+		var numRows	= $cls("menu-row").length;
 
 
 
 		for (var i = 0; i < items.length;  i++) {
-			items[i].style.width		= Math.floor(midlayout.clientWidth/3) -14 + "px";
-			items[i].style.height		= Math.floor(midHeight/2) -14 + "px";
+			items[i].style.width		= Math.floor(midlayout.clientWidth/numCols) -14 + "px";
+			items[i].style.height		= Math.floor(midHeight/numRows) -14 + "px";
 		}
 
 		if (contentPane) {
