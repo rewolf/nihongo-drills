@@ -86,7 +86,7 @@
 		s.useGoogle			= s.createElem("input",  "hira-cvth-speech", "Use Google speech", "Check this to use Google's pronunciation rather than the default audio clips.");
 		s.difficulty		= s.createElem("select", "hira-cvth-difficulty", "Choice grid", "Affects the number of possible characters shown");
 
-		s.useGoogle.type= "checkbox";
+		s.useGoogle.setAttribute("type", "checkbox");
 
 		function addOption (sel, val, label) {
 			var opt  = document.createElement("option");

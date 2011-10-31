@@ -163,7 +163,7 @@ document.head 	= document.head || document.getElementsByTagName("head")[0];
 		if (typeof(obj)=="string")
 			obj = ns.getId(obj);
 		if (typeof(callback)==="undefined")
-			console.error("Um... you're adding an undefined function to handle events - "+(obj.id?obj.id:obj));
+			alert("undefined function to handle events - "+(obj.id?obj.id:obj));
 		if (obj==window || ns.isNode(obj) || ns.isElement(obj)){
 			if (evt=="mousewheel")
 				evt = (/Firefox/i.test(navigator.userAgent))? "DOMMouseScroll" : "mousewheel"
