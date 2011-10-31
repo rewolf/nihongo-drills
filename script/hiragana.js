@@ -17,9 +17,6 @@ JAP.image.loadBatch("essential",
 		Finished loading -> open up the screen
 	*/
 	function onLoad () {
-		JAP.image.watchBatch("essential", {
-			onImagesReady:	onReady
-		});
 
 		hira.MOD_TABLE = {
 			"char-htv":		{
@@ -27,7 +24,8 @@ JAP.image.loadBatch("essential",
 				module:	new JAP.hira.mods.CharHTV()
 			},
 			"char-vth":		{
-				title:	"Hiragana Voice-to-Character Drill"
+				title:	"Hiragana Voice-to-Character Drill",
+				module:	new JAP.hira.mods.CharVTH()
 			},
 			"word-htv":		{
 				title:	"Hiragana Word-to-Voice Drill"
@@ -51,6 +49,10 @@ JAP.image.loadBatch("essential",
 			}
 		};
 		preloadAudio();
+		buildCharTables();
+		JAP.image.watchBatch("essential", {
+			onImagesReady:	onReady
+		});
 	}
 
 	function onReady () {
@@ -70,6 +72,18 @@ JAP.image.loadBatch("essential",
 
 		onResize();
 
+		// Show table
+		_.addEvent($id("show-table-button"), "click", function (e) {
+			var evt = e || window.event;
+
+			JAP.hira.tableDown.show();
+			onResize();
+			return _.cancelEvent(evt);
+		});
+
+		_.addEvent($id("char-table"), "click", function () {
+			_.addClass($id("char-table"), "nothing");
+		});
 
 		// Listen for hashchanges
 		if (window.onhashchange) {
@@ -146,9 +160,95 @@ JAP.image.loadBatch("essential",
 
 		load1();
 		load2();
+	}
 
+	function buildCharTables () {
+		function buildTable (array, rowN, topH, leftH, flip) {
+			var table 	= document.createElement("table"),
+				row		= document.createElement("tr"),
+				cell;
 
+			table.setAttribute("cellspacing", "0");
+			table.setAttribute("border", "1");
 
+			if (!flip) {
+				var h = document.createElement("th");
+				h.innerHTML = "&nbsp;";
+				row.appendChild(h);
+			}
+			for (var i = 0; i < rowN; i++) { 
+				// col header
+				var h = document.createElement("th");
+				if (flip) {
+					h.innerHTML = topH[topH.length-1-i];
+				}
+				else {
+					h.innerHTML = topH[i];
+				}
+				row.appendChild(h);
+			}
+			row.style.borderBottom = "1px solid #fff";
+			table.appendChild(row);
+			row = document.createElement("tr");
+			for (var i = 0; i < array.length; i++) { 
+				if (i%rowN==0) {
+					if (flip && i!=0) {
+						// row title
+						var h = document.createElement("th");
+						h.innerHTML = leftH[i/rowN-1];
+						row.appendChild(h);
+					}
+					table.appendChild(row);
+					row = document.createElement("tr");
+
+					if (!flip) {
+						// row title
+						var h = document.createElement("th");
+						h.innerHTML = leftH[i/rowN];
+						h.innerHTML = i/rowN + 1;
+						row.appendChild(h);
+					}
+				}
+				cell = document.createElement("td");
+				if (array[i] != 0) {
+					cell.innerHTML = "&#" + array[i]+";";
+				}
+				else {
+					cell.innerHTML = "&nbsp;";
+				}
+				row.appendChild(cell);
+			}
+			if (flip && i!=0) {
+				// row title
+				var h = document.createElement("th");
+				h.innerHTML = leftH[i/rowN-1];
+				row.appendChild(h);
+			}
+			table.appendChild(row);
+			table.show = function () {
+				var holder = $id("char-table");
+				_.removeClass(holder, "nothing");
+				holder.innerHTML = "";
+				holder.appendChild(table);
+				_.removeClass(table, "nothing");
+			};
+			table.hide = function () {
+				var holder = $id("char-table");
+				_.addClass(holder, "nothing");
+			};
+			return table;
+		}
+
+		var leftArray = [];
+		for (var x = 0; x < 5; x++) {
+			for (var y = hira.mods.UNICODE_MAP.length/5-1; y>= 0; y--) {
+				leftArray.push(JAP.hira.mods.UNICODE_MAP[y * 5 + x]);
+			}
+		}
+		var topH = ["A", "I", "U", "E", "O"];
+		var leftH= [" ","K", "S", "T", "N", "H", "M", "Y", "R", "W"];
+		JAP.hira.tableDown = buildTable(JAP.hira.mods.UNICODE_MAP, 5, topH, leftH);
+		JAP.hira.tableLeft = buildTable(leftArray, parseInt(JAP.hira.mods.UNICODE_MAP.length/5),leftH, topH, true);
 	}
 
 	function showMenu () {
@@ -278,7 +378,6 @@ JAP.image.loadBatch("essential",
 		var numRows	= $cls("menu-row").length;
 
 
-
 		for (var i = 0; i < items.length;  i++) {
 			items[i].style.width		= Math.floor(midlayout.clientWidth/numCols) -14 + "px";
 			items[i].style.height		= Math.floor(midHeight/numRows) -14 + "px";
@@ -287,6 +386,17 @@ JAP.image.loadBatch("essential",
 		if (contentPane) {
 			contentPane.onResize();
 		}
+
+		var centredX= $cls("centred-X"),
+			centredY= $cls("centred-Y");
+		for (var i = 0; i < centredX.length; i++) {
+			var node = centredX[i];
+			node.style.left	= Math.max(10, JAP.winW/2 - node.clientWidth/2) + "px";
+		}		
+		for (var i = 0; i < centredY.length; i++) {
+			var node = centredY[i];
+			node.style.top	= Math.max(10, JAP.winH/2 - node.clientHeight/2) + "px";
+		}	
 	}
 
 	function loadHashBang () {

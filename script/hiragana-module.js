@@ -8,12 +8,13 @@
 		12363,  12365,  12367,  12369,  12371,  // k
 		12373,  12375,  12377,  12379,  12381,  // s
 		12383,  12385,  12388,  12390,  12392,  // t
-		12394,  12395,  12396,  12497,  12498,  // n
+		12394,  12395,  12396,  12397,  12398,  // n
 		12399,  12402,  12405,  12408,  12411,  // h
 		12414,  12415,  12416,  12417,  12418,  // m
 		12420,  00000,  12422,  00000,  12424,  // y
 		12425,  12426,  12427,  12428,  12429,  // r
-		12431,  12432,  00000,  12433,  12434  	// w
+		12431,  12432,  00000,  12433,  12434, 	// w
+		12435,  00000,  00000,  00000,  00000  	// ng
 	];
 	
 	/***********************************************************
@@ -49,12 +50,22 @@
 		this.node.appendChild(this.settings.node);
 	};
 
+	Module.prototype.appendButton = function (but, inline) {
+		var box = document.createElement("div");
+		box.className = "button-box";
+		if (inline) {
+			box.className += " inline";
+		}
+		box.appendChild(but);
+		this.node.appendChild(box);
+	};
+
 	/***********************************************************
 	 * A class to manage the settings of the module
 	 ***********************************************************/
 	function ModuleSettingsBox () {
 		this.node			= document.createElement("div");
-		this.node.className	= "module-settings zero-opacity";
+		this.node.className	= "drill-settings zero-opacity";
 		this.table			= document.createElement("table");
 		this.node.appendChild(this.table);
 	}

@@ -13,6 +13,7 @@
     <script type="text/javascript" src="script/hiragana.js"></script>
     <script type="text/javascript" src="script/hiragana-module.js"></script>
     <script type="text/javascript" src="script/hiragana-char_htv.js"></script>
+    <script type="text/javascript" src="script/hiragana-char_vth.js"></script>
 </head>
 <body>
 	<header id="layout-top" class="dark-panel">
@@ -21,14 +22,18 @@
 			<!-- Place this tag where you want the +1 button to render -->
 			<g:plusone annotation="inline" width="200"></g:plusone>
 
-			<a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal">Tweet</a><script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-count="horizontal"></a>
 			<!-- Place this render call where appropriate -->
 			<script type="text/javascript">
-			  (function() {
+			  JAP.util.addEvent(window, "load", function() {
 				  var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
 				  po.src = 'https://apis.google.com/js/plusone.js';
 				  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-			  })();
+
+				  po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+				  po.src = "//platform.twitter.com/widgets.js";
+				  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			  });
 			</script>
 		</div>
 	</header>
@@ -65,12 +70,19 @@
 			google_ad_width = 468;
 			google_ad_height = 15;
 			//-->
+			/*
+			JAP.util.addEvent(window, "load", function () {
+				po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+				po.src = "http://pagead2.googlesyndication.com/pagead/show_ads.js";
+				$id("footer-ad").appendChild(po);
+			});
+			*/
 			</script>
-			<script type="text/javascript"
-			src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-			</script>
+			<script type="text/javascript" async="" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 		</div>
 		<div id="footer-links">
+			<div class="footer-link-separator"></div>
+			<a id="show-table-button" href="#!/">Table</a>
 			<div class="footer-link-separator"></div>
 			<a href="#!/links">Links</a>
 			<div class="footer-link-separator"></div>
@@ -114,6 +126,8 @@
 			<a href="http://www.youtube.com/user/hirakana2010" target="_blank">hirakana2010 has useful Channel</a> with videos demonstrating how to
 			write and pronounce the hiragana, katakana and kanji characters.
 		</p>
+	</div>
+	<div id="char-table" class="nothing centred-X centred-Y">
 	</div>
 </body>
 </html>

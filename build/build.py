@@ -9,7 +9,8 @@ js_files = [
 	"script/image.js", 
 	"script/hiragana.js",
 	"script/hiragana-module.js",
-	"script/hiragana-char_htv.js"
+	"script/hiragana-char_htv.js",
+	"script/hiragana-char_vth.js"
 ]
 
 css_files = [
@@ -27,6 +28,9 @@ js_mods = {
 	],
 	"hira-char-htv" : [
 		"script/hiragana-char_htv.js"
+	],
+	"hira-char-vth" : [
+		"script/hiragana-char_vth.js"
 	]
 }
 
@@ -41,7 +45,8 @@ pages = {
 	"hiragana.php" : {
 		"js":	[
 			"hira-main",
-			"hira-char-htv"
+			"hira-char-htv",
+			"hira-char-vth"
 		],
 		"css":	[
 			"hira-main"

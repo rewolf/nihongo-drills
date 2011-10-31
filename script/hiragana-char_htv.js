@@ -3,8 +3,8 @@
 
 	var _ = JAP.util;
 	
-	var MAX_LINE = 10,
-		LINE_LETTERS = ["vowels", "k", "s", "t", "n", "h", "m", "y", "r", "w","ng"];
+	var MAX_LINE = 11,
+		LINE_LETTERS = ["", "k", "s", "t", "n", "h", "m", "y", "r", "w","ng"];
 	
 
 	/***********************************************************
@@ -20,7 +20,7 @@
 
 	CharHTV.prototype.build = function () {
 		var self = this;
-		this.node.id	= "module-char-htv";
+		this.node.id	= "drill-char-htv";
 		this.buildSettings();
 
 		// title
@@ -30,7 +30,7 @@
 
 		// instruction
 		this.instruction	= document.createElement("p");
-		this.instruction.className = "module-instruction";
+		this.instruction.className = "drill-instruction";
 		this.instruction.innerHTML = 
 			"This drill displays random characters which you must pronounce.  You can check "+
 			"if you were correct by clicking the <i>play</i> button.  The settings to the "+
@@ -47,7 +47,7 @@
 		this.playBut		= document.createElement("button");
 		this.playBut.className = "play-button";
 		this.playBut.innerHTML = "Play";
-		this.node.appendChild(this.playBut);
+		this.appendButton(this.playBut, true);
 		_.addEvent(this.playBut, "click", function () {
 			self.playClip();
 		});
@@ -56,7 +56,7 @@
 		this.nextBut		= document.createElement("button");
 		this.nextBut.className = "next-button";
 		this.nextBut.innerHTML = "Next";
-		this.node.appendChild(this.nextBut);
+		this.appendButton(this.nextBut, true);
 		_.addEvent(this.nextBut, "click", function () {
 			self.showNextChar();
 		});
@@ -71,11 +71,11 @@
 	CharHTV.prototype.buildSettings = function() {
 		var s 	= this.settings,
 			self= this;
-		s.minHiraLine		= s.createElem("select", "hira-whtv-line-min", "Min hiragana line", "Lets you omit beginning lines of hiragana that you may know. For example, to omit the vowels, set this to 2.");
-		s.maxHiraLine		= s.createElem("select", "hira-whtv-line", "Max hiragana line", "Setting this will allow you to limit the possible characters in the test. If you only know the first three lines of hiragana, choose 3: Characters on lines above 3 will not appear.");
-		s.changeDelay	= s.createElem("select", "hira-whtv-change", "Auto change delay", "This will set the characters to change automatically after the given period of time.");
-		s.readDelay		= s.createElem("select", "hira-whtv-read", "Auto read delay", "The correct pronunciation will automatically be played after the chosen period of time");
-		s.useGoogle		= s.createElem("input",  "hira-whtv-speech", "Use Google speech", "Check this to use Google's pronunciation rather than the default audio clips.");
+		s.minHiraLine		= s.createElem("select", "hira-chtv-line-min", "Min hiragana line", "Lets you omit beginning lines of hiragana that you may know. For example, to omit the vowels, set this to 2.");
+		s.maxHiraLine		= s.createElem("select", "hira-chtv-line", "Max hiragana line", "Setting this will allow you to limit the possible characters in the test. If you only know the first three lines of hiragana, choose 3: Characters on lines above 3 will not appear.");
+		s.changeDelay	= s.createElem("select", "hira-chtv-change", "Auto change delay", "This will set the characters to change automatically after the given period of time.");
+		s.readDelay		= s.createElem("select", "hira-chtv-read", "Auto read delay", "The correct pronunciation will automatically be played after the chosen period of time");
+		s.useGoogle		= s.createElem("input",  "hira-chtv-speech", "Use Google speech", "Check this to use Google's pronunciation rather than the default audio clips.");
 
 		s.useGoogle.type= "checkbox";
 
@@ -104,13 +104,13 @@
 		for (var i = 0; i < MAX_LINE; i++) {
 			option = document.createElement("option");
 			option.value = i+1;
-			option.innerHTML = i+1 + " ("+LINE_LETTERS[i]+")";
+			option.innerHTML = LINE_LETTERS[i].length>0 ? i+1 + " ("+LINE_LETTERS[i]+")" : i+1 +"";
 			s.minHiraLine.appendChild(option);
 		}
 		for (var i = 0; i < MAX_LINE; i++) {
 			option = document.createElement("option");
 			option.value = i+1;
-			option.innerHTML = i+1 + " ("+LINE_LETTERS[i]+")";
+			option.innerHTML = LINE_LETTERS[i].length>0 ? i+1 + " ("+LINE_LETTERS[i]+")" : i+1 +"";
 			s.maxHiraLine.appendChild(option);
 		}
 		
@@ -119,6 +119,7 @@
 			var evt = e || window.event;
 			self.checkSettings(evt.target || evt.srcElement);
 		}
+
 		_.addEvent(s.changeDelay, "change", onChange);
 		_.addEvent(s.readDelay, "change", onChange);
 		_.addEvent(s.minHiraLine, "change", onChange);
@@ -176,6 +177,10 @@
 				option.innerHTML = i+1 + " ("+LINE_LETTERS[i]+")";
 				this.settings.maxHiraLine.appendChild(option);
 			}
+
+			if (maxV >= minV) {
+				this.settings.maxHiraLine.value = maxV;
+			}
 		}
 		// Use Google
 		if (obj == this.settings.useGoogle) {
@@ -189,14 +194,25 @@
 		this.showNextChar();
 	};
 
+	CharHTV.prototype.hide = function () {
+		ns.Module.prototype.hide.call(this);
+		clearTimeout(this.changeTimer);
+		clearTimeout(this.readTimer);
+		this.changeTimer = null;
+		this.readTimer = null;
+	};
+
 	CharHTV.prototype.showNextChar = function () {
 		var maxV		= this.settings.maxHiraLine.value * 5,
 			minV		= this.settings.minHiraLine.value * 5 - 5,
-			chosen		= 0,
 			last		= this.currentCharIndex,
+			chosen		= last,
 			self		= this,
 			ch;
 
+		if (minV == maxV - 5 && maxV/5 == 11 && chosen==minV) { // only one option to choose from
+			return;
+		}
 		var range = maxV - minV;
 		while (ns.UNICODE_MAP[chosen]==0 || chosen==last) {
 			chosen	= parseInt(Math.random() * range + minV);
