@@ -27,8 +27,9 @@ JAP.image.loadBatch("essential",
 				title:	"Hiragana Voice-to-Character Drill",
 				module:	new JAP.hira.mods.CharVTH()
 			},
-			"word-htv":		{
-				title:	"Hiragana Word-to-Voice Drill"
+			"char-vtw":		{
+				title:	"Hiragana Voice-to-Writing Drill",
+				module:	new JAP.hira.mods.CharVTW()
 			},
 			"word-vth":		{
 				title:	"Hiragana Voice-to-Word Drill"

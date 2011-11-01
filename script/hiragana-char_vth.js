@@ -17,7 +17,7 @@
 
 	CharVTH.prototype.build = function () {
 		var self = this;
-		this.node.id	= "drill-char-htv";
+		this.node.id	= "drill-char-vth";
 		this.buildSettings();
 
 		// title

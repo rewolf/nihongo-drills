@@ -17,12 +17,12 @@
 
 	CharVTW.prototype.build = function () {
 		var self = this;
-		this.node.id	= "drill-char-htv";
+		this.node.id	= "drill-char-vtw";
 		this.buildSettings();
 
 		// title
 		this.title			= document.createElement("h1");
-		this.title.innerHTML= "Choose the character matching the sound";
+		this.title.innerHTML= "Write the character as you hear it";
 		this.node.appendChild(this.title);
 
 		// instruction
@@ -60,6 +60,14 @@
 		this.canvas.width 	= 100;
 		this.canvas.height 	= 100;
 
+		// plaque/sign
+		this.charDiv		= document.createElement("div");
+		this.charDiv.className= "random-char-holder";
+		this.node.appendChild(this.charDiv);
+
+		// start a new line
+		this.node.appendChild(document.createElement("div"));
+
 		// cheat button
 		this.cheatBut			= document.createElement("button");
 		this.cheatBut.className = "cheat-button drill-button";
@@ -92,8 +100,6 @@
 		s.maxHiraLine		= s.createElem("select", "hira-cvth-line", "Max hiragana line", "Setting this will allow you to limit the possible characters in the test. If you only know the first three lines of hiragana, choose 3: Characters on lines above 3 will not appear.");
 		s.useGoogle			= s.createElem("input",  "hira-cvth-speech", "Use Google speech", "Check this to use Google's pronunciation rather than the default audio clips.");
 		s.difficulty		= s.createElem("select", "hira-cvth-difficulty", "Choice grid", "Affects the number of possible characters shown");
-
-		s.useGoogle.type= "checkbox";
 
 		function addOption (sel, val, label) {
 			var opt  = document.createElement("option");
@@ -190,54 +196,10 @@
 		this.currentCharIndex 	= chosen;
 		this.currentCharCode	= ch;
 
-		this.createChoiceTable();
-
 		this.audio.pause();
 		this.loadAudio();
 	};
 
-	CharVTW.prototype.createChoiceTable = function () {
-		var table = document.createElement("table"),
-			row	  = document.createElement("tr"),
-			count = this.settings.difficulty.value,
-			copy  = ns.UNICODE_MAP.slice(0),
-			self  = this,
-			place = parseInt(Math.random() * count * 3);
-
-		for (var i = copy.length - 1 ; i >= 0; i--) {
-			var idx = parseInt(Math.random() * (i+1)),
-				tmp = copy[idx];
-			copy[idx] = copy[i];
-			copy[i]	  = tmp;
-		}
-		for (var i = 0, j = 0; i < count * 3; i++, j++) {
-
-			if (i % (count)==0) {
-				table.appendChild(row);
-				row = document.createElement("tr");
-			}
-			var cell = document.createElement("td");
-			if (i==place) {
-				cell.innerHTML = "&#" + this.currentCharCode + ";";
-				this.currentCharCell = cell;
-				_.addEvent(cell, "click", function(e) {
-					self.showNextChar();
-				});
-			}
-			else {
-				while (this.currentCharCode==copy[j] || copy[j]==0) j++;
-				cell.innerHTML = "&#" + copy[j] + ";";
-				_.addEvent(cell, "click", function(e) {
-					var evt = e || window.event, target = evt.target || evt.srcElement;
-					_.addClass(target, "wrong-cell");
-				});
-			}
-			row.appendChild(cell);
-		}
-		table.appendChild(row);
-		this.choiceDiv.innerHTML = "";
-		this.choiceDiv.appendChild(table);
-	};
 	
 	CharVTW.prototype.loadAudio = function () {
 		var self = this;

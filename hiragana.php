@@ -14,6 +14,7 @@
     <script type="text/javascript" src="script/hiragana-module.js"></script>
     <script type="text/javascript" src="script/hiragana-char_htv.js"></script>
     <script type="text/javascript" src="script/hiragana-char_vth.js"></script>
+    <script type="text/javascript" src="script/hiragana-char_vtw.js"></script>
 </head>
 <body>
 	<header id="layout-top" class="dark-panel">
