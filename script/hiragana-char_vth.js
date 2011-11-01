@@ -30,7 +30,7 @@
 		this.instruction.className = "drill-instruction";
 		this.instruction.innerHTML = 
 			"This drill plays an audio clip of a random japanese syllable/sound.  You must "+
-			"choose the corresponding hiragana character from the possibilitie in the table below. Once the "+
+			"choose the corresponding hiragana character from the possibilities in the table below. Once the "+
 			"correct character is chosen, the next sound will play. The settings to the " +
 			"right can be used to use Google's alternate audio voice or to limit the range " +
 			"of characters being tested.";
