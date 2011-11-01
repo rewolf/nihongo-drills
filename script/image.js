@@ -33,14 +33,11 @@
 		batch.done			= false;
 		batches[name]		= batch;
 
-		console.log("Loading image batch "+name+" with "+count + " images");
-
 
 		batchCallback = function () {
 			batch.completed += 1;
 
 			if (batch.completed + batch.failed >= batch.count){
-				console.log("Finished");
 				onBatchComplete(batch);
 			}
 		};
@@ -48,18 +45,13 @@
 		batchFailCallback = function () {
 			batch.failed += 1;
 
-			if (typeof(console)!="undefined" && console.warn){
-				console.warn("Failed to load image \""+this.src+"\" in batch \""+batch.name+"\"");
-			}
 				
 			if (batch.completed + batch.failed >= batch.count){
-				console.log("Finished");
 				onBatchComplete(batch);
 			}
 		};
 
 		for (i = 0; i < URLs.length; i++){
-			console.log("    image "+URLs[i]+"...");
 			img 		= new Image();
 			img.onload 	= batchCallback;
 			img.onerror	= batchFailCallback;

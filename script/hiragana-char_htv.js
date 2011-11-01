@@ -75,9 +75,7 @@
 		s.maxHiraLine		= s.createElem("select", "hira-chtv-line", "Max hiragana line", "Setting this will allow you to limit the possible characters in the test. If you only know the first three lines of hiragana, choose 3: Characters on lines above 3 will not appear.");
 		s.changeDelay	= s.createElem("select", "hira-chtv-change", "Auto change delay", "This will set the characters to change automatically after the given period of time.");
 		s.readDelay		= s.createElem("select", "hira-chtv-read", "Auto read delay", "The correct pronunciation will automatically be played after the chosen period of time");
-		s.useGoogle		= s.createElem("input",  "hira-chtv-speech", "Use Google speech", "Check this to use Google's pronunciation rather than the default audio clips.");
-
-		s.useGoogle.type= "checkbox";
+		s.useGoogle		= s.createElem("input",  "hira-chtv-speech", "Use Google speech", "Check this to use Google's pronunciation rather than the default audio clips.", true);
 
 		// Add delays
 		var option 		= document.createElement("option");
@@ -143,7 +141,7 @@
 				// Repopulate read delay list with valid delays
 				this.settings.readDelay.innerHTML="";
 				for (var i = 0; i < 2; i+=.25){
-					if (i*1000 <= dt - 500) {
+					if (i*1000 <= dt - 1000) {
 						var option = document.createElement("option");
 						option.value	= i*1000;
 						option.innerHTML = i==0 ? "Never" : i + "s";
@@ -151,8 +149,8 @@
 					}
 				}
 				// check that the read value is less
-				if (readT > dt - 500) {
-					readT = dt - 500;
+				if (readT > dt - 1000) {
+					readT = dt - 1000;
 				}
 				this.settings.readDelay.value = readT;
 			}
@@ -237,7 +235,10 @@
 			return n<10?"0"+n:n;
 		}
 		
-		this.audio.innerHTML ="";
+		var newAudio = document.createElement("audio");
+		newAudio.className = "nothing";
+		(this.audio.parentNode || this.audio.parentElement).replaceChild(newAudio,this.audio);
+		this.audio = newAudio;
 		
 		if (this.settings.useGoogle.checked) {
 			var src1	= document.createElement("source");

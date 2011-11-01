@@ -74,6 +74,7 @@
 		this.audio			= document.createElement("audio");
 		this.audio.className= "nothing";
 		this.audio.setAttribute("preload", "preload");
+		this.audio.setAttribute("autoplay", "autoplay");
 		this.node.appendChild(this.audio);
 	};
 
@@ -83,9 +84,7 @@
 		s.minHiraLine		= s.createElem("select", "hira-cvth-line-min", "Min hiragana line", "Lets you omit beginning lines of hiragana that you may know. For example, to omit the vowels, set this to 2.");
 		s.maxHiraLine		= s.createElem("select", "hira-cvth-line", "Max hiragana line", "Setting this will allow you to limit the possible characters in the test. If you only know the first three lines of hiragana, choose 3: Characters on lines above 3 will not appear.");
 		s.useGoogle			= s.createElem("input",  "hira-cvth-speech", "Use Google speech", "Check this to use Google's pronunciation rather than the default audio clips.");
-		s.difficulty		= s.createElem("select", "hira-cvth-difficulty", "Choice grid", "Affects the number of possible characters shown");
-
-		s.useGoogle.type= "checkbox";
+		s.difficulty		= s.createElem("select", "hira-cvth-difficulty", "Choice grid", "Affects the number of possible characters shown", true);
 
 		function addOption (sel, val, label) {
 			var opt  = document.createElement("option");
@@ -154,8 +153,11 @@
 	};
 
 	CharVTH.prototype.show = function () {
+		var self = this;
 		ns.Module.prototype.show.call(this);
-		this.showNextChar();
+		setTimeout(function () {
+			self.showNextChar();
+		}, 700);
 	};
 
 	CharVTH.prototype.hide = function () {
@@ -237,14 +239,14 @@
 			return n<10?"0"+n:n;
 		}
 		
-		this.audio.innerHTML ="";
+		var newAudio = document.createElement("audio");
+		newAudio.className = "nothing";
+		(this.audio.parentNode || this.audio.parentElement).replaceChild(newAudio,this.audio);
+		this.audio = newAudio;
 
-		this.audio.onload =  function () {
-			self.playClip ();
-		};
-		
 		if (this.settings.useGoogle.checked) {
 			var src1	= document.createElement("source");
+		
 			src1.src = "get_audio.php?tl=ja&text=" + encodeURIComponent(String.fromCharCode(this.currentCharCode));
 			this.audio.appendChild(src1);
 		}
@@ -252,6 +254,10 @@
 			var filename = "hiragana_"+pad(parseInt(this.currentCharIndex/5)+1)+"_"+pad(this.currentCharIndex%5+1);
 			var src1	= document.createElement("source");
 			var src2	= document.createElement("source");
+			_.addEvent(this.audio, "loadeddata", function () {
+				self.playClip ();
+			});
+
 			src1.src	= "res/audio/ogg/"+filename+".ogg";
 			src2.src	= "res/audio/mp3/"+filename+".mp3";
 			this.audio.appendChild(src1);

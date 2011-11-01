@@ -70,7 +70,7 @@
 		this.node.appendChild(this.table);
 	}
 
-	ModuleSettingsBox.prototype.createElem = function (tagName, id, labelText, tooltip) {
+	ModuleSettingsBox.prototype.createElem = function (tagName, id, labelText, tooltip, check) {
 		var elem = document.createElement(tagName),
 			label= document.createElement("label"),
 			row	 = document.createElement("tr"),
@@ -79,6 +79,9 @@
 		elem.id			= id;
 		elem.setAttribute("title", tooltip);
 		label.setAttribute("for", id);
+		if (check) {
+			elem.setAttribute("type", "checkbox");
+		}
 		label.innerHTML = labelText;
 		cell1.appendChild(label);
 		cell2.appendChild(elem);

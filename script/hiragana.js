@@ -319,7 +319,7 @@ JAP.image.loadBatch("essential",
 
 			this.node.style.left = contW/2 + "px";
 			this.node.style.top	 = "0px";
-			this.node.clientWidth = this.node.clientWidth; // reflow before we start the expansion 
+			var dummy = this.node.clientWidth; // reflow before we start the expansion 
 			
 			// Start the expansion
 			_.addClass(this.node, "expandable");
