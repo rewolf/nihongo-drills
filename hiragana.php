@@ -42,7 +42,7 @@
 		<div class="menu-row">
 			<a href="#!/char-htv" id="item-char-htv" class="menu-item panel-link invisible offscreen-item" title="Drill your recognition of hiragana characters. Speak it as you see it.">
 			</a>
-			<a href="#!/word-htv" id="item-word-htv" class="menu-item panel-link invisible offscreen-item" title="Drill your pronunciation of hiragana words.  Speak them as you see them.">
+			<a href="#!/char-vtw" id="item-char-vtw" class="menu-item panel-link invisible offscreen-item" title="Drill your pronunciation of hiragana words.  Speak them as you see them.">
             	more coming...
 			</a>
 <!--			<a href="#!/lang-htl" id="item-lang-htl" class="menu-item panel-link invisible offscreen-item" title="Drill your recognition of hiragana words. Choose the english meaning.">
@@ -52,7 +52,7 @@
 		<div class="menu-row">
 			<a href="#!/char-vth" id="item-char-vth" class="menu-item panel-link invisible offscreen-item" title="Drill your memory of hiragana characters. Choose the character matching the sound.">
 			</a>
-			<a href="#!/word-vth" id="item-word-vth" class="menu-item panel-link invisible offscreen-item" title="Drill your memory of hiragana words.  Choose the word matching the sounds.">
+			<a href="#!/word-vth" id="item-word-vth" class="nothing menu-item panel-link invisible offscreen-item" title="Drill your memory of hiragana words.  Choose the word matching the sounds.">
             	more coming...
 			</a>
      <!--

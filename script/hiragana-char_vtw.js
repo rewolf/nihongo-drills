@@ -11,6 +11,7 @@
 	 * Module for drill
 	 ***********************************************************/
 	function CharVTW () {
+		this.charIsShown = false;
 		this.build();
 	}
 	CharVTW.prototype = new JAP.hira.mods.Module();
@@ -59,32 +60,42 @@
 		this.node.appendChild(this.canvas);
 		this.canvas.width 	= 100;
 		this.canvas.height 	= 100;
+		this.bindCanvasEvents();
 
 		// plaque/sign
 		this.charDiv		= document.createElement("div");
-		this.charDiv.className= "random-char-holder";
+		this.charDiv.className= "random-char-holder covered";
 		this.node.appendChild(this.charDiv);
 
 		// start a new line
 		this.node.appendChild(document.createElement("div"));
 
-		// cheat button
-		this.cheatBut			= document.createElement("button");
-		this.cheatBut.className = "cheat-button drill-button";
-		this.cheatBut.innerHTML = "Cheat";
-		_.addEvent(this.cheatBut, "click", function () {
-			_.addClass(self.currentCharCell, "cheat-cell");
-		});
-		this.appendButton(this.cheatBut, true);
+		if (this.canvas.getContext) {
+			// erase button
+			this.eraseBut			= document.createElement("button");
+			this.eraseBut.className = "erase-button drill-button";
+			this.eraseBut.innerHTML = "Erase";
+			_.addEvent(this.eraseBut, "click", function () {
+				self.eraseCanvas();
+			});
+			this.appendButton(this.eraseBut, true);
+		}
 
 		// next button
 		this.nextBut		= document.createElement("button");
 		this.nextBut.className = "next-button";
-		this.nextBut.innerHTML = "Skip";
+		this.nextBut.innerHTML = "Show";
 		_.addEvent(this.nextBut, "click", function () {
 			self.showNextChar();
 		});
 		this.appendButton(this.nextBut, true);
+
+		// start a new line
+		this.node.appendChild(document.createElement("div"));
+		// Link for video
+		this.vidLink			= document.createElement("a");
+		this.vidLink.target		= "_blank";
+		this.node.appendChild(this.vidLink);
 
 		// audio
 		this.audio			= document.createElement("audio");
@@ -98,8 +109,7 @@
 			self= this;
 		s.minHiraLine		= s.createElem("select", "hira-cvth-line-min", "Min hiragana line", "Lets you omit beginning lines of hiragana that you may know. For example, to omit the vowels, set this to 2.");
 		s.maxHiraLine		= s.createElem("select", "hira-cvth-line", "Max hiragana line", "Setting this will allow you to limit the possible characters in the test. If you only know the first three lines of hiragana, choose 3: Characters on lines above 3 will not appear.");
-		s.useGoogle			= s.createElem("input",  "hira-cvth-speech", "Use Google speech", "Check this to use Google's pronunciation rather than the default audio clips.");
-		s.difficulty		= s.createElem("select", "hira-cvth-difficulty", "Choice grid", "Affects the number of possible characters shown");
+		s.useGoogle			= s.createElem("input",  "hira-cvth-speech", "Use Google speech", "Check this to use Google's pronunciation rather than the default audio clips.", true);
 
 		function addOption (sel, val, label) {
 			var opt  = document.createElement("option");
@@ -107,14 +117,6 @@
 			opt.innerHTML = label;
 			sel.appendChild(opt);
 		}
-
-		addOption(s.difficulty, 1, "3 x 1");
-		addOption(s.difficulty, 2, "3 x 2");
-		addOption(s.difficulty, 3, "3 x 3");
-		addOption(s.difficulty, 4, "3 x 4");
-		addOption(s.difficulty, 5, "3 x 5");
-		addOption(s.difficulty, 6, "3 x 6");
-		s.difficulty.value = 4;
 
 		// Hira Line
 		for (var i = 0; i < MAX_LINE; i++) {
@@ -132,7 +134,6 @@
 		_.addEvent(s.minHiraLine, "change", onChange);
 		_.addEvent(s.maxHiraLine, "change", onChange);
 		_.addEvent(s.useGoogle, "change", onChange);
-		_.addEvent(s.difficulty, "change", onChange);
 	};
 	
 	CharVTW.prototype.checkSettings = function (obj) {
@@ -154,11 +155,7 @@
 			if (maxV >= minV) {
 				this.settings.maxHiraLine.value = maxV;
 			}
-			this.showNextChar();
-		}
-		// Char table changed
-		if (obj == this.settings.difficulty) {
-			this.createChoiceTable();
+			this.showNextChar(true);
 		}
 		// Use Google
 		if (obj == this.settings.useGoogle) {
@@ -169,14 +166,14 @@
 
 	CharVTW.prototype.show = function () {
 		ns.Module.prototype.show.call(this);
-		this.showNextChar();
+		this.showNextChar(true);
 	};
 
 	CharVTW.prototype.hide = function () {
 		ns.Module.prototype.hide.call(this);
 	};
 
-	CharVTW.prototype.showNextChar = function () {
+	CharVTW.prototype.showNextChar = function (force) {
 		var maxV		= this.settings.maxHiraLine.value * 5,
 			minV		= this.settings.minHiraLine.value * 5 - 5,
 			last		= this.currentCharIndex,
@@ -185,19 +182,35 @@
 			self		= this,
 			ch;
 
-		if (minV == maxV - 5 && maxV/5 == 11 && chosen==minV) { // only one option to choose from
-			return;
-		}
-		var range = maxV - minV;
-		while (ns.UNICODE_MAP[chosen]==0 || chosen==last) {
-			chosen	= parseInt(Math.random() * range + minV);
-		}
-		ch = ns.UNICODE_MAP[chosen];
-		this.currentCharIndex 	= chosen;
-		this.currentCharCode	= ch;
+		if (this.isCharShown || force) {
+			this.isCharShown = false;
+			_.addClass(this.charDiv, "covered");
+			this.nextBut.innerHTML = "Show";		
+			this.eraseCanvas();
 
-		this.audio.pause();
-		this.loadAudio();
+			if (minV == maxV - 5 && maxV/5 == 11 && chosen==minV) { // only one option to choose from
+				return;
+			}
+			var range = maxV - minV;
+			while (ns.UNICODE_MAP[chosen]==0 || chosen==last) {
+				chosen	= parseInt(Math.random() * range + minV);
+			}
+			ch = ns.UNICODE_MAP[chosen];
+			this.currentCharIndex 	= chosen;
+			this.currentCharCode	= ch;
+			this.charDiv.innerHTML = "&#"+ch+";";
+
+			this.vidLink.href		= "http://www.youtube.com/results?search_query=%22How+to+write+Hiragana+%E3%80%8C+"+encodeURIComponent(String.fromCharCode(this.currentCharCode))+"+%E3%80%8D+%22+STROKE+ORDER";
+			this.vidLink.innerHTML	= "Videos on Writing &#" + this.currentCharCode+";";
+
+			this.audio.pause();
+			this.loadAudio();
+		}
+		else {
+			this.isCharShown = true;
+			_.removeClass(this.charDiv , "covered");
+			this.nextBut.innerHTML = "Next";		
+		}
 	};
 
 	
@@ -206,15 +219,14 @@
 		function pad(n) {
 			return n<10?"0"+n:n;
 		}
-		
-		this.audio.innerHTML ="";
+		var newAudio = document.createElement("audio");
+		newAudio.className = "nothing";
+		(this.audio.parentNode || this.audio.parentElement).replaceChild(newAudio,this.audio);
+		this.audio = newAudio;
 
-		this.audio.onload =  function () {
-			self.playClip ();
-		};
-		
 		if (this.settings.useGoogle.checked) {
 			var src1	= document.createElement("source");
+		
 			src1.src = "get_audio.php?tl=ja&text=" + encodeURIComponent(String.fromCharCode(this.currentCharCode));
 			this.audio.appendChild(src1);
 		}
@@ -222,6 +234,10 @@
 			var filename = "hiragana_"+pad(parseInt(this.currentCharIndex/5)+1)+"_"+pad(this.currentCharIndex%5+1);
 			var src1	= document.createElement("source");
 			var src2	= document.createElement("source");
+			_.addEvent(this.audio, "loadeddata", function () {
+				self.playClip ();
+			});
+
 			src1.src	= "res/audio/ogg/"+filename+".ogg";
 			src2.src	= "res/audio/mp3/"+filename+".mp3";
 			this.audio.appendChild(src1);
@@ -232,6 +248,78 @@
 
 	CharVTW.prototype.playClip = function () {
 		this.audio.play();
+	};
+
+	CharVTW.prototype.bindCanvasEvents = function () {
+		if (this.canvas.getContext) {
+			var ctx = this.canvas.getContext('2d'),
+				self= this,
+				last= null;
+
+			ctx.strokeStyle = "#000";
+			ctx.lineWidth	= 1;
+			ctx.lineJoin	= "round";
+
+			var segments = [];
+
+			function onMouseDown (e) {
+				var evt 	= e || window.event,
+					topleft	= _.getAbsolutePosition(self.canvas);
+				_.addEvent(document, "mouseup", onMouseUp);
+				_.addEvent(document, "mousemove", onMouseMove);
+				last = {
+					x:	evt.clientX - topleft[0],
+					y:	evt.clientY - topleft[1]
+				};
+				segments = [];
+				ctx.beginPath();
+				ctx.moveTo(last.x, last.y);
+				segments.push(last);
+			}
+			function onMouseUp (e) {
+				var evt = e || window.event,
+					topleft	= _.getAbsolutePosition(self.canvas);
+				cur = {
+					x:	evt.clientX - topleft[0],
+					y:	evt.clientY - topleft[1]
+				};
+				ctx.lineTo(cur.x, cur.y);
+				segments.push(cur);
+				_.removeEvent(document, "mouseup", onMouseUp);
+				_.removeEvent(document, "mousemove", onMouseMove);
+
+				ctx.lineWidth=4;
+				ctx.beginPath();
+				ctx.moveTo(segments[0].x, segments[0].y);
+				segments.shift();
+				while(segments.length>0) {
+					var s = segments.shift();
+					ctx.lineTo(s.x, s.y);
+				}
+				ctx.stroke();
+				ctx.lineWidth=1;
+			}
+			function onMouseMove (e) {
+				var evt = e || window.event,
+					topleft	= _.getAbsolutePosition(self.canvas);
+				cur = {
+					x:	evt.clientX - topleft[0],
+					y:	evt.clientY - topleft[1]
+				};
+				ctx.lineTo(cur.x, cur.y);
+				ctx.stroke();
+				last = cur;
+				segments.push(cur);
+			}
+			_.addEvent(this.canvas, "mousedown", onMouseDown);
+		}
+	};
+
+	CharVTW.prototype.eraseCanvas = function () {
+		if (this.canvas.getContext) {
+			var ctx = this.canvas.getContext('2d');
+			ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+		}
 	};
 
 	ns.CharVTW = CharVTW;
