@@ -83,7 +83,7 @@
 			});
 			*/
 			</script>
-			<script type="text/javascript" async="" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+			<!--<script type="text/javascript" async="true" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>-->
 		</div>
 		<div id="footer-links">
 			<div class="footer-link-separator"></div>
