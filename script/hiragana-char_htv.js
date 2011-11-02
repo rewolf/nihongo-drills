@@ -231,6 +231,7 @@
 	};
 	
 	CharHTV.prototype.loadAudio = function () {
+		var self = this;
 		function pad(n) {
 			return n<10?"0"+n:n;
 		}
@@ -239,6 +240,11 @@
 		newAudio.className = "nothing";
 		(this.audio.parentNode || this.audio.parentElement).replaceChild(newAudio,this.audio);
 		this.audio = newAudio;
+
+		this.playBut.innerHTML = "loading..";
+		_.addEvent(this.audio, "loadeddata", function () {
+			self.playBut.innerHTML = "Play Again";
+		});
 		
 		if (this.settings.useGoogle.checked) {
 			var src1	= document.createElement("source");

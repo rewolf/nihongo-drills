@@ -257,6 +257,8 @@
 		if (this.canvas.getContext) {
 			var ctx = this.canvas.getContext('2d'),
 				self= this,
+				cur, last,
+				hasTouch = null,
 				last= null;
 
 			ctx.strokeStyle = "#000";
@@ -267,25 +269,56 @@
 
 			function onMouseDown (e) {
 				var evt 	= e || window.event,
+					scroll	= _.getScrollXY(),
 					topleft	= _.getAbsolutePosition(self.canvas);
-				_.addEvent(document, "mouseup", onMouseUp);
-				_.addEvent(document, "mousemove", onMouseMove);
-				last = {
-					x:	evt.clientX - topleft[0],
-					y:	evt.clientY - topleft[1]
-				};
+				if (evt.type=="touchstart") {
+					if (evt.targetTouches.length == 1 && !hasTouch) {
+						hasTouch = evt.targetTouches[0].identifier;
+						_.addEvent(document, "touchend", onMouseUp);
+						_.addEvent(document, "touchmove", onMouseMove);
+						last = {
+							x:	evt.targetTouches[0].clientX + scroll[0] - topleft[0],
+							y:	evt.targetTouches[0].clientY + scroll[1] - topleft[1]
+						};
+					}
+				}
+				else {
+					_.addEvent(document, "mouseup", onMouseUp);
+					_.addEvent(document, "mousemove", onMouseMove);
+					last = {
+						x:	evt.clientX - topleft[0],
+						y:	evt.clientY - topleft[1]
+					};
+				}
 				segments = [];
 				ctx.beginPath();
 				ctx.moveTo(last.x, last.y);
 				segments.push(last);
+				return _.cancelEvent(evt);
 			}
 			function onMouseUp (e) {
 				var evt = e || window.event,
+					scroll	= _.getScrollXY(),
 					topleft	= _.getAbsolutePosition(self.canvas);
-				cur = {
-					x:	evt.clientX - topleft[0],
-					y:	evt.clientY - topleft[1]
-				};
+				if (evt.type == "touchend") {
+					for (var i = 0; i < evt.changedTouches.length; i++) {
+						if (evt.changedTouches[i].identifier==hasTouch) {
+							cur = {
+								x:	evt.targetTouches[0].clientX + scroll[0] - topleft[0],
+								y:	evt.targetTouches[0].clientY + scroll[1] - topleft[1]
+							};
+							_.removeEvent(document, "touchend", onMouseUp);
+							_.removeEvent(document, "touchmove", onMouseMove);
+							hasTouch = null;
+						}
+					}
+				}
+				else {
+					cur = {
+						x:	evt.clientX - topleft[0],
+						y:	evt.clientY - topleft[1]
+					};
+				}
 				ctx.lineTo(cur.x, cur.y);
 				segments.push(cur);
 				_.removeEvent(document, "mouseup", onMouseUp);
@@ -301,20 +334,36 @@
 				}
 				ctx.stroke();
 				ctx.lineWidth=1;
+				return _.cancelEvent(evt);
 			}
 			function onMouseMove (e) {
 				var evt = e || window.event,
+					scroll	= _.getScrollXY(),
 					topleft	= _.getAbsolutePosition(self.canvas);
-				cur = {
-					x:	evt.clientX - topleft[0],
-					y:	evt.clientY - topleft[1]
-				};
+				if (evt.type == "touchmove") {
+					for (var i = 0; i < evt.changedTouches.length; i++) {
+						if (evt.changedTouches[i].identifier==hasTouch) {
+							cur = {
+								x:	evt.targetTouches[0].clientX + scroll[0] - topleft[0],
+								y:	evt.targetTouches[0].clientY + scroll[1] - topleft[1]
+							};
+						}
+					}
+				}
+				else {
+					cur = {
+						x:	evt.clientX - topleft[0],
+						y:	evt.clientY - topleft[1]
+					};
+				}
 				ctx.lineTo(cur.x, cur.y);
 				ctx.stroke();
 				last = cur;
 				segments.push(cur);
+				return _.cancelEvent(evt);
 			}
 			_.addEvent(this.canvas, "mousedown", onMouseDown);
+			_.addEvent(this.canvas, "touchstart", onMouseDown);
 		}
 	};
 

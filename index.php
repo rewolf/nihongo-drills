@@ -30,26 +30,26 @@
 			header("Location:http://www.google.com");
 		}
 
-		dbConnect();
+		if (dbConnect()) {
+			
+			$res  = dbSelectRow("SELECT id FROM pagehit WHERE sessid=? AND ip=?",array("ss", &$sessid, &$ip), array(&$sess_row_id));
 		
-		$res  = dbSelectRow("SELECT id FROM pagehit WHERE sessid=? AND ip=?",array("ss", &$sessid, &$ip), array(&$sess_row_id));
-	
-		if (!stristr($agent,"bot") && !stristr($agent, "spider")){
-			if ($res && $sess_row_id) {
-				$res = dbUpdate("UPDATE pagehit SET updatedtime=UNIX_TIMESTAMP() WHERE id=?", 
-					array("i",&$sess_row_id));
+			if (!stristr($agent,"bot") && !stristr($agent, "spider")){
+				if ($res && $sess_row_id) {
+					$res = dbUpdate("UPDATE pagehit SET updatedtime=UNIX_TIMESTAMP() WHERE id=?", 
+						array("i",&$sess_row_id));
+				}
+				else {
+					$res = dbInsert("pagehit", "timestamp, updatedtime, sessid, referer, lang, agent, ip", "UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), ?, ?, ?, ?, ?", 
+						array("sssss", &$sessid, &$referer, &$lang, &$agent, &$ip));
+				}
+				$_SESSION['ip'] = $ip;	
 			}
-			else {
-				$res = dbInsert("pagehit", "timestamp, updatedtime, sessid, referer, lang, agent, ip", "UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), ?, ?, ?, ?, ?", 
-					array("sssss", &$sessid, &$referer, &$lang, &$agent, &$ip));
-			}
-			$_SESSION['ip'] = $ip;	
+			dbClose();
 		}
 
-
-		dbClose();
 	} catch (Exception $e ) {
-		trigger_error($e);
+		trigger_error("oops".$e);
 	}
 	function getParam ($k) {
 		if (isset($_SERVER[$k]))
@@ -202,6 +202,7 @@
 			are a number of very useful online resources.  The YouTube user, 
 			<a href="http://www.youtube.com/user/hirakana2010" target="_blank">hirakana2010 has useful Channel</a> with videos demonstrating how to
 			write and pronounce the hiragana, katakana and kanji characters.
+			User <a href="http://www.youtube.com/user/edufirejapanese">eduefirejapanese</a> also has many useful videos!
 		</p>
 	</div>
 	<div id="char-table" class="nothing centred-X centred-Y">
