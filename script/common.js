@@ -118,7 +118,11 @@ document.head 	= document.head || document.getElementsByTagName("head")[0];
 	ns.addClass = function (elem, cls){
 		if (elem.className.indexOf(cls)==-1)
 			elem.className += " " + cls;
-	}
+	};
+
+	ns.exists = function (obj) {
+		return typeof obj != "undefined";
+	};
 	 
 	/********************************************************************
 	 * removeClass - Removes a certain class from the element
@@ -126,7 +130,7 @@ document.head 	= document.head || document.getElementsByTagName("head")[0];
 	ns.removeClass = function(elem, cls){
 		// removes all instances
 		elem.className = elem.className.replace(new RegExp("\\s?"+cls, "g"), "");
-	}
+	};
 
 	/********************************************************************
 	 * setOpacity - Cross browser setting of an element's opacity 
@@ -135,7 +139,7 @@ document.head 	= document.head || document.getElementsByTagName("head")[0];
 		elem.style.opacity 		= opacity + "";
 		elem.style.filter 		= "alpha(opacity="+parseInt(opacity*100)+")";
 		elem.style.MozOpacity	= opacity +"";
-	}
+	};
 
 	// --
 	// Event functions

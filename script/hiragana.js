@@ -49,11 +49,26 @@ JAP.image.loadBatch("essential",
 				module:	new JAP.hira.mods.About()
 			}
 		};
-		preloadAudio();
-		buildCharTables();
-		JAP.image.watchBatch("essential", {
-			onImagesReady:	onReady
-		});
+
+		var audtest = $id("audio-cap-tester");
+		if (!_.exists(audtest.play) || !_.exists(audtest.pause) || !_.exists(audtest.load) || !_.exists(audtest.readyState) || !_.exists(audtest.defaultMuted)) {
+			var display = $id("no-js-message");
+			display.className = "audio-fail-message";
+			display.innerHTML = "Your browser does not support the necessary Audio features required to use the interactive Japanese/Hiragana Drills and Tests." +
+								'<p>The latest versions of the following browsers are supported for PC, Mac: </p>' +
+								'<a href="http://www.google.com/chrome" title="Google Chrome v4.0+"><img src="res/images/chrome.png" width="60" height="60"></a>'+
+								'<a href="http://www.mozilla.com/en-US/firefox/new/" title="Mozilla Firefox v3.5+"><img src="res/images/firefox.png" width="60" height="60"></a>'+
+								'<a href="http://www.opera.com/browser/download/" title="Opera v10.0+"><img src="res/images/opera.png" width="60" height="60"></a>'+
+								'<a href="http://www.apple.com/safari/download/" title="Apple Safari"><img src="res/images/safari.png" width="60" height="60"></a>'+
+								'<a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home" title="Internet Explorer 9.0"><img src="res/images/ie.png"></a>';
+		}
+		else {
+			//preloadAudio();
+			buildCharTables();
+			JAP.image.watchBatch("essential", {
+				onImagesReady:	onReady
+			});
+		}
 	}
 
 	function onReady () {

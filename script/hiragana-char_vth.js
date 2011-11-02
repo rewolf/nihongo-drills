@@ -244,6 +244,12 @@
 		(this.audio.parentNode || this.audio.parentElement).replaceChild(newAudio,this.audio);
 		this.audio = newAudio;
 
+		this.playBut.innerHTML = "loading..";
+		_.addEvent(this.audio, "loadeddata", function () {
+			self.playClip ();
+			self.playBut.innerHTML = "Play Again";
+		});
+
 		if (this.settings.useGoogle.checked) {
 			var src1	= document.createElement("source");
 		
@@ -254,9 +260,6 @@
 			var filename = "hiragana_"+pad(parseInt(this.currentCharIndex/5)+1)+"_"+pad(this.currentCharIndex%5+1);
 			var src1	= document.createElement("source");
 			var src2	= document.createElement("source");
-			_.addEvent(this.audio, "loadeddata", function () {
-				self.playClip ();
-			});
 
 			src1.src	= "res/audio/ogg/"+filename+".ogg";
 			src2.src	= "res/audio/mp3/"+filename+".mp3";

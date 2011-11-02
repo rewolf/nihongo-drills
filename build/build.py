@@ -42,19 +42,13 @@ css_mods = {
 }
 
 pages = {
-	"hiragana.php" : {
+	"index.php" : {
 		"js":	[
 			"hira-main",
 			"hira-char"
 		],
 		"css":	[
 			"hira-main"
-		]
-	},
-	"index.php" : {
-		"js":	[
-		],
-		"css":	[
 		]
 	},
 	"get_audio.php" : {
@@ -74,7 +68,10 @@ def main():
 	app = WebApp("nihongo", VERSION, js_files, css_files, res)
 
 	app.build(js_mods, css_mods, pages, minify)
-	app.deploy("/var/www/nihongo")
+	if "-d" in sys.argv or "--deploy" in sys.argv:
+		app.deploy_remote("angry4dminbn", "angrytortoise.com", "~/html/nd/", not ("--nores" in sys.argv or "-n" in sys.argv))
+	else:
+		app.deploy("/var/www/nihongo")
 	app.cleanup()
 
 
@@ -82,7 +79,9 @@ def main():
 
 def print_usage():
 	args = [
-		("-m, --minify", "Code will be minified by removing all non-syntactic whitespace")
+		("-m, --minify", "Code will be minified by removing all non-syntactic whitespace"),
+		("-d, --deploy", "Code will be uploaded to the nihongodrills.com web server"),
+		("-n, --nores", "Don't copy resources")
 	]
 	options = "\n".join([ "\t"+o.ljust(25) + e for o,e in args ])
 	os.system( "echo \""+\

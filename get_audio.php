@@ -1,7 +1,6 @@
 <?php
-	$cache = 60*60*24 * 3;  # 3 days
+	$cache = 60*60*24 * 7;  # 3 days
 	header("Content-Type: audio/mpeg");
-	header("Cache-Control: no-cache");
 	header("Cache-Control: max-age=$cache");
 	header("Pragma: public");
 	header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$cache) . ' GMT');
@@ -12,7 +11,7 @@
 //		echo file_get_contents("http://translate.google.com/translate_tts?tl=$lang&ie=UTF-8&q=$text");
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, "http://translate.google.com/translate_tts?tl=$lang&ie=UTF-8&q=$text");
-		curl_setopt($ch, CURL_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$res = curl_exec($ch);
 		echo $res;
 		curl_close($ch);

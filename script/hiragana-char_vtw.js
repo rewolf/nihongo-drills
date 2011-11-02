@@ -201,7 +201,7 @@
 			this.charDiv.innerHTML = "&#"+ch+";";
 
 			this.vidLink.href		= "http://www.youtube.com/results?search_query=%22How+to+write+Hiragana+%E3%80%8C+"+encodeURIComponent(String.fromCharCode(this.currentCharCode))+"+%E3%80%8D+%22+STROKE+ORDER";
-			this.vidLink.innerHTML	= "Videos on Writing &#" + this.currentCharCode+";";
+			this.vidLink.innerHTML	= "Videos on Writing this character";//&#" + this.currentCharCode+";";
 
 			this.audio.pause();
 			this.loadAudio();
@@ -224,6 +224,11 @@
 		(this.audio.parentNode || this.audio.parentElement).replaceChild(newAudio,this.audio);
 		this.audio = newAudio;
 
+		this.playBut.innerHTML = "loading..";
+		_.addEvent(this.audio, "loadeddata", function () {
+			self.playClip ();
+			self.playBut.innerHTML = "Play Again";
+		});
 		if (this.settings.useGoogle.checked) {
 			var src1	= document.createElement("source");
 		
@@ -234,15 +239,13 @@
 			var filename = "hiragana_"+pad(parseInt(this.currentCharIndex/5)+1)+"_"+pad(this.currentCharIndex%5+1);
 			var src1	= document.createElement("source");
 			var src2	= document.createElement("source");
-			_.addEvent(this.audio, "loadeddata", function () {
-				self.playClip ();
-			});
 
 			src1.src	= "res/audio/ogg/"+filename+".ogg";
 			src2.src	= "res/audio/mp3/"+filename+".mp3";
 			this.audio.appendChild(src1);
 			this.audio.appendChild(src2);
 		}
+
 
 	};
 
