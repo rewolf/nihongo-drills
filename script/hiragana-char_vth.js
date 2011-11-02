@@ -17,7 +17,7 @@
 
 	CharVTH.prototype.build = function () {
 		var self = this;
-		this.node.id	= "drill-char-htv";
+		this.node.id	= "drill-char-vth";
 		this.buildSettings();
 
 		// title
@@ -30,7 +30,7 @@
 		this.instruction.className = "drill-instruction";
 		this.instruction.innerHTML = 
 			"This drill plays an audio clip of a random japanese syllable/sound.  You must "+
-			"choose the corresponding hiragana character from the possibilitie in the table below. Once the "+
+			"choose the corresponding hiragana character from the possibilities in the table below. Once the "+
 			"correct character is chosen, the next sound will play. The settings to the " +
 			"right can be used to use Google's alternate audio voice or to limit the range " +
 			"of characters being tested.";
@@ -83,8 +83,8 @@
 			self= this;
 		s.minHiraLine		= s.createElem("select", "hira-cvth-line-min", "Min hiragana line", "Lets you omit beginning lines of hiragana that you may know. For example, to omit the vowels, set this to 2.");
 		s.maxHiraLine		= s.createElem("select", "hira-cvth-line", "Max hiragana line", "Setting this will allow you to limit the possible characters in the test. If you only know the first three lines of hiragana, choose 3: Characters on lines above 3 will not appear.");
-		s.useGoogle			= s.createElem("input",  "hira-cvth-speech", "Use Google speech", "Check this to use Google's pronunciation rather than the default audio clips.");
-		s.difficulty		= s.createElem("select", "hira-cvth-difficulty", "Choice grid", "Affects the number of possible characters shown", true);
+		s.useGoogle			= s.createElem("input",  "hira-cvth-speech", "Use Google speech", "Check this to use Google's pronunciation rather than the default audio clips.", true);
+		s.difficulty		= s.createElem("select", "hira-cvth-difficulty", "Choice grid", "Affects the number of possible characters shown");
 
 		function addOption (sel, val, label) {
 			var opt  = document.createElement("option");

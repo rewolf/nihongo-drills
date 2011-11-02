@@ -14,6 +14,7 @@
     <script type="text/javascript" src="script/hiragana-module.js"></script>
     <script type="text/javascript" src="script/hiragana-char_htv.js"></script>
     <script type="text/javascript" src="script/hiragana-char_vth.js"></script>
+    <script type="text/javascript" src="script/hiragana-char_vtw.js"></script>
 </head>
 <body>
 	<header id="layout-top" class="dark-panel">
@@ -59,7 +60,7 @@
             	<div class="menu-item-icon icon-2"></div>
             	<div class="menu-item-icon icon-3"></div>
 			</a>
-			<a href="#!/word-vth" id="item-word-vth" class="menu-item panel-link invisible offscreen-item" title="Drill your memory of hiragana words.  Choose the word matching the sounds.">
+			<a href="#!/word-vth" id="item-word-vth" class="menu-item panel-link invisible offscreen-item" title="">
             	more coming...<br>Suggestions are welcome!
 			</a>
      <!--

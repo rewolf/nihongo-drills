@@ -10,7 +10,8 @@ js_files = [
 	"script/hiragana.js",
 	"script/hiragana-module.js",
 	"script/hiragana-char_htv.js",
-	"script/hiragana-char_vth.js"
+	"script/hiragana-char_vth.js",
+	"script/hiragana-char_vtw.js"
 ]
 
 css_files = [
@@ -26,11 +27,10 @@ js_mods = {
 		"script/hiragana.js",
 		"script/hiragana-module.js"
 	],
-	"hira-char-htv" : [
-		"script/hiragana-char_htv.js"
-	],
-	"hira-char-vth" : [
-		"script/hiragana-char_vth.js"
+	"hira-char" : [
+		"script/hiragana-char_htv.js",
+		"script/hiragana-char_vth.js",
+		"script/hiragana-char_vtw.js"
 	]
 }
 
@@ -45,8 +45,7 @@ pages = {
 	"hiragana.php" : {
 		"js":	[
 			"hira-main",
-			"hira-char-htv",
-			"hira-char-vth"
+			"hira-char"
 		],
 		"css":	[
 			"hira-main"

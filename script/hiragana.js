@@ -27,8 +27,9 @@ JAP.image.loadBatch("essential",
 				title:	"Hiragana Voice-to-Character Drill",
 				module:	new JAP.hira.mods.CharVTH()
 			},
-			"word-htv":		{
-				title:	"Hiragana Word-to-Voice Drill"
+			"char-vtw":		{
+				title:	"Hiragana Voice-to-Writing Drill",
+				module:	new JAP.hira.mods.CharVTW()
 			},
 			"word-vth":		{
 				title:	"Hiragana Voice-to-Word Drill"
@@ -334,6 +335,7 @@ JAP.image.loadBatch("essential",
 
 		this.hide = function () {
 			this.visible 	= false;
+			var curMod = JAP.hira.currentModule;
 
 			_.addClass(this.node, "expandable");
 			_.addClass(this.node, "zero-width");
@@ -341,7 +343,11 @@ JAP.image.loadBatch("essential",
 			setTimeout(function () {
 				_.addClass(self.node, "nothing");
 				_.removeClass(self.node, "expandable");
+				if (curMod) {
+					curMod.hide();
+				}
 			}, 500);
+
 		};
 
 		this.onResize = function () {
@@ -428,6 +434,7 @@ JAP.image.loadBatch("essential",
 				}
 				
 				document.title = modinfo.title;
+				JAP.hira.currentModule = modinfo.module;
 			}
 		}
 		else {
@@ -439,6 +446,7 @@ JAP.image.loadBatch("essential",
 			else {
 				showMenu();
 			}
+			JAP.hira.currentModule = null;
 		}
 	}
 
