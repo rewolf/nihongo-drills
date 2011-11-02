@@ -120,10 +120,51 @@ footer {
 	left:					2000px;
 }
 
-#item-char-htv {
+.menu-item-icon {
 	background-image:		url("../res/images/htv.png");
-	background-repeat:		no-repeat;
-	background-position:	center center;
+	display:				inline-block;
+	height:					83px;
+	margin:					0px 15px;
+}
+
+/* htv */
+#item-char-htv .icon-1 {
+	background-position:	-4px 0px;
+	width:					68px;
+}
+#item-char-htv .icon-2 {
+	background-position:	-181px 0px;
+	width:					33px;
+}
+#item-char-htv .icon-3 {
+	background-position:	-85px 0px;
+	width:					85px;
+}
+/* vth */
+#item-char-vth .icon-1 {
+	background-position:	-85px 0px;
+	width:					85px;
+}
+#item-char-vth .icon-2 {
+	background-position:	-181px 0px;
+	width:					33px;
+}
+#item-char-vth .icon-3 {
+	background-position:	-4px 0px;
+	width:					68px;
+}
+/* vtw */
+#item-char-vtw .icon-1 {
+	background-position:	-85px 0px;
+	width:					85px;
+}
+#item-char-vtw .icon-2 {
+	background-position:	-181px 0px;
+	width:					33px;
+}
+#item-char-vtw .icon-3 {
+	background-position:	-219px 0px;
+	width:					100px;
 }
 
 #screen-block {
