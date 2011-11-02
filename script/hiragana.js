@@ -407,6 +407,11 @@ JAP.image.loadBatch("essential",
 		if (contentPane) {
 			contentPane.onResize();
 		}
+		
+		var menuItems = $cls("menu-item-icon");
+		for (var i = 0; i < menuItems.length; i++) {
+			menuItems[i].style.marginTop = (parseInt(midHeight/numRows)-14)/2 - 40 + "px";
+		}
 
 		var centredX= $cls("centred-X"),
 			centredY= $cls("centred-Y");

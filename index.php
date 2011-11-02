@@ -49,9 +49,14 @@
 	<div id="layout-middle" class="open-anim">
 		<div class="menu-row">
 			<a href="#!/char-htv" id="item-char-htv" class="menu-item panel-link invisible offscreen-item" title="Drill your recognition of hiragana characters. Speak it as you see it.">
+            	<div class="menu-item-icon icon-1"></div>
+            	<div class="menu-item-icon icon-2"></div>
+            	<div class="menu-item-icon icon-3"></div>
 			</a>
-			<a href="#!/char-vtw" id="item-char-vtw" class="menu-item panel-link invisible offscreen-item" title="Drill your pronunciation of hiragana words.  Speak them as you see them.">
-            	more coming...
+			<a href="#!/char-vtw" id="item-char-vtw" class="menu-item panel-link invisible offscreen-item" title="Practise writing the characters as you hear them">
+            	<div class="menu-item-icon icon-1"></div>
+            	<div class="menu-item-icon icon-2"></div>
+            	<div class="menu-item-icon icon-3"></div>
 			</a>
 <!--			<a href="#!/lang-htl" id="item-lang-htl" class="menu-item panel-link invisible offscreen-item" title="Drill your recognition of hiragana words. Choose the english meaning.">
 			</a>
@@ -59,9 +64,12 @@
 		</div>
 		<div class="menu-row">
 			<a href="#!/char-vth" id="item-char-vth" class="menu-item panel-link invisible offscreen-item" title="Drill your memory of hiragana characters. Choose the character matching the sound.">
+            	<div class="menu-item-icon icon-1"></div>
+            	<div class="menu-item-icon icon-2"></div>
+            	<div class="menu-item-icon icon-3"></div>
 			</a>
-			<a href="#!/word-vth" id="item-word-vth" class="nothing menu-item panel-link invisible offscreen-item" title="Drill your memory of hiragana words.  Choose the word matching the sounds.">
-            	more coming...
+			<a href="#!/word-vth" id="item-word-vth" class="menu-item panel-link invisible offscreen-item" title="">
+            	more coming...<br>Suggestions are welcome!
 			</a>
      <!--
 			<a href="#!/lang-lth" id="item-lang-lth" class="menu-item panel-link invisible offscreen-item" title="Drill your japanese vocabulary.  Choose the hiragana word equivalent of the english word.">
