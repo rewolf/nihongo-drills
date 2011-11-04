@@ -33,7 +33,8 @@
 			"This drill plays an audio clip of a random japanese syllable/sound.  On a piece "+
 			"of paper or the canvas provided below, you must attempt to write the character " +
 			"corresponding the sound you hear. Once you have drawn it, click the <i>Show</i> " +
-			"to see if you were correct. " +
+			"to see if you were correct. If you get it wrong, you are encouraged to erase it, " +
+			"and draw it correctly. " +
 			"The settings to the " +
 			"right can be used to use Google's alternate audio voice or to limit the range " +
 			"of characters being tested.";

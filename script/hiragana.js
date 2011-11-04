@@ -430,8 +430,12 @@ JAP.image.loadBatch("essential",
 	}
 
 	function loadHashBang () {
-		var newHash 	= window.location.hash;
+		var newHash 	= window.location.hash,
+			oldHash		= hira.oldHash || "/",
+			from		= encodeURIComponent(oldHash);
+		hira.oldHash	= newHash;
 
+		var uriSafe	= encodeURIComponent(newHash);
 		// If there is a new hashbang link
 		if (newHash.trim().length > 3 ){
 			var full = newHash.substring(3);
@@ -444,7 +448,7 @@ JAP.image.loadBatch("essential",
 
 			var modinfo = hira.MOD_TABLE[full];
 
-			if (modinfo.module) {
+			if (modinfo && modinfo.module) {
 				if (!contentPane.visible) {
 					hideMenu();
 					setTimeout(function(){modinfo.module.show();}, 600);
@@ -454,6 +458,10 @@ JAP.image.loadBatch("essential",
 				
 				document.title = modinfo.title;
 				JAP.hira.currentModule = modinfo.module;
+				_.doAJAXPost("error=0&link="+uriSafe+"&from="+from, "log_usage.php");
+			}
+			else {
+				_.doAJAXPost("error=1&link="+uriSafe+"&from="+from, "log_usage.php");
 			}
 		}
 		else {
@@ -466,6 +474,10 @@ JAP.image.loadBatch("essential",
 				showMenu();
 			}
 			JAP.hira.currentModule = null;
+			_.doAJAXPost("error=0&link="+uriSafe+"&from="+from,"log_usage.php");
+			if (newHash==""){
+				window.location.hash = "#!/";
+			}
 		}
 	}
 

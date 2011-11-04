@@ -51,6 +51,10 @@ pages = {
 			"hira-main"
 		]
 	},
+	"log_usage.php" : {
+		"js":	[],
+		"css":	[]
+	},
 	"get_audio.php" : {
 		"js":	[],
 		"css":	[]

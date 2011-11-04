@@ -5,7 +5,7 @@
 		session_start();
 		
 		// Timeout old sessions
-		define("TIMEOUT", 30); // 30 seconds
+		define("TIMEOUT", 30*60); // half hour
 		
 		if (isset($_SESSION['timeout'])){
 			if (time() - $_SESSION['timeout'] > TIMEOUT){
@@ -62,8 +62,8 @@
 <html>
 <head>
     <meta charset="utf-8" />
-	<title>Nihongo Drills | Japanese Hiragana</title>
-    <meta name="description" content="Practise your memorising of Japanese hiragana characters and their pronunciations using the drills on this site." />
+	<title>Nihongo Drills | Japanese Hiragana and Katakana Tests and Quiz</title>
+    <meta name="description" content="Practise and test your memorisation of Japanese hiragana and katakana characters and their pronunciations using the drills on this site." />
     <meta name="keywords" content="japanese,nihongo,practise,drill,memorise,pronounce,speak,learn" />
 	<meta property="og:title" content="Hiragana Drills" />
 	<meta property="og:type" content="website" />
@@ -175,12 +175,12 @@
 		</h3>
 		<p>
 			There are plenty of books, audio CDs and online resources that teach the Japanese language.
-			The aim of this site is not to teach but to provide repetitive drills to help you
+			The aim of this site is not to teach but to provide repetitive drills, or tests,  to help you
 			memorise the fundamentals of the language, namely, the hiragana characters.
 		</p>
 		<p>
-			This site aims to avoid the use of Romaji characters so that the learner's brain
-			forms direct associations between sounds/syllables and hiragana characters rather than
+			This site aims to avoid the use of <a href="http://en.wikipedia.org/wiki/Romanization_of_Japanese">rōmaji characters</a> so that the learner's brain
+			forms direct associations between sounds/syllables and <a href="http://en.wikipedia.org/wiki/Hiragana">hiragana characters</a> rather than
 			wasting time converting to/from the romanization.
 		</p>
 		<p>
