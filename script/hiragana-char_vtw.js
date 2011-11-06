@@ -233,7 +233,7 @@
 		if (this.settings.useGoogle.checked) {
 			var src1	= document.createElement("source");
 		
-			src1.src = "get_audio.php?tl=ja&text=" + encodeURIComponent(String.fromCharCode(this.currentCharCode));
+			src1.src = "ajax/get_audio.php?tl=ja&text=" + encodeURIComponent(String.fromCharCode(this.currentCharCode));
 			this.audio.appendChild(src1);
 		}
 		else {

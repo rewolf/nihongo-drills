@@ -13,6 +13,12 @@ JAP.image.loadBatch("essential",
 	
 	hira.currentModule = null;
 
+	function isAppOnePage() {
+		var THRESHOLD_W = 1024;
+
+		return JAP.winW >= THRESHOLD_W;
+	}
+
 	/*
 		Finished loading -> open up the screen
 	*/
@@ -86,6 +92,7 @@ JAP.image.loadBatch("essential",
 	function setup () {
 		var items 	= $cls("menu-item");
 		_.removeClass($id("layout-middle"), "open-anim");
+		_.removeClass($id("footer-links"), "zero-opacity");
 		_.addEvent(window, "resize", onResize);
 
 		contentPane	= new ContentPane();
@@ -173,7 +180,7 @@ JAP.image.loadBatch("essential",
 				}
 			}
 			var code = codes[gooId];
-			//audio2.src = "get_audio.php?tl=ja&text=" + encodeURIComponent(String.fromCharCode(code));
+			//audio2.src = "ajax/get_audio.php?tl=ja&text=" + encodeURIComponent(String.fromCharCode(code));
 		}
 
 		_.addEvent(audio2, "loadeddata", load2);
@@ -397,25 +404,43 @@ JAP.image.loadBatch("essential",
 		$id("screen-block").style.width = JAP.winW  + "px";
 		$id("screen-block").style.height = JAP.winH  + "px";
 
-		var midHeight = JAP.winH - header.clientHeight - footer.clientHeight - 12;
-		midlayout.style.height = midHeight + "px";
-		var numCols = $cls("menu-item", $cls("menu-row")[0]).length;
-		var numRows	= $cls("menu-row").length;
-
-
-		for (var i = 0; i < items.length;  i++) {
-			items[i].style.width		= Math.floor(midlayout.clientWidth/numCols) -14 + "px";
-			items[i].style.height		= Math.floor(midHeight/numRows) -14 + "px";
+		// If the screen is big enough, make the header, content, footer fit on screen
+		if (isAppOnePage()) {
+			var midHeight = JAP.winH - header.clientHeight - footer.clientHeight - 12;
+			midlayout.style.height = midHeight + "px";
+		}
+		else {
+			midlayout.style.height = "";
 		}
 
+		if (isAppOnePage()) {
+			var numCols = $cls("menu-item", $cls("menu-row")[0]).length;
+			var numRows	= $cls("menu-row").length;
+
+			for (var i = 0; i < items.length;  i++) {
+				items[i].style.width		= Math.floor(midlayout.clientWidth/numCols) -14 + "px";
+				items[i].style.height		= Math.floor(midHeight/numRows) -14 + "px";
+			}
+
+			var menuItems = $cls("menu-item-icon");
+			for (var i = 0; i < menuItems.length; i++) {
+				menuItems[i].style.marginTop = (parseInt(midHeight/numRows)-14)/2 - 40 + "px";
+			}
+		}
+		else {
+			for (var i = 0; i < items.length;  i++) {
+				items[i].style.width		= "";
+				items[i].style.height		= "";
+			}
+			var menuItems = $cls("menu-item-icon");
+			for (var i = 0; i < menuItems.length; i++) {
+				menuItems[i].style.marginTop = "";
+			}
+		}
 		if (contentPane) {
 			contentPane.onResize();
 		}
 		
-		var menuItems = $cls("menu-item-icon");
-		for (var i = 0; i < menuItems.length; i++) {
-			menuItems[i].style.marginTop = (parseInt(midHeight/numRows)-14)/2 - 40 + "px";
-		}
 
 		var centredX= $cls("centred-X"),
 			centredY= $cls("centred-Y");
@@ -458,10 +483,10 @@ JAP.image.loadBatch("essential",
 				
 				document.title = modinfo.title;
 				JAP.hira.currentModule = modinfo.module;
-				_.doAJAXPost("error=0&link="+uriSafe+"&from="+from, "log_usage.php");
+				_.doAJAXPost("error=0&link="+uriSafe+"&from="+from, "ajax/log_usage.php");
 			}
 			else {
-				_.doAJAXPost("error=1&link="+uriSafe+"&from="+from, "log_usage.php");
+				_.doAJAXPost("error=1&link="+uriSafe+"&from="+from, "ajax/log_usage.php");
 			}
 		}
 		else {
@@ -474,7 +499,7 @@ JAP.image.loadBatch("essential",
 				showMenu();
 			}
 			JAP.hira.currentModule = null;
-			_.doAJAXPost("error=0&link="+uriSafe+"&from="+from,"log_usage.php");
+			_.doAJAXPost("error=0&link="+uriSafe+"&from="+from,"ajax/log_usage.php");
 			if (newHash==""){
 				window.location.hash = "#!/";
 			}

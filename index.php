@@ -1,67 +1,11 @@
 <?php
-	require_once("includes/database.php");
-	try {
-		// Start session
-		session_start();
-		
-		// Timeout old sessions
-		define("TIMEOUT", 30*60); // half hour
-		
-		if (isset($_SESSION['timeout'])){
-			if (time() - $_SESSION['timeout'] > TIMEOUT){
-				session_regenerate_id(true);
-			}
-			$_SESSION['timeout'] = time();
-		}
-		else{
-			$_SESSION['timeout'] = time();
-		}
-		
-		$sessid = session_id();
-		session_cache_limiter('nocache');
-		
-		// Get Data regarding new connection
-		$referer 	= getParam("HTTP_REFERER");
-		$lang		= getParam("HTTP_ACCEPT_LANGUAGE");
-		$agent		= getParam("HTTP_USER_AGENT");
-		$ip			= getParam("REMOTE_ADDR");
-		
-		if (strstr($agent,"wget") || strstr($agent,"Wget")){
-			header("Location:http://www.google.com");
-		}
-
-		if (dbConnect()) {
-			
-			$res  = dbSelectRow("SELECT id FROM pagehit WHERE sessid=? AND ip=?",array("ss", &$sessid, &$ip), array(&$sess_row_id));
-		
-			if (!stristr($agent,"bot") && !stristr($agent, "spider")){
-				if ($res && $sess_row_id) {
-					$res = dbUpdate("UPDATE pagehit SET updatedtime=UNIX_TIMESTAMP() WHERE id=?", 
-						array("i",&$sess_row_id));
-				}
-				else {
-					$res = dbInsert("pagehit", "timestamp, updatedtime, sessid, referer, lang, agent, ip", "UNIX_TIMESTAMP(), UNIX_TIMESTAMP(), ?, ?, ?, ?, ?", 
-						array("sssss", &$sessid, &$referer, &$lang, &$agent, &$ip));
-				}
-				$_SESSION['ip'] = $ip;	
-			}
-			dbClose();
-		}
-
-	} catch (Exception $e ) {
-		trigger_error("oops".$e);
-	}
-	function getParam ($k) {
-		if (isset($_SERVER[$k]))
-			return $_SERVER[$k];
-		else
-			return "";
-	}
+	require_once("includes/pagehit.php");
 ?>
 <!DOCTYPE HTML>
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" /> 
 	<title>Nihongo Drills | Japanese Hiragana and Katakana Tests and Quiz</title>
     <meta name="description" content="Practise and test your memorisation of Japanese hiragana and katakana characters and their pronunciations using the drills on this site." />
     <meta name="keywords" content="japanese,nihongo,practise,drill,memorise,pronounce,speak,learn" />
@@ -85,13 +29,13 @@
 </head>
 <body>
 	<header id="layout-top" class="dark-panel">
-		「&nbsp;nihongo / にほんご / japanese&nbsp;」&nbsp;&nbsp; drills
-		<div style="float:right">
+		<span id="header-title">「&nbsp;nihongo / にほんご / japanese&nbsp;」&nbsp;&nbsp; drills</span>
+		<div id="header-links">
 
-			<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.nihongodrills.com&amp;send=false&amp;layout=standard&amp;width=48&amp;show_faces=false&amp;action=like&amp;colorscheme=dark&amp;font&amp;height=35&amp;appId=279700025395628" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:48px; height:24px;" allowTransparency="true"></iframe>
-			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.nihongodrills.com" data-text="Practising my hiragana knowledge at " data-count="horizontal" data-via="nihongo_drills" data-related="Angry_Tortoise"></a>
+			<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.nihongodrills.com&amp;send=false&amp;layout=standard&amp;width=49&amp;show_faces=false&amp;action=like&amp;colorscheme=dark&amp;font&amp;height=35&amp;appId=279700025395628" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:49px; height:24px;" allowTransparency="true"></iframe>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.nihongodrills.com" data-text="Practising my hiragana knowledge at " data-count="none" data-via="nihongo_drills" data-related="Angry_Tortoise"></a>
 			<!-- Place this tag where you want the +1 button to render -->
-			<g:plusone annotation="inline" size="medium" width="100" href="http://www.nihongodrills.com"></g:plusone>
+			<g:plusone annotation="none" size="medium" width="100" href="http://www.nihongodrills.com"></g:plusone>
 			<!-- Place this render call where appropriate -->
 			<script type="text/javascript">
 			  JAP.util.addEvent(window, "load", function() {
@@ -107,6 +51,7 @@
 		</div>
 	</header>
 	<div id="layout-middle" class="open-anim">
+		
 		<div class="menu-row">
 			<a href="#!/char-htv" id="item-char-htv" class="menu-item panel-link invisible offscreen-item" title="Drill your recognition of hiragana characters. Speak it as you see it.">
             	<div class="menu-item-icon icon-1"></div>
@@ -118,9 +63,6 @@
             	<div class="menu-item-icon icon-2"></div>
             	<div class="menu-item-icon icon-3"></div>
 			</a>
-<!--			<a href="#!/lang-htl" id="item-lang-htl" class="menu-item panel-link invisible offscreen-item" title="Drill your recognition of hiragana words. Choose the english meaning.">
-			</a>
-            -->
 		</div>
 		<div class="menu-row">
 			<a href="#!/char-vth" id="item-char-vth" class="menu-item panel-link invisible offscreen-item" title="Drill your memory of hiragana characters. Choose the character matching the sound.">
@@ -131,11 +73,8 @@
 			<a href="#!/word-vth" id="item-word-vth" class="menu-item panel-link invisible offscreen-item" title="">
             	more coming...<br>Suggestions are welcome!
 			</a>
-     <!--
-			<a href="#!/lang-lth" id="item-lang-lth" class="menu-item panel-link invisible offscreen-item" title="Drill your japanese vocabulary.  Choose the hiragana word equivalent of the english word.">
-			</a>
-            -->
 		</div>
+		
 		<div id="content-pane" class="nothing zero-width">
 			<a href="#!/" id="menu-button" class="panel-link" title="Back to Hiragan Home Menu">
 			</a>
@@ -144,7 +83,15 @@
 		</div>
 	</div>
 	<footer id="layout-bottom" class="dark-panel">
-		<div id="footer-ad">
+		<div id="footer-links" class="zero-opacity" >
+			<div class="footer-link-separator"></div>
+			<a id="show-table-button" href="#!/">Table</a>
+			<div class="footer-link-separator"></div>
+			<a href="#!/links">Links</a>
+			<div class="footer-link-separator"></div>
+			<a href="#!/about">About</a>
+		</div>
+		<div id="footer-ad" class="">
 			<script type="text/javascript"><!--
 			google_ad_client = "ca-pub-2949063356844479";
 			/* jap footer ad */
@@ -156,14 +103,6 @@
 			<script type="text/javascript"
 			src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 			</script>
-		</div>
-		<div id="footer-links">
-			<div class="footer-link-separator"></div>
-			<a id="show-table-button" href="#!/">Table</a>
-			<div class="footer-link-separator"></div>
-			<a href="#!/links">Links</a>
-			<div class="footer-link-separator"></div>
-			<a href="#!/about">About</a>
 		</div>
 	</footer>
 	<div id="screen-block" class="nothing">

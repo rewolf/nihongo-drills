@@ -1,32 +1,72 @@
-@font-face {
-	font-family:    "Incubus";
-	/*src:            url('../res/fonts/brankovic.eot');*/
-	src:            local('☺'),
-					/*url('../res/fonts/brankovic.eot'),*/
-					url('../res/fonts/incubus.ttf');
-}
-
 
 body {
-	background-color:		#000;
-	font-family:			Arial, sans-serif;
-	font-size:				12px;
-	margin:					0px;
 	overflow:				hidden;
 }
 
+/************************************************
+ * HEADER
+ ***********************************************/
 header {
-	color:					#d00;
-	font-family:			"Incubus";
 	font-size:				x-large;
 	line-height:			50px;
 	height:					50px;
 	padding-left:			20px;
 }
 
+#header-links {
+	float:					right;
+	height:					24px;
+}
+
+
+#header-title  {
+	float:					left;
+}
+/************************************************
+ * FOOTER
+ ***********************************************/
 footer {
+	min-height:				50px;
+}
+
+#footer-links {
+	line-height:			50px;
+}
+
+#footer-links a {
+	padding:				0px 10px;
+}
+
+#footer-ad {
+	left:					-100px;
+	margin:					17px 5px;
+}
+
+.footer-link-separator {
 	height:					50px;
 }
+
+/************************************************
+ * MIDDLE
+ ***********************************************/
+#layout-middle {
+	box-shadow:				inset 0px 0px 3px 1px #000;
+	-moz-box-shadow:		inset 0px 0px 3px 1px #000;
+	-webkit-box-shadow:		inset 0px 0px 3px 1px #000;
+	-o-box-shadow:			inset 0px 0px 3px 1px #000;
+	-ms-box-shadow:			inset 0px 0px 3px 1px #000;
+	height:					0px;
+	padding:				6px 0px;
+	position:				relative;
+}
+
+.open-anim {
+	-webkit-transition:		background-color 1s ease, height .5s linear;
+	-moz-transition:		background-color 1s ease, height .5s linear;
+	-o-transition:			background-color 1s ease, height .5s linear;
+	-ms-transition:			background-color 1s ease, height .5s linear;
+}
+
 
 #no-js-message {
 	background-color:		black;
@@ -47,65 +87,6 @@ footer {
 	width:					400px;
 }
 
-#footer-links {
-	float:					right;
-	line-height:			50px;
-	text-transform:			uppercase;
-}
-
-#footer-links a {
-	color:					#444;
-	cursor:					pointer;
-	float:					left;
-	padding:				0px 10px;
-	text-decoration:		none;
-}
-#footer-links a:hover {
-    background:             -webkit-gradient(linear, left top, left bottom, from(#150000), to(#050000)); 
-    background:             -moz-linear-gradient(90deg, #150000, #050000);                               
-    background:             -o-linear-gradient(#150000, #050000); 
-	color:					#d00;
-}
-#footer-ad {
-	float:					left;
-	left:					-100px;
-	margin:					17px 5px;
-	position:				relative;
-	width:					500px;
-}
-
-.footer-link-separator {
-	float:					left;
-	background-color:		#333;
-	height:					50px;
-	margin-top:				0px;
-	width:					1px;
-}
-
-#layout-middle {
-	box-shadow:				inset 0px 0px 3px 1px #000;
-	-moz-box-shadow:		inset 0px 0px 3px 1px #000;
-	-webkit-box-shadow:		inset 0px 0px 3px 1px #000;
-	-o-box-shadow:			inset 0px 0px 3px 1px #000;
-	-ms-box-shadow:			inset 0px 0px 3px 1px #000;
-	height:					0px;
-	padding:				6px 0px;
-	position:				relative;
-}
-
-.open-anim {
-	-webkit-transition:		background-color 1s ease, height .5s linear;
-	-moz-transition:		background-color 1s ease, height .5s linear;
-	-o-transition:			background-color 1s ease, height .5s linear;
-	-ms-transition:			background-color 1s ease, height .5s linear;
-}
-
-.dark-panel {
-	background-color:		#151515;
-    background:             -webkit-gradient(linear, left top, left bottom, from(#151515), to(#050505)); 
-    background:             -moz-linear-gradient(90deg, #151515, #050505);                               
-    background:             -o-linear-gradient(#151515, #050505); 
-}
 
 .menu-row {
 	clear:					both;
@@ -225,12 +206,6 @@ footer {
 }
 
 .panel-link {
-	background-color:		#090707;
-	border-radius:			2px;
-	-moz-border-radius:		2px;
-	-webkit-border-radius:	2px;
-	-o-border-radius:		2px;
-	-ms-border-radius:		2px;
 	box-shadow:				inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
 	-moz-box-shadow:		inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
 	-webkit-box-shadow:		inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
@@ -239,11 +214,6 @@ footer {
 }
 
 .panel-link:hover {
-	box-shadow:				0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
-	-moz-box-shadow:		0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
-	-webkit-box-shadow:		0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
-	-o-box-shadow:			0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
-	-ms-box-shadow:			0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
 }
 
 .module {

@@ -2,7 +2,12 @@ from rewolf.web_builder import WebApp
 import sys
 import os
 
-VERSION = "1_0"
+VERSION 		= "1_1_0"
+LOCAL_SERVER	= "/var/www/nihongo"
+REMOTE_USER		= "angry4dminbn"
+REMOTE_SERVER	= "angrytortoise.com"
+REMOTE_PATH		= "~/html/nd/"
+TEST_PATH		= "~/html/nd/ndalpha/"
 
 js_files = [
 	"script/common.js", 
@@ -16,7 +21,7 @@ js_files = [
 
 css_files = [
 	"style/common.css",
-	"style/hiragana.css"
+	"style/desktop.css"
 ]
 
 
@@ -35,9 +40,11 @@ js_mods = {
 }
 
 css_mods = {
-	"hira-main" : [
-		"style/common.css",
-		"style/hiragana.css"
+	"basic" 	: [
+		"style/common.css"
+	],
+	"desktop"	: [
+		"style/desktop.css"
 	]
 }
 
@@ -48,34 +55,45 @@ pages = {
 			"hira-char"
 		],
 		"css":	[
-			"hira-main"
+			("basic", 		"screen,handheld"),
+			("desktop",		"screen and (min-width: 1024px)")
 		]
-	},
-	"log_usage.php" : {
-		"js":	[],
-		"css":	[]
-	},
-	"get_audio.php" : {
-		"js":	[],
-		"css":	[]
 	}
-	
 }
 
 res = [
-	"res"
+	"res/images",
+	"res/fonts",
+	"res/audio",
+	"includes",
+	"ajax"
 ]
 
 def main():
 	minify	= "-m" in sys.argv or "--minify" in sys.argv
+	if "-n" in sys.argv or "--nores" in sys.argv:
+		for r in res:
+			if r.startswith("res/"):
+					res.remove(r)
+	if "-a" in sys.argv or "--noaudio" in sys.argv:
+		res.remove("res/audio")
 
 	app = WebApp("nihongo", VERSION, js_files, css_files, res)
 
 	app.build(js_mods, css_mods, pages, minify)
+
 	if "-d" in sys.argv or "--deploy" in sys.argv:
-		app.deploy_remote("angry4dminbn", "angrytortoise.com", "~/html/nd/", not ("--nores" in sys.argv or "-n" in sys.argv))
+		if raw_input("Are you sure you wish to deploy to the remote server? ").lower()=="y":
+			app.deploy_remote(REMOTE_USER, REMOTE_SERVER, REMOTE_PATH)
+		else:
+			print "Deployment aborted"
+	if "-t" in sys.argv or "--test" in sys.argv:
+		if raw_input("Are you sure you wish to deploy to the testing path on teh remote server? ").lower()=="y":
+			app.deploy_remote(REMOTE_USER, REMOTE_SERVER, TEST_PATH)
+		else:
+			print "Deployment aborted"
 	else:
-		app.deploy("/var/www/nihongo")
+		app.deploy(LOCAL_SERVER)
 	app.cleanup()
 
 
@@ -83,9 +101,11 @@ def main():
 
 def print_usage():
 	args = [
-		("-m, --minify", "Code will be minified by removing all non-syntactic whitespace"),
+		("-a, --noaudio", "Don't copy audio resources"),
 		("-d, --deploy", "Code will be uploaded to the nihongodrills.com web server"),
-		("-n, --nores", "Don't copy resources")
+		("-m, --minify", "Code will be minified by removing all non-syntactic whitespace"),
+		("-n, --nores", "Don't copy resources"),
+		("-t, --nores", "Deploy to test path on server")
 	]
 	options = "\n".join([ "\t"+o.ljust(25) + e for o,e in args ])
 	os.system( "echo \""+\
