@@ -38,6 +38,7 @@ footer {
 }
 
 #footer-ad {
+	display:				block;
 	left:					-100px;
 	margin:					17px 5px;
 }
