@@ -13,6 +13,10 @@ footer,header,hgroup,menu,nav,section {
     display:			block;
 }
 
+.cool {
+	background:	url("res/images/cool.png");
+}
+
 a, a img {
 	border:				none;
 	outline:			none;

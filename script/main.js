@@ -5,13 +5,13 @@ JAP.image.loadBatch("essential",
 	]
 );
 
-(function (hira) {
+(function (ns) {
 
 	var _ = JAP.util,
 		contentPane;
 	_.addEvent(window, "load", onLoad);
 	
-	hira.currentModule = null;
+	ns.currentModule = null;
 
 	function isAppOnePage() {
 		var THRESHOLD_W = 1024;
@@ -24,18 +24,18 @@ JAP.image.loadBatch("essential",
 	*/
 	function onLoad () {
 
-		hira.MOD_TABLE = {
+		ns.MOD_TABLE = {
 			"char-htv":		{
 				title:	"Hiragana Character-to-Voice Drill",
-				module:	new JAP.hira.mods.CharHTV()
+				module:	new JAP.mods.CharHTV()
 			},
 			"char-vth":		{
 				title:	"Hiragana Voice-to-Character Drill",
-				module:	new JAP.hira.mods.CharVTH()
+				module:	new JAP.mods.CharVTH()
 			},
 			"char-vtw":		{
 				title:	"Hiragana Voice-to-Writing Drill",
-				module:	new JAP.hira.mods.CharVTW()
+				module:	new JAP.mods.CharVTW()
 			},
 			"word-vth":		{
 				title:	"Hiragana Voice-to-Word Drill"
@@ -48,11 +48,11 @@ JAP.image.loadBatch("essential",
 			},
 			"links": 		{
 				title:	"Japanese Learning Links",
-				module:	new JAP.hira.mods.Links()
+				module:	new JAP.mods.Links()
 			},
 			"about": 		{
 				title:	"About Hiragana Drills",
-				module:	new JAP.hira.mods.About()
+				module:	new JAP.mods.About()
 			}
 		};
 
@@ -103,7 +103,7 @@ JAP.image.loadBatch("essential",
 		_.addEvent($id("show-table-button"), "click", function (e) {
 			var evt = e || window.event;
 
-			JAP.hira.tableDown.show();
+			JAP.main.tableDown.show();
 			onResize();
 			return _.cancelEvent(evt);
 		});
@@ -126,14 +126,12 @@ JAP.image.loadBatch("essential",
 				}
 			}, 100);
 		}
-		loadHashBang();
-
 	}
 
 	function preloadAudio () {
 		// create audio component for preloading
 		var audio2 	= document.createElement("audio"),
-			codes 	= JAP.hira.mods.UNICODE_MAP,
+			codes 	= JAP.mods.UNICODE_MAP,
 			gooId 	= -1,
 			clipId	= -1,
 			audio1	= null;
@@ -268,14 +266,14 @@ JAP.image.loadBatch("essential",
 
 		var leftArray = [];
 		for (var x = 0; x < 5; x++) {
-			for (var y = hira.mods.UNICODE_MAP.length/5-1; y>= 0; y--) {
-				leftArray.push(JAP.hira.mods.UNICODE_MAP[y * 5 + x]);
+			for (var y = JAP.mods.UNICODE_MAP.length/5-1; y>= 0; y--) {
+				leftArray.push(JAP.mods.UNICODE_MAP[y * 5 + x]);
 			}
 		}
 		var topH = ["A", "I", "U", "E", "O"];
 		var leftH= [" ","K", "S", "T", "N", "H", "M", "Y", "R", "W"];
-		JAP.hira.tableDown = buildTable(JAP.hira.mods.UNICODE_MAP, 5, topH, leftH);
-		JAP.hira.tableLeft = buildTable(leftArray, parseInt(JAP.hira.mods.UNICODE_MAP.length/5),leftH, topH, true);
+		JAP.main.tableDown = buildTable(JAP.mods.UNICODE_MAP, 5, topH, leftH);
+		JAP.main.tableLeft = buildTable(leftArray, parseInt(JAP.mods.UNICODE_MAP.length/5),leftH, topH, true);
 	}
 
 	function showMenu () {
@@ -361,7 +359,7 @@ JAP.image.loadBatch("essential",
 
 		this.hide = function () {
 			this.visible 	= false;
-			var curMod = JAP.hira.currentModule;
+			var curMod = JAP.main.currentModule;
 
 			_.addClass(this.node, "expandable");
 			_.addClass(this.node, "zero-width");
@@ -456,9 +454,9 @@ JAP.image.loadBatch("essential",
 
 	function loadHashBang () {
 		var newHash 	= window.location.hash,
-			oldHash		= hira.oldHash || "/",
+			oldHash		= ns.oldHash || "/",
 			from		= encodeURIComponent(oldHash);
-		hira.oldHash	= newHash;
+		ns.oldHash	= newHash;
 
 		var uriSafe	= encodeURIComponent(newHash);
 		// If there is a new hashbang link
@@ -471,7 +469,7 @@ JAP.image.loadBatch("essential",
 				var mod = full;
 			}
 
-			var modinfo = hira.MOD_TABLE[full];
+			/*var modinfo = ns.MOD_TABLE[full];
 
 			if (modinfo && modinfo.module) {
 				if (!contentPane.visible) {
@@ -482,15 +480,15 @@ JAP.image.loadBatch("essential",
 				}
 				
 				document.title = modinfo.title;
-				JAP.hira.currentModule = modinfo.module;
+				JAP.main.currentModule = modinfo.module;
 				_.doAJAXPost("error=0&link="+uriSafe+"&from="+from, "ajax/log_usage.php");
 			}
 			else {
 				_.doAJAXPost("error=1&link="+uriSafe+"&from="+from, "ajax/log_usage.php");
-			}
+			}*/
+			JAP.pageManager.load(uriSafe);
 		}
-		else {
-			document.title = "Japanese Hiragana | Drills";
+		else {/*
 			if (contentPane.visible) {
 				contentPane.hide();
 				setTimeout(showMenu, 500);
@@ -498,12 +496,18 @@ JAP.image.loadBatch("essential",
 			else {
 				showMenu();
 			}
-			JAP.hira.currentModule = null;
+			JAP.main.currentModule = null;
+			*/
 			_.doAJAXPost("error=0&link="+uriSafe+"&from="+from,"ajax/log_usage.php");
-			if (newHash==""){
+			if (newHash!="#!/"){
 				window.location.hash = "#!/";
 			}
+			JAP.pageManager.load(encodeURIComponent("#!/"));
 		}
 	}
 
-}) (JAP.namespace("JAP.hira"));
+	ns.loadHashBang		= loadHashBang;
+
+	loadHashBang();
+
+}) (JAP.namespace("JAP.main"));

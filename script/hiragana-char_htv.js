@@ -16,7 +16,7 @@
 		this.changeTimer = null;
 		this.readTimer	 = null;
 	}
-	CharHTV.prototype = new JAP.hira.mods.Module();
+	CharHTV.prototype = new JAP.mods.Module();
 
 	CharHTV.prototype.build = function () {
 		var self = this;
@@ -267,5 +267,5 @@
 	};
 
 	ns.CharHTV = CharHTV;
-}) (JAP.namespace("JAP.hira.mods"));
+}) (JAP.namespace("JAP.mods"));
 

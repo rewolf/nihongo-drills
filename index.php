@@ -1,11 +1,13 @@
 <?php
 	require_once("includes/pagehit.php");
+	require_once("includes/for_googlebot.php");
 ?>
 <!DOCTYPE HTML>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" /> 
+    <meta name="fragment" content="!" />
 	<title>Nihongo Drills | Japanese Hiragana and Katakana Tests and Quiz</title>
     <meta name="description" content="Practise and test your memorisation of Japanese hiragana and katakana characters and their pronunciations using the drills on this site." />
     <meta name="keywords" content="japanese,nihongo,practise,drill,memorise,pronounce,speak,learn" />
@@ -51,7 +53,7 @@
 		</div>
 	</header>
 	<div id="layout-middle" class="open-anim">
-		
+		<!--
 		<div class="menu-row">
 			<a href="#!/char-htv" id="item-char-htv" class="menu-item panel-link invisible offscreen-item" title="Drill your recognition of hiragana characters. Speak it as you see it.">
             	<div class="menu-item-icon icon-1"></div>
@@ -81,6 +83,8 @@
 			<div id="content-holder">
 			</div>
 		</div>
+		-->
+		<?php fillPageContent(); ?>
 	</div>
 	<footer id="layout-bottom" class="dark-panel">
 		<div id="footer-links" class="zero-opacity" >
@@ -149,6 +153,7 @@
 
 	<!--  NO JS -->
 	<div id="no-js-message">
+		<?php if (!isset($_REQUEST["_escaped_fragment_"])) { ?>
 		<p>
 			Nihongo Drills is an interactive website for testing, practising and drilling your knowledge of 
 			the Kana characters fundamental to the Japanese language.
@@ -158,10 +163,12 @@
 			will need to either enable Javascript or download a browser that does support
 			it.
 		</p>
+		<?php } ?>
 	</div>
 	<audio id="audio-cap-tester" class="nothing"></audio>
 	<script type="text/javascript">
 		document.getElementById("no-js-message").innerHTML = "Loading..";
+		JAP.main.loadHashBang();
 	</script>
 </body>
 </html>

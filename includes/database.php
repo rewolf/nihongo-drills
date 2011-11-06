@@ -2,7 +2,7 @@
 	$db_host        = "nihongodb.db.8176161.hostedresource.com";
 
 	$db_host 	= "localhost";
-	$db_user	= "nihongodn";
+	$db_user	= "nihongodb";
 	$db_pass	= "n1h0ng0#D";
 	//$db_schema= "test";
 	$db_schema	= "nihongodb";

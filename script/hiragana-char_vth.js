@@ -13,7 +13,7 @@
 	function CharVTH () {
 		this.build();
 	}
-	CharVTH.prototype = new JAP.hira.mods.Module();
+	CharVTH.prototype = new JAP.mods.Module();
 
 	CharVTH.prototype.build = function () {
 		var self = this;
@@ -274,5 +274,5 @@
 	};
 
 	ns.CharVTH = CharVTH;
-}) (JAP.namespace("JAP.hira.mods"));
+}) (JAP.namespace("JAP.mods"));
 

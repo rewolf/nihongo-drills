@@ -26,10 +26,6 @@
 		$agent		= getParam("HTTP_USER_AGENT");
 		$ip			= getParam("REMOTE_ADDR");
 		
-		if (strstr($agent,"wget") || strstr($agent,"Wget")){
-			header("Location:http://www.google.com");
-		}
-
 		if (dbConnect()) {
 			
 			$res  = dbSelectRow("SELECT id FROM pagehit WHERE sessid=? AND ip=?",array("ss", &$sessid, &$ip), array(&$sess_row_id));

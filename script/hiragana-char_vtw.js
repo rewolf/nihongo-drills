@@ -14,7 +14,7 @@
 		this.charIsShown = false;
 		this.build();
 	}
-	CharVTW.prototype = new JAP.hira.mods.Module();
+	CharVTW.prototype = new JAP.mods.Module();
 
 	CharVTW.prototype.build = function () {
 		var self = this;
@@ -376,5 +376,5 @@
 	};
 
 	ns.CharVTW = CharVTW;
-}) (JAP.namespace("JAP.hira.mods"));
+}) (JAP.namespace("JAP.mods"));
 

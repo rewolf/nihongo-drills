@@ -12,7 +12,8 @@ TEST_PATH		= "~/html/nd/ndalpha/"
 js_files = [
 	"script/common.js", 
 	"script/image.js", 
-	"script/hiragana.js",
+	"script/page-manager.js",
+	"script/main.js",
 	"script/hiragana-module.js",
 	"script/hiragana-char_htv.js",
 	"script/hiragana-char_vth.js",
@@ -29,7 +30,8 @@ js_mods = {
 	"hira-main" : [
 		"script/common.js", 
 		"script/image.js", 
-		"script/hiragana.js",
+		"script/page-manager.js",
+		"script/main.js",
 		"script/hiragana-module.js"
 	],
 	"hira-char" : [
@@ -66,7 +68,8 @@ res = [
 	"res/fonts",
 	"res/audio",
 	"includes",
-	"ajax"
+	"ajax",
+	"pages"
 ]
 
 def main():

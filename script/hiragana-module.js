@@ -125,6 +125,6 @@
 	ns.Module 	= Module;
 	ns.About	= About;
 	ns.Links	= Links;
-}) (JAP.namespace("JAP.hira.mods"));
+}) (JAP.namespace("JAP.mods"));
 
 
