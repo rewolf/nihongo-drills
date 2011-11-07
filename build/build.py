@@ -12,6 +12,8 @@ TEST_PATH		= "~/html/nd/ndalpha/"
 js_files = [
 	"script/common.js", 
 	"script/image.js", 
+	"script/page.js",
+	"script/modules.js",
 	"script/page-manager.js",
 	"script/main.js",
 	"script/hiragana-module.js",
@@ -30,9 +32,11 @@ js_mods = {
 	"hira-main" : [
 		"script/common.js", 
 		"script/image.js", 
+		"script/page.js",
+		"script/modules.js",
 		"script/page-manager.js",
 		"script/main.js",
-		"script/hiragana-module.js"
+		#"script/hiragana-module.js"
 	],
 	"hira-char" : [
 		"script/hiragana-char_htv.js",
@@ -53,8 +57,8 @@ css_mods = {
 pages = {
 	"index.php" : {
 		"js":	[
-			"hira-main",
-			"hira-char"
+			"hira-main"
+		#	"hira-char"
 		],
 		"css":	[
 			("basic", 		"screen,handheld"),

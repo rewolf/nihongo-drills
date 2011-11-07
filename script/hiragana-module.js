@@ -122,9 +122,9 @@
 	Links.prototype	= new Module();
 
 	// Bind to this namespace
-	ns.Module 	= Module;
-	ns.About	= About;
-	ns.Links	= Links;
+	//ns.Module 	= Module;
+	//ns.About	= About;
+	//ns.Links	= Links;
 }) (JAP.namespace("JAP.mods"));
 
 

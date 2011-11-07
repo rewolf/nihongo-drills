@@ -23,7 +23,7 @@ JAP.image.loadBatch("essential",
 		Finished loading -> open up the screen
 	*/
 	function onLoad () {
-
+/*
 		ns.MOD_TABLE = {
 			"char-htv":		{
 				title:	"Hiragana Character-to-Voice Drill",
@@ -55,7 +55,7 @@ JAP.image.loadBatch("essential",
 				module:	new JAP.mods.About()
 			}
 		};
-
+*/
 		var audtest = $id("audio-cap-tester");
 		if (!_.exists(audtest.play) || !_.exists(audtest.pause) || !_.exists(audtest.load) || !_.exists(audtest.readyState)) {
 			var display = $id("no-js-message");
@@ -74,7 +74,7 @@ JAP.image.loadBatch("essential",
 		}
 		else {
 			//preloadAudio();
-			buildCharTables();
+	//		buildCharTables();
 			JAP.image.watchBatch("essential", {
 				onImagesReady:	onReady
 			});

@@ -16,12 +16,12 @@
 			if (this.status==200) {
 				data		= _.evalJSON(this.responseText);
 
-					console.log(this.responseText);
 				if (!data.error) {
 					pageMap[data.url] = {
 						title:		data.title,
 						type:		data.type,
-						content:	data.content
+						content:	data.content,
+						url:		data.url
 					};
 					
 					ns.pageManager.showPage(pageMap[data.url]);
@@ -37,7 +37,7 @@
 	}
 
 	function PageManager () {
-		
+		this.currentPage = null;
 	}
 
 	PageManager.prototype.isLoaded = function (hashPath) {
@@ -56,27 +56,23 @@
 	PageManager.prototype.showPage = function (pageInfo) {
 		var container		= $id("layout-middle");
 		if (pageInfo.type == "module") {
-			if (!$id("content-pane")) {
-				var holder 		= document.createElement("div"),
-					contentPane	= document.createElement("div");
-				
-				contentPane.className	= "nothing zero-width";
-				contentPane.id			= "content-pane";
-				
-				holder.id				= "content-holder";
-				
-				contentPane.appendChild(holder);
-				container.appendChild(contentPane);
-				container = holder;		
-			}
-			else {
-				container = $id("content-holder");
+			// find the appropriate module handler
+			for (var m in JAP.mods) {
+				var mod 	= JAP.mods[m];
+
+				// check it is a mod function that matches this url
+				if (mod.pageHash == pageInfo.url) {
+					var obj 	= new mod();
+					obj.setContent(pageInfo.content);
+					break;
+				}
 			}
 		}
-		container.innerHTML = pageInfo.content;
+		this.currentPage	= pageInfo;
 	};
-
 
 	// singleton
 	ns.pageManager 		= new PageManager();
+
 })(JAP.namespace("JAP"));
+

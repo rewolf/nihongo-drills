@@ -12,21 +12,74 @@
 		this.hashURL	= null;
 	}
 	
-	Page.prototype.setContent = function (html) {
-	};
-	
 	
 	/***********************************************************
 	 * The module - subclasses page to provide module-specific functionality
 	 ***********************************************************/
 	function Module () {
-		// Used for matching pages with handling objects
-		this.pageHash	= null;
+		this.settings = new ModuleSettingsBox();
 	}
 	Module.prototype = new Page();
 	
-	Module.prototype.isHandlerFor = function (hash) {
-		return this.pageHash!=null && hash == this.pageHash;
+	Module.prototype.setContent = function (html) {
+		var container = $id("layout-middle");
+		if (!$id("content-pane")) {
+			var holder 		= document.createElement("div"),
+				contentPane	= document.createElement("div");
+			
+			contentPane.className	= "nothing zero-width";
+			contentPane.id			= "content-pane";
+			
+			holder.id				= "content-holder";
+			
+			contentPane.appendChild(holder);
+			container.appendChild(contentPane);
+			container = holder;		
+		}
+		else {
+			container = $id("content-holder");
+		}
+		container.innerHTML = html;
+
+		this.node = $cls("module", container)[0];
+	};
+
+	/***********************************************************
+	 * A class to manage the settings of the module
+	 ***********************************************************/
+	function ModuleSettingsBox () {
+		this.node			= document.createElement("div");
+		this.node.className	= "drill-settings zero-opacity";
+		this.table			= document.createElement("table");
+		this.node.appendChild(this.table);
+	}
+
+	ModuleSettingsBox.prototype.createElem = function (tagName, id, labelText, tooltip, check) {
+		var elem = document.createElement(tagName),
+			label= document.createElement("label"),
+			row	 = document.createElement("tr"),
+			cell1= document.createElement("td"),
+			cell2= document.createElement("td");
+		elem.id			= id;
+		elem.setAttribute("title", tooltip);
+		label.setAttribute("for", id);
+		if (check) {
+			elem.setAttribute("type", "checkbox");
+		}
+		label.innerHTML = labelText;
+		cell1.appendChild(label);
+		cell2.appendChild(elem);
+		row.appendChild(cell1);
+		row.appendChild(cell2);
+		this.table.appendChild(row);
+		return elem;
+	};
+
+	ModuleSettingsBox.prototype.show = function () {
+		_.removeClass(this.node, "zero-opacity");
+	};
+	ModuleSettingsBox.prototype.hide = function () {
+		_.addClass(this.node, "zero-opacity");
 	};
 	 
 	/***********************************************************

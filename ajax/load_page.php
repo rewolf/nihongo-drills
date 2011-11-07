@@ -19,12 +19,12 @@
 			echo json_encode(loadAJAXMenu($hash));
 		}
 		else {
-			echo json_encode(loadPage("$path.php"));
+			echo json_encode(loadPage("$path.php",$hash));
 		}
 
 	}
 
-	function loadPage ($path) {
+	function loadPage ($path, $hash) {
 		$page_info = array(
 			"type"			=> "module",
 			"title"			=> "Not Sure",
