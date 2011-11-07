@@ -1,4 +1,5 @@
 <?php
+	require_once("../includes/menu_builder.php");
 
 	header("Content-Type:	application/json");
 
@@ -7,7 +8,7 @@
 		$path 		= "../pages/$hash";
 
 		if ($hash=="") {
-			$page_text = loadMenu($hash);
+			echo json_encode(loadAJAXMenu($hash));
 		}
 		else if (!file_exists($path) && !file_exists("$path.php")){
 			# Invalid hash reference
@@ -15,7 +16,7 @@
 			die_error();
 		}
 		else if (is_dir($path)) {
-			$page_text = loadMenu($hash);
+			echo json_encode(loadAJAXMenu($hash));
 		}
 		else {
 			echo json_encode(loadPage("$path.php"));
@@ -30,14 +31,28 @@
 			"url"			=> "#!/$hash",
 			"content"		=> file_get_contents($path)
 		);
+		
+		if ($page_info["content"] == false) {
+			$page_info["error"]	= 1;
+		}
 
 		return $page_info;
 	}
 
-	function loadMenu ($menu) {
+	function loadAJAXMenu ($menu) {
 		# Creates a menu content from the files in the directory
 		# Returns the menu code as well as the content from all contained pages
-
+		$page_info = array(
+			"type"			=>	"menu",
+			"title"			=>	"Not sure menu",
+			"url"			=>	"#!/$menu",
+			"content"		=>	loadMenu($menu)
+		);
+		if ($page_info["content"] == false) {
+			$page_info["error"]	= 1;
+		}
+		
+		return $page_info;
 	}
 
 	function die_error() {

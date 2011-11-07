@@ -14,13 +14,17 @@
 		var data;
 		if (this.readyState==4) {
 			if (this.status==200) {
-				data		= _.responseText;
+				data		= _.evalJSON(this.responseText);
 
+					console.log(this.responseText);
 				if (!data.error) {
 					pageMap[data.url] = {
 						title:		data.title,
+						type:		data.type,
 						content:	data.content
 					};
+					
+					ns.pageManager.showPage(pageMap[data.url]);
 				}
 				else {
 					// error
@@ -40,7 +44,36 @@
 	};
 
 	PageManager.prototype.load = function (hashPath) {
-		xhr.exec("hash="+hashPath, "replace");
+		if (hashPath in pageMap) {
+			alert("have already");
+			this.showPage(pageMap[hashPath]);
+		}
+		else {
+			xhr.exec("hash="+hashPath, "replace");
+		}
+	};
+	
+	PageManager.prototype.showPage = function (pageInfo) {
+		var container		= $id("layout-middle");
+		if (pageInfo.type == "module") {
+			if (!$id("content-pane")) {
+				var holder 		= document.createElement("div"),
+					contentPane	= document.createElement("div");
+				
+				contentPane.className	= "nothing zero-width";
+				contentPane.id			= "content-pane";
+				
+				holder.id				= "content-holder";
+				
+				contentPane.appendChild(holder);
+				container.appendChild(contentPane);
+				container = holder;		
+			}
+			else {
+				container = $id("content-holder");
+			}
+		}
+		container.innerHTML = pageInfo.content;
 	};
 
 

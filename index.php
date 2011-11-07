@@ -19,11 +19,13 @@
 	<meta property="fb:app_id" content="279700025395628" />
 
     <link rel="shortcut icon" href="res/images/favicon.gif" />
-    <link rel="stylesheet" href="style/common.css" />
-    <link rel="stylesheet" href="style/hiragana.css" />
+    <link rel="stylesheet" href="style/common.css" media="all"/>
+    <link rel="stylesheet" href="style/desktop.css" media="screen and (min-width: 1024px)" />
     <script type="text/javascript" src="script/common.js"></script>
     <script type="text/javascript" src="script/image.js"></script>
-    <script type="text/javascript" src="script/hiragana.js"></script>
+    <script type="text/javascript" src="script/page.js"></script>
+    <script type="text/javascript" src="script/page-manager.js"></script>
+    <script type="text/javascript" src="script/main.js"></script>
     <script type="text/javascript" src="script/hiragana-module.js"></script>
     <script type="text/javascript" src="script/hiragana-char_htv.js"></script>
     <script type="text/javascript" src="script/hiragana-char_vth.js"></script>
