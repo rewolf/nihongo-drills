@@ -12,6 +12,8 @@
 		$hash = trim($_REQUEST["_escaped_fragment_"], " /");
 		$path = "pages/$hash";
 
+		$exclude_js = true;
+
 		if ($hash=="") {
 			$page_text = loadMenu($hash);
 		}

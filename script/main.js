@@ -19,43 +19,17 @@ JAP.image.loadBatch("essential",
 		return JAP.winW >= THRESHOLD_W;
 	}
 
+	var firstContentLoadTimer = setInterval(function () {
+		if ($id("layout-middle")) {
+			loadHashBang();
+			clearInterval(firstContentLoadTimer);
+		}
+	}, 100);
+
 	/*
 		Finished loading -> open up the screen
 	*/
 	function onLoad () {
-/*
-		ns.MOD_TABLE = {
-			"char-htv":		{
-				title:	"Hiragana Character-to-Voice Drill",
-				module:	new JAP.mods.CharHTV()
-			},
-			"char-vth":		{
-				title:	"Hiragana Voice-to-Character Drill",
-				module:	new JAP.mods.CharVTH()
-			},
-			"char-vtw":		{
-				title:	"Hiragana Voice-to-Writing Drill",
-				module:	new JAP.mods.CharVTW()
-			},
-			"word-vth":		{
-				title:	"Hiragana Voice-to-Word Drill"
-			},
-			"lang-htl":		{
-				title:	"Hiragana Word-to-English Drill"
-			},
-			"lang-lth":		{
-				title:	"Hiragana English-to-Word Drill"
-			},
-			"links": 		{
-				title:	"Japanese Learning Links",
-				module:	new JAP.mods.Links()
-			},
-			"about": 		{
-				title:	"About Hiragana Drills",
-				module:	new JAP.mods.About()
-			}
-		};
-*/
 		var audtest = $id("audio-cap-tester");
 		if (!_.exists(audtest.play) || !_.exists(audtest.pause) || !_.exists(audtest.load) || !_.exists(audtest.readyState)) {
 			var display = $id("no-js-message");
@@ -75,14 +49,30 @@ JAP.image.loadBatch("essential",
 		else {
 			//preloadAudio();
 	//		buildCharTables();
-			JAP.image.watchBatch("essential", {
-				onImagesReady:	onReady
-			});
+
+			// wait for images and page content to load
+			var resLoadTimer = setInterval(function() {
+				var pageState = JAP.pageManager.getLoadState(),
+					imageState= JAP.image.getBatchProgress("essential");
+				
+				if (imageState >= 1  &&  pageState == "idle") {
+					if (JAP.pageManager.currentPage != null) {
+						onReady();
+					}
+					else {
+						// error happened
+					}
+					clearInterval(resLoadTimer);
+				}
+				
+			}, 100);
 		}
 	}
 
 	function onReady () {
+		// remove the damn screen blocker
 		_.removeClass($id("screen-block"), "nothing");
+		// Open the content area
 		setTimeout(setup, 600);
 		$id("layout-middle").style.backgroundColor = "#222";
 
@@ -91,11 +81,13 @@ JAP.image.loadBatch("essential",
 
 	function setup () {
 		var items 	= $cls("menu-item");
-		_.removeClass($id("layout-middle"), "open-anim");
+		_.removeClass($id("layout-middle"), "color-change-anim");
 		_.removeClass($id("footer-links"), "zero-opacity");
 		_.addEvent(window, "resize", onResize);
 
-		contentPane	= new ContentPane();
+		if (JAP.pageManager.currentPage) {
+			JAP.pageManager.currentPage.show();
+		}
 
 		onResize();
 
@@ -325,66 +317,6 @@ JAP.image.loadBatch("essential",
 		}, 1000);
 	}
 
-
-	function ContentPane () {
-		this.visible	= false;
-		this.node		= $id("content-pane");
-		this.container	= $id("layout-middle");
-		this.fullWidth	= 0; // adjusted on resize
-		var self = this;
-
-		this.show = function () {
-			this.visible 	= true;
-			_.removeClass(this.node, "nothing");
-
-			// First centre the zero-width pane and make it visible
-			var contW	= this.container.clientWidth,
-				contH	= this.container.clientHeight;
-
-			this.node.style.left = contW/2 + "px";
-			this.node.style.top	 = "0px";
-			var dummy = this.node.clientWidth; // reflow before we start the expansion 
-			
-			// Start the expansion
-			_.addClass(this.node, "expandable");
-			this.node.style.left = contW/2 - this.fullWidth/2 + "px";
-			this.node.style.width = this.fullWidth + "px";
-			_.removeClass(this.node, "zero-width");
-
-			setTimeout(function () {
-				_.removeClass(self.node, "expandable");
-			}, 500);
-
-		};
-
-		this.hide = function () {
-			this.visible 	= false;
-			var curMod = JAP.main.currentModule;
-
-			_.addClass(this.node, "expandable");
-			_.addClass(this.node, "zero-width");
-			this.node.style.left = this.container.clientWidth/2 + "px";
-			setTimeout(function () {
-				_.addClass(self.node, "nothing");
-				_.removeClass(self.node, "expandable");
-				if (curMod) {
-					curMod.hide();
-				}
-			}, 500);
-
-		};
-
-		this.onResize = function () {
-			this.fullWidth	= parseInt(this.container.clientWidth * .666);
-			this.node.style.height = this.container.clientHeight + "px";
-			if (this.visible) {
-				// move to the new centre
-				this.node.style.left = this.container.clientWidth/2 - this.fullWidth/2 + "px";
-				this.node.style.width = this.fullWidth + "px";
-			}
-		};
-	}
-
 	function onResize() {
 		var midlayout		= $id("layout-middle"),
 			header			= $id("layout-top"),
@@ -435,8 +367,8 @@ JAP.image.loadBatch("essential",
 				menuItems[i].style.marginTop = "";
 			}
 		}
-		if (contentPane) {
-			contentPane.onResize();
+		if (JAP.pageManager.currentPage) {
+			JAP.pageManager.currentPage.resize();
 		}
 		
 

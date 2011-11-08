@@ -8,10 +8,25 @@
 	function Page () {
 		this.node 		= null;
 		this.content	= null;
-		this.infoObj	= null;
+		this.pageInfo	= null;
 		this.hashURL	= null;
 	}
-	
+	Page.prototype.setup = function(pageInfo) {
+		this.pageInfo	= pageInfo;
+		this.visible	= false;
+	};
+
+	Page.prototype.resize = function () {
+	};
+
+	Page.prototype.show = function () {
+		this.visible	= true;
+	};
+
+	Page.prototype.hide = function () {
+		this.visible	= false;
+	};
+
 	
 	/***********************************************************
 	 * The module - subclasses page to provide module-specific functionality
@@ -21,27 +36,78 @@
 	}
 	Module.prototype = new Page();
 	
-	Module.prototype.setContent = function (html) {
-		var container = $id("layout-middle");
-		if (!$id("content-pane")) {
-			var holder 		= document.createElement("div"),
-				contentPane	= document.createElement("div");
-			
-			contentPane.className	= "nothing zero-width";
-			contentPane.id			= "content-pane";
-			
-			holder.id				= "content-holder";
-			
-			contentPane.appendChild(holder);
-			container.appendChild(contentPane);
-			container = holder;		
-		}
-		else {
-			container = $id("content-holder");
-		}
-		container.innerHTML = html;
+	Module.prototype.setup = function (pageInfo) {
+		Page.prototype.setup.call(this, pageInfo);
+		
+		this.container	= $id("layout-middle");
+		this.contentNode= $id("content-pane");
+		var html		= pageInfo.content;
 
-		this.node = $cls("module", container)[0];
+		if (!this.contentNode) {
+			this.contentNode 			= document.createElement("div");
+			
+			this.contentNode.className	= "nothing zero-width";
+			this.contentNode.id			= "content-pane";
+			
+			this.container.appendChild(this.contentNode);
+		}
+		this.contentNode.innerHTML = html;
+
+		this.node = $cls("module", this.contentNode)[0];
+	};
+
+	Module.prototype.resize = function () {
+		Page.prototype.resize.call(this);
+
+		this.contentWidth	= parseInt(this.container.clientWidth * .666);
+		this.contentNode.style.height = this.container.clientHeight + "px";
+		if (this.visible) {
+			// move to the new centre
+			this.contentNode.style.left 	= this.container.clientWidth/2 - this.contentWidth/2 + "px";
+			this.contentNode.style.width 	= this.contentWidth + "px";
+		}
+	};
+
+	Module.prototype.show = function () {
+		Page.prototype.show.call(this);
+		var self = this;
+
+		_.removeClass(this.contentNode, "nothing");
+
+		// First centre the zero-width pane and make it visible
+		var contW	= this.container.clientWidth,
+			contH	= this.container.clientHeight;
+
+		this.contentNode.style.left 	= contW/2 + "px";
+		this.contentNode.style.top	 	= "0px";
+		var dummy = this.contentNode.clientWidth; // reflow before we start the expansion 
+		
+		// Start the expansion
+		_.addClass(this.contentNode, "expandable");
+		this.contentNode.style.left 	= contW/2 - this.fullWidth/2 + "px";
+		this.contentNode.style.width 	= this.fullWidth + "px";
+		_.removeClass(this.contentNode, "zero-width");
+
+		setTimeout(function () {
+			_.removeClass(self.contentNode, "expandable");
+		}, 500);
+
+		setTimeout(function(){self.settings.show();}, 700);
+		this.resize();
+	};
+
+	Module.prototype.hide = function () {
+		Page.prototype.hide.call(this);
+		var self = this;
+
+		this.settings.hide();
+		_.addClass(this.contentNode, "expandable");
+		_.addClass(this.contentNode, "zero-width");
+		this.contentNode.style.left = this.container.clientWidth/2 + "px";
+		setTimeout(function () {
+			_.addClass(self.contentNode, "nothing");
+			_.removeClass(self.contentNode, "expandable");
+		}, 500);
 	};
 
 	/***********************************************************

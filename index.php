@@ -43,50 +43,21 @@
 			<g:plusone annotation="none" size="medium" width="100" href="http://www.nihongodrills.com"></g:plusone>
 			<!-- Place this render call where appropriate -->
 			<script type="text/javascript">
-			  JAP.util.addEvent(window, "load", function() {
-				  var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-				  po.src = 'https://apis.google.com/js/plusone.js';
-				  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+				if (window.JAP) {
+				  JAP.util.addEvent(window, "load", function() {
+					  var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+					  po.src = 'https://apis.google.com/js/plusone.js';
+					  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
 
-				  po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-				  po.src = "//platform.twitter.com/widgets.js";
-				  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-			  });
+					  po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+					  po.src = "//platform.twitter.com/widgets.js";
+					  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+				  });
+				}
 			</script>
 		</div>
 	</header>
-	<div id="layout-middle" class="open-anim">
-		<!--
-		<div class="menu-row">
-			<a href="#!/char-htv" id="item-char-htv" class="menu-item panel-link invisible offscreen-item" title="Drill your recognition of hiragana characters. Speak it as you see it.">
-            	<div class="menu-item-icon icon-1"></div>
-            	<div class="menu-item-icon icon-2"></div>
-            	<div class="menu-item-icon icon-3"></div>
-			</a>
-			<a href="#!/char-vtw" id="item-char-vtw" class="menu-item panel-link invisible offscreen-item" title="Practise writing the characters as you hear them">
-            	<div class="menu-item-icon icon-1"></div>
-            	<div class="menu-item-icon icon-2"></div>
-            	<div class="menu-item-icon icon-3"></div>
-			</a>
-		</div>
-		<div class="menu-row">
-			<a href="#!/char-vth" id="item-char-vth" class="menu-item panel-link invisible offscreen-item" title="Drill your memory of hiragana characters. Choose the character matching the sound.">
-            	<div class="menu-item-icon icon-1"></div>
-            	<div class="menu-item-icon icon-2"></div>
-            	<div class="menu-item-icon icon-3"></div>
-			</a>
-			<a href="#!/word-vth" id="item-word-vth" class="menu-item panel-link invisible offscreen-item" title="">
-            	more coming...<br>Suggestions are welcome!
-			</a>
-		</div>
-		
-		<div id="content-pane" class="nothing zero-width">
-			<a href="#!/" id="menu-button" class="panel-link" title="Back to Hiragan Home Menu">
-			</a>
-			<div id="content-holder">
-			</div>
-		</div>
-		-->
+	<div id="layout-middle" class="color-change-anim">
 		<?php fillPageContent(); ?>
 	</div>
 	<footer id="layout-bottom" class="dark-panel">
@@ -171,7 +142,6 @@
 	<audio id="audio-cap-tester" class="nothing"></audio>
 	<script type="text/javascript">
 		document.getElementById("no-js-message").innerHTML = "Loading..";
-		JAP.main.loadHashBang();
 	</script>
 </body>
 </html>

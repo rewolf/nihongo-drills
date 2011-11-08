@@ -40,6 +40,10 @@
 		this.currentPage = null;
 	}
 
+	PageManager.prototype.getLoadState = function () {
+		return xhr.isBusy() && "waiting" || "idle";
+	};
+
 	PageManager.prototype.isLoaded = function (hashPath) {
 	};
 
@@ -62,13 +66,14 @@
 
 				// check it is a mod function that matches this url
 				if (mod.pageHash == pageInfo.url) {
-					var obj 	= new mod();
-					obj.setContent(pageInfo.content);
+					var obj 		= new mod();
+					obj.setup(pageInfo);
+					pageInfo.handler = obj;
+					this.currentPage = obj;
 					break;
 				}
 			}
 		}
-		this.currentPage	= pageInfo;
 	};
 
 	// singleton

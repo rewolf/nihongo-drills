@@ -61,7 +61,7 @@ footer {
 	position:				relative;
 }
 
-.open-anim {
+.color-change-anim {
 	-webkit-transition:		background-color 1s ease, height .5s linear;
 	-moz-transition:		background-color 1s ease, height .5s linear;
 	-o-transition:			background-color 1s ease, height .5s linear;

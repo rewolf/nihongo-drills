@@ -16,8 +16,8 @@
 	// Set this to identify this class for handling the following hash url
 	Char_Hira_toVoice.pageHash			= "#!/character-drills/hiragana/to-voice";
 
-	Char_Hira_toVoice.prototype.setContent = function (html) {
-		JAP.Module.prototype.setContent.call(this, html);
+	Char_Hira_toVoice.prototype.setup = function (html) {
+		JAP.Module.prototype.setup.call(this, html);
 
 		// Now we gain handles on vital components
 		this.charDiv		= $cls("random-char-holder", this.node)[0];
@@ -165,8 +165,8 @@
 	Char_Hira_toVoice.prototype.constructor = Char_Hira_fromVoice;
 	Char_Hira_fromVoice.pageHash		= "#!/character-drills/hiragana/from-voice";
 
-	Char_Hira_fromVoice.setContent = function (html) {
-		JAP.Module.prototype.setContent.call(this, html);
+	Char_Hira_fromVoice.setup = function (html) {
+		JAP.Module.prototype.setup.call(this, html);
 	};
 
 	/***************************************************************
@@ -179,8 +179,8 @@
 	Char_Hira_toVoice.prototype.constructor = Char_Hira_writeTest;
 	Char_Hira_writeTest.pageHash		= "#!/character-drills/hiragana/write-test";
 
-	Char_Hira_writeTest.setContent = function (html) {
-		JAP.Module.prototype.setContent.call(this, html);
+	Char_Hira_writeTest.setup = function (html) {
+		JAP.Module.prototype.setup.call(this, html);
 	};
 
 	// Export to outside
