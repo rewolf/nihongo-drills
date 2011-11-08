@@ -70,8 +70,6 @@ JAP.image.loadBatch("essential",
 	}
 
 	function onReady () {
-		// remove the damn screen blocker
-		_.removeClass($id("screen-block"), "nothing");
 		// Open the content area
 		setTimeout(setup, 600);
 		$id("layout-middle").style.backgroundColor = "#222";

@@ -13,13 +13,10 @@ js_files = [
 	"script/common.js", 
 	"script/image.js", 
 	"script/page.js",
+	"script/abstract-modules.js",
 	"script/modules.js",
 	"script/page-manager.js",
-	"script/main.js",
-	"script/hiragana-module.js",
-	"script/hiragana-char_htv.js",
-	"script/hiragana-char_vth.js",
-	"script/hiragana-char_vtw.js"
+	"script/main.js"
 ]
 
 css_files = [
@@ -33,15 +30,10 @@ js_mods = {
 		"script/common.js", 
 		"script/image.js", 
 		"script/page.js",
+		"script/abstract-modules.js",
 		"script/modules.js",
 		"script/page-manager.js",
 		"script/main.js",
-		#"script/hiragana-module.js"
-	],
-	"hira-char" : [
-		"script/hiragana-char_htv.js",
-		"script/hiragana-char_vth.js",
-		"script/hiragana-char_vtw.js"
 	]
 }
 
@@ -58,7 +50,6 @@ pages = {
 	"index.php" : {
 		"js":	[
 			"hira-main"
-		#	"hira-char"
 		],
 		"css":	[
 			("basic", 		"screen,handheld"),

@@ -25,12 +25,9 @@
     <script type="text/javascript" src="script/image.js"></script>
     <script type="text/javascript" src="script/page.js"></script>
     <script type="text/javascript" src="script/page-manager.js"></script>
+    <script type="text/javascript" src="script/abstract-modules.js"></script>
     <script type="text/javascript" src="script/modules.js"></script>
     <script type="text/javascript" src="script/main.js"></script>
-    <script type="text/javascript" src="script/hiragana-module.js"></script>
-    <script type="text/javascript" src="script/hiragana-char_htv.js"></script>
-    <script type="text/javascript" src="script/hiragana-char_vth.js"></script>
-    <script type="text/javascript" src="script/hiragana-char_vtw.js"></script>
 </head>
 <body>
 	<header id="layout-top" class="dark-panel">

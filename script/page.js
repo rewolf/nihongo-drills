@@ -38,7 +38,6 @@
 	
 	Module.prototype.setup = function (pageInfo) {
 		Page.prototype.setup.call(this, pageInfo);
-		
 		this.container	= $id("layout-middle");
 		this.contentNode= $id("content-pane");
 		var html		= pageInfo.content;

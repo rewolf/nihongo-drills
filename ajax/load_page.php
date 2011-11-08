@@ -32,8 +32,9 @@
 			"content"		=> file_get_contents($path)
 		);
 		
-		if ($page_info["content"] == false) {
+		if ($page_info["content"] === false) {
 			$page_info["error"]	= 1;
+			$page_info["msg"]	= "no content";
 		}
 
 		return $page_info;
