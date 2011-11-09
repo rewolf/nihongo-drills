@@ -54,7 +54,6 @@ JAP.image.loadBatch("essential",
 			var resLoadTimer = setInterval(function() {
 				var pageState = JAP.pageManager.getLoadState(),
 					imageState= JAP.image.getBatchProgress("essential");
-				
 				if (imageState >= 1  &&  pageState == "idle") {
 					if (JAP.pageManager.currentPage != null) {
 						onReady();
@@ -82,10 +81,6 @@ JAP.image.loadBatch("essential",
 		_.removeClass($id("layout-middle"), "color-change-anim");
 		_.removeClass($id("footer-links"), "zero-opacity");
 		_.addEvent(window, "resize", onResize);
-
-		if (JAP.pageManager.currentPage) {
-			JAP.pageManager.currentPage.show();
-		}
 
 		onResize();
 
@@ -341,34 +336,9 @@ JAP.image.loadBatch("essential",
 			midlayout.style.height = "";
 		}
 
-		if (isAppOnePage()) {
-			var numCols = $cls("menu-item", $cls("menu-row")[0]).length;
-			var numRows	= $cls("menu-row").length;
-
-			for (var i = 0; i < items.length;  i++) {
-				items[i].style.width		= Math.floor(midlayout.clientWidth/numCols) -14 + "px";
-				items[i].style.height		= Math.floor(midHeight/numRows) -14 + "px";
-			}
-
-			var menuItems = $cls("menu-item-icon");
-			for (var i = 0; i < menuItems.length; i++) {
-				menuItems[i].style.marginTop = (parseInt(midHeight/numRows)-14)/2 - 40 + "px";
-			}
-		}
-		else {
-			for (var i = 0; i < items.length;  i++) {
-				items[i].style.width		= "";
-				items[i].style.height		= "";
-			}
-			var menuItems = $cls("menu-item-icon");
-			for (var i = 0; i < menuItems.length; i++) {
-				menuItems[i].style.marginTop = "";
-			}
-		}
 		if (JAP.pageManager.currentPage) {
 			JAP.pageManager.currentPage.resize();
 		}
-		
 
 		var centredX= $cls("centred-X"),
 			centredY= $cls("centred-Y");
@@ -386,8 +356,10 @@ JAP.image.loadBatch("essential",
 		var newHash 	= window.location.hash,
 			oldHash		= ns.oldHash || "/",
 			from		= encodeURIComponent(oldHash);
-		ns.oldHash	= newHash;
 
+		if (oldHash == newHash) {
+			return;
+		}
 		var uriSafe	= encodeURIComponent(newHash);
 		// If there is a new hashbang link
 		if (newHash.trim().length > 3 ){
@@ -399,44 +371,33 @@ JAP.image.loadBatch("essential",
 				var mod = full;
 			}
 
-			/*var modinfo = ns.MOD_TABLE[full];
-
-			if (modinfo && modinfo.module) {
-				if (!contentPane.visible) {
-					hideMenu();
-					setTimeout(function(){modinfo.module.show();}, 600);
-				}else {
-					modinfo.module.show();
-				}
-				
-				document.title = modinfo.title;
-				JAP.main.currentModule = modinfo.module;
-				_.doAJAXPost("error=0&link="+uriSafe+"&from="+from, "ajax/log_usage.php");
+			if (JAP.pageManager.load(newHash)) {
+				_.doAJAXPost("error=0&link="+uriSafe+"&from="+from,"ajax/log_usage.php");
 			}
 			else {
-				_.doAJAXPost("error=1&link="+uriSafe+"&from="+from, "ajax/log_usage.php");
-			}*/
-			JAP.pageManager.load(uriSafe);
+				window.location.hash = oldHash;
+				return;
+			}
 		}
-		else {/*
-			if (contentPane.visible) {
-				contentPane.hide();
-				setTimeout(showMenu, 500);
-			}
-			else {
-				showMenu();
-			}
-			JAP.main.currentModule = null;
-			*/
-			_.doAJAXPost("error=0&link="+uriSafe+"&from="+from,"ajax/log_usage.php");
+		else {
 			if (newHash!="#!/"){
 				window.location.hash = "#!/";
 			}
-			JAP.pageManager.load(encodeURIComponent("#!/"));
+			else {
+				if (JAP.pageManager.load("#!/")) {
+					_.doAJAXPost("error=0&link="+uriSafe+"&from="+from,"ajax/log_usage.php");
+				}
+				else{
+					window.location.hash = oldHash;
+					return;
+				}
+			}
 		}
+		ns.oldHash	= newHash;
 	}
 
 	ns.loadHashBang		= loadHashBang;
+	ns.isAppOnePage		= isAppOnePage;
 
 	loadHashBang();
 

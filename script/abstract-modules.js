@@ -268,6 +268,8 @@
 		JAP.Module.call(this);
 		this.currentCharCell 	= null;
 		this.characterMap		= charMap;
+		this.currentCharCode	= null;
+		this.currentCharIndex 	= null;
 	}
 	Char_fromVoice.prototype		= new JAP.Module();
 	Char_fromVoice.prototype.constructor = Char_fromVoice;
@@ -376,7 +378,7 @@
 		// Use Google
 		if (obj == this.settings.useGoogle) {
 			// Change the loaded audio
-			this.loadAudio();
+			this.loadAudio(true);
 		}
 	};
 
@@ -415,7 +417,7 @@
 		this.createChoiceTable();
 
 		this.audio.pause();
-		this.loadAudio();
+		this.loadAudio(true);
 	};
 
 	Char_fromVoice.prototype.createChoiceTable = function () {
@@ -470,14 +472,295 @@
 	/***************************************************************
 	 * Handles modules that drill voice-to-writing recognition
 	 **************************************************************/
-	function Char_writeTest () {
+	function Char_writeTest (charMap) {
 		JAP.Module.call(this);
+		this.charIsShown 		= false;
+		this.currentCharCode	= null;
+		this.currentCharIndex 	= null;
+		this.characterMap		= charMap;
 	}
 	Char_writeTest.prototype		= new JAP.Module();
 	Char_writeTest.prototype.constructor = Char_writeTest;
 
-	Char_writeTest.setup = function (html) {
+	Char_writeTest.prototype.setup = function (html) {
 		JAP.Module.prototype.setup.call(this, html);
+		var self			= this;
+
+		// Now we gain handles on vital components
+		this.charDiv		= $cls("random-char-holder", this.node)[0];
+		this.playBut		= $cls("play-button", this.node)[0];
+		this.nextBut		= $cls("next-button", this.node)[0];
+		this.eraseBut		= $cls("erase-button", this.node)[0];
+		this.canvas			= $tag("canvas", this.node)[0];
+		this.bindCanvasEvents();
+
+		if (!this.canvas.getContext) {
+			this.node.removeChild(this.eraseBut);
+		}
+
+		// Create an audio element
+		this.audio			= document.createElement("audio");
+		this.audio.className= "nothing";
+		this.audio.setAttribute("preload", "preload");
+		this.node.appendChild(this.audio);
+
+		// Link for video
+		this.vidLink			= document.createElement("a");
+		this.vidLink.target		= "_blank";
+		this.node.appendChild(this.vidLink);
+
+		// build up the settings
+		this.buildSettings();
+		this.node.appendChild(this.settings.node);
+
+
+		// Add event handlers to buttons
+		_.addEvent(this.playBut, "click", function () {
+			self.playClip();
+		});
+		_.addEvent(this.nextBut, "click", function () {
+			self.showNextChar();
+		});
+		_.addEvent(this.eraseBut, "click", function () {
+			self.eraseCanvas();
+		});
+	};
+
+	Char_writeTest.prototype.buildSettings = function() {
+		var s 	= this.settings,
+			self= this;
+		s.minHiraLine		= s.createElem("select", "hira-cvth-line-min", "Min hiragana line", "Lets you omit beginning lines of hiragana that you may know. For example, to omit the vowels, set this to 2.");
+		s.maxHiraLine		= s.createElem("select", "hira-cvth-line", "Max hiragana line", "Setting this will allow you to limit the possible characters in the test. If you only know the first three lines of hiragana, choose 3: Characters on lines above 3 will not appear.");
+		s.useGoogle			= s.createElem("input",  "hira-cvth-speech", "Use Google speech", "Check this to use Google's pronunciation rather than the default audio clips.", true);
+
+		function addOption (sel, val, label) {
+			var opt  = document.createElement("option");
+			opt.value = val;
+			opt.innerHTML = label;
+			sel.appendChild(opt);
+		}
+
+		// Hira Line
+		for (var i = 0; i < MAX_LINE; i++) {
+			addOption(s.minHiraLine, i+1, LINE_LETTERS[i].length>0 ? i+1 + " ("+LINE_LETTERS[i]+")" : i+1 +"");
+		}
+		for (var i = 0; i < MAX_LINE; i++) {
+			addOption(s.maxHiraLine, i+1, LINE_LETTERS[i].length>0 ? i+1 + " ("+LINE_LETTERS[i]+")" : i+1 +"");
+		}
+		
+		// Bind the listener
+		function onChange (e) {
+			var evt = e || window.event;
+			self.checkSettings(evt.target || evt.srcElement);
+		}
+		_.addEvent(s.minHiraLine, "change", onChange);
+		_.addEvent(s.maxHiraLine, "change", onChange);
+		_.addEvent(s.useGoogle, "change", onChange);
+	};
+	
+	Char_writeTest.prototype.checkSettings = function (obj) {
+		var self = this;
+		// HIRA LINE
+		if (obj == this.settings.minHiraLine) {
+			var minV = this.settings.minHiraLine.value,
+				maxV = this.settings.maxHiraLine.value;
+			
+			// repopulate max vals with valids
+			this.settings.maxHiraLine.innerHTML = "";
+			for (var i = minV-1; i < MAX_LINE; i++) {
+				option = document.createElement("option");
+				option.value = i+1;
+				option.innerHTML = i+1 + " ("+LINE_LETTERS[i]+")";
+				this.settings.maxHiraLine.appendChild(option);
+			}
+
+			if (maxV >= minV) {
+				this.settings.maxHiraLine.value = maxV;
+			}
+			this.showNextChar(true);
+		}
+		// Use Google
+		if (obj == this.settings.useGoogle) {
+			// Change the loaded audio
+			this.loadAudio(true);
+		}
+	};
+
+	Char_writeTest.prototype.show = function () {
+		JAP.Module.prototype.show.call(this);
+		this.showNextChar(true);
+	};
+
+	Char_writeTest.prototype.hide = function () {
+		JAP.Module.prototype.hide.call(this);
+	};
+
+	Char_writeTest.prototype.showNextChar = function (force) {
+		var maxV		= this.settings.maxHiraLine.value * 5,
+			minV		= this.settings.minHiraLine.value * 5 - 5,
+			last		= this.currentCharIndex,
+			chosen		= last,
+			region		= this.characterMap.slice(minV, maxV),
+			self		= this,
+			ch;
+
+		if (this.isCharShown || force) {
+			this.isCharShown = false;
+			_.addClass(this.charDiv, "covered");
+			this.nextBut.innerHTML = "Show";		
+			this.eraseCanvas();
+
+			if (minV == maxV - 5 && maxV/5 == 11 && chosen==minV) { // only one option to choose from
+				return;
+			}
+			var range = maxV - minV;
+			while (this.characterMap[chosen]==0 || chosen==last) {
+				chosen	= parseInt(Math.random() * range + minV);
+			}
+			ch = this.characterMap[chosen];
+			this.currentCharIndex 	= chosen;
+			this.currentCharCode	= ch;
+			this.charDiv.innerHTML = "&#"+ch+";";
+
+			this.vidLink.href		= "http://www.youtube.com/results?search_query=%22How+to+write+Hiragana+%E3%80%8C+"+encodeURIComponent(String.fromCharCode(this.currentCharCode))+"+%E3%80%8D+%22+STROKE+ORDER";
+			this.vidLink.innerHTML	= "Videos on Writing this character";//&#" + this.currentCharCode+";";
+
+			this.audio.pause();
+			this.loadAudio(true);
+		}
+		else {
+			this.isCharShown = true;
+			_.removeClass(this.charDiv , "covered");
+			this.nextBut.innerHTML = "Next";		
+		}
+	};
+
+	
+	Char_writeTest.prototype.loadAudio = commonLoadAudio;
+
+	Char_writeTest.prototype.playClip = function () {
+		this.audio.play();
+	};
+
+	Char_writeTest.prototype.bindCanvasEvents = function () {
+		if (this.canvas.getContext) {
+			var ctx = this.canvas.getContext('2d'),
+				self= this,
+				cur, last,
+				hasTouch = null,
+				last= null;
+
+			ctx.strokeStyle = "#000";
+			ctx.lineWidth	= 1;
+			ctx.lineJoin	= "round";
+
+			var segments = [];
+
+			function onMouseDown (e) {
+				var evt 	= e || window.event,
+					scroll	= _.getScrollXY(),
+					topleft	= _.getAbsolutePosition(self.canvas);
+				if (evt.type=="touchstart") {
+					if (evt.targetTouches.length == 1 && !hasTouch) {
+						hasTouch = evt.targetTouches[0].identifier;
+						_.addEvent(document, "touchend", onMouseUp);
+						_.addEvent(document, "touchmove", onMouseMove);
+						last = {
+							x:	evt.targetTouches[0].clientX + scroll[0] - topleft[0],
+							y:	evt.targetTouches[0].clientY + scroll[1] - topleft[1]
+						};
+					}
+				}
+				else {
+					_.addEvent(document, "mouseup", onMouseUp);
+					_.addEvent(document, "mousemove", onMouseMove);
+					last = {
+						x:	evt.clientX - topleft[0],
+						y:	evt.clientY - topleft[1]
+					};
+				}
+				segments = [];
+				ctx.beginPath();
+				ctx.moveTo(last.x, last.y);
+				segments.push(last);
+				return _.cancelEvent(evt);
+			}
+			function onMouseUp (e) {
+				var evt = e || window.event,
+					scroll	= _.getScrollXY(),
+					topleft	= _.getAbsolutePosition(self.canvas);
+				if (evt.type == "touchend") {
+					for (var i = 0; i < evt.changedTouches.length; i++) {
+						if (evt.changedTouches[i].identifier==hasTouch) {
+							cur = {
+								x:	evt.targetTouches[0].clientX + scroll[0] - topleft[0],
+								y:	evt.targetTouches[0].clientY + scroll[1] - topleft[1]
+							};
+							_.removeEvent(document, "touchend", onMouseUp);
+							_.removeEvent(document, "touchmove", onMouseMove);
+							hasTouch = null;
+						}
+					}
+				}
+				else {
+					cur = {
+						x:	evt.clientX - topleft[0],
+						y:	evt.clientY - topleft[1]
+					};
+				}
+				ctx.lineTo(cur.x, cur.y);
+				segments.push(cur);
+				_.removeEvent(document, "mouseup", onMouseUp);
+				_.removeEvent(document, "mousemove", onMouseMove);
+
+				ctx.lineWidth=4;
+				ctx.beginPath();
+				ctx.moveTo(segments[0].x, segments[0].y);
+				segments.shift();
+				while(segments.length>0) {
+					var s = segments.shift();
+					ctx.lineTo(s.x, s.y);
+				}
+				ctx.stroke();
+				ctx.lineWidth=1;
+				return _.cancelEvent(evt);
+			}
+			function onMouseMove (e) {
+				var evt = e || window.event,
+					scroll	= _.getScrollXY(),
+					topleft	= _.getAbsolutePosition(self.canvas);
+				if (evt.type == "touchmove") {
+					for (var i = 0; i < evt.changedTouches.length; i++) {
+						if (evt.changedTouches[i].identifier==hasTouch) {
+							cur = {
+								x:	evt.targetTouches[0].clientX + scroll[0] - topleft[0],
+								y:	evt.targetTouches[0].clientY + scroll[1] - topleft[1]
+							};
+						}
+					}
+				}
+				else {
+					cur = {
+						x:	evt.clientX - topleft[0],
+						y:	evt.clientY - topleft[1]
+					};
+				}
+				ctx.lineTo(cur.x, cur.y);
+				ctx.stroke();
+				last = cur;
+				segments.push(cur);
+				return _.cancelEvent(evt);
+			}
+			_.addEvent(this.canvas, "mousedown", onMouseDown);
+			_.addEvent(this.canvas, "touchstart", onMouseDown);
+		}
+	};
+
+	Char_writeTest.prototype.eraseCanvas = function () {
+		if (this.canvas.getContext) {
+			var ctx = this.canvas.getContext('2d');
+			ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+		}
 	};
 
 	// Export to outside

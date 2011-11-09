@@ -24,7 +24,7 @@
 						url:		data.url
 					};
 					
-					ns.pageManager.showPage(pageMap[data.url]);
+					queuePage(pageMap[data.url]);
 				}
 				else {
 					// error
@@ -34,27 +34,50 @@
 	}
 
 	function onLoadFail () {
+		this.isBusy = false;
+	}
+
+	function queuePage (pageInfo) {
+		var timer = setInterval( function () {
+			if (new Date().getTime() > JAP.pageManager.hideEndTime) {
+				clearInterval(timer);
+				JAP.pageManager.showPage(pageInfo);
+			}
+		}, 100);
 	}
 
 	function PageManager () {
 		this.currentPage = null;
+		this.lastPage	 = null;
+		this.hideEndTime = 0;
+		this.isBusy		 = false;
 	}
 
 	PageManager.prototype.getLoadState = function () {
 		return xhr.isBusy() && "waiting" || "idle";
 	};
 
-	PageManager.prototype.isLoaded = function (hashPath) {
-	};
-
 	PageManager.prototype.load = function (hashPath) {
+		// Busy while page is loading.. 
+		// isBusy is falsened when showPage is called or the load fails
+		if (this.isBusy) {
+			return false;
+		}
+		// If there's a current page, hide it
+		// Nothing can show until the page is hidden
+		if (this.currentPage) {
+			this.currentPage.hide();
+			this.hideEndTime= new Date().getTime() + this.currentPage.hideTime;
+			this.isBusy 	= true;
+		}
 		if (hashPath in pageMap) {
-			alert("have already");
-			this.showPage(pageMap[hashPath]);
+			// queue to be shown once the last page has finished hiding
+			queuePage(pageMap[hashPath]);
 		}
 		else {
-			xhr.exec("hash="+hashPath, "replace");
+			xhr.exec("hash="+encodeURIComponent(hashPath), "replace");
 		}
+		return true;
 	};
 	
 	PageManager.prototype.showPage = function (pageInfo) {
@@ -69,11 +92,21 @@
 					var obj 		= new mod();
 					obj.setup(pageInfo);
 					pageInfo.handler = obj;
+					this.lastPage	 = this.currentPage;
 					this.currentPage = obj;
 					break;
 				}
 			}
 		}
+		// Handle menu loading
+		else {
+			var menu = new JAP.Menu();
+			menu.setup(pageInfo);
+			pageInfo.handler = menu;
+			this.currentPage = menu;
+		}
+		this.isBusy = false;
+		this.currentPage.show();
 	};
 
 	// singleton

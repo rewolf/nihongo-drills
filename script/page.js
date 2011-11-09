@@ -10,6 +10,8 @@
 		this.content	= null;
 		this.pageInfo	= null;
 		this.hashURL	= null;
+		this.visible	= false;
+		this.hideTime	= 0;
 	}
 	Page.prototype.setup = function(pageInfo) {
 		this.pageInfo	= pageInfo;
@@ -25,6 +27,7 @@
 
 	Page.prototype.hide = function () {
 		this.visible	= false;
+		this.resize();
 	};
 
 	
@@ -32,7 +35,9 @@
 	 * The module - subclasses page to provide module-specific functionality
 	 ***********************************************************/
 	function Module () {
-		this.settings = new ModuleSettingsBox();
+		Page.call(this);
+		this.settings 	= new ModuleSettingsBox();
+		this.hideTime	= 500;
 	}
 	Module.prototype = new Page();
 	
@@ -151,8 +156,95 @@
 	 * The menu - subclasses page to provide menu-specific functionality
 	 ***********************************************************/
 	function Menu () {
+		Page.call(this);
+		this.hideTime = 600;
 	}
 	Menu.prototype = new Page();
+
+	Menu.prototype.setup = function (pageInfo) {
+		Page.prototype.setup.call(this, pageInfo);
+
+		this.container	= $id("layout-middle");
+		this.node		= $id("menu-pane");
+		var html		= pageInfo.content;
+
+		if (!this.node) {
+			this.node 			= document.createElement("div");
+			
+			this.node.id		= "menu-pane";
+			
+			this.container.appendChild(this.node);
+		}
+
+		this.node.innerHTML = html;
+		this.items			= $cls("menu-item", this.node);
+		for (var i =0 ; i < this.items.length; i ++) {
+			_.addClass(this.items[i], "invisible");
+			_.addClass(this.items[i], "offscreen-item");
+		}
+	};
+
+	Menu.prototype.resize = function () {
+		Page.prototype.resize.call(this);
+
+		var midHeight = JAP.winH - $id("layout-top").clientHeight - $id("layout-bottom").clientHeight - 12;
+		if (JAP.main.isAppOnePage()) {
+			var numCols = $cls("menu-item", $cls("menu-row", this.node)[0]).length;
+			var numRows	= $cls("menu-row", this.node).length;
+
+			for (var i = 0; i < this.items.length;  i++) {
+				this.items[i].style.width		= Math.floor(this.container.clientWidth/numCols) -14 + "px";
+				this.items[i].style.height		= Math.floor(midHeight/numRows) -14 + "px";
+			}
+
+			var menuItems = $cls("menu-item-icon");
+			for (var i = 0; i < menuItems.length; i++) {
+				menuItems[i].style.marginTop = (parseInt(midHeight/numRows)-14)/2 - 40 + "px";
+			}
+		}
+		else {
+			for (var i = 0; i < this.items.length;  i++) {
+				this.items[i].style.width		= "";
+				this.items[i].style.height		= "";
+			}
+			var menuItems = $cls("menu-item-icon");
+			for (var i = 0; i < menuItems.length; i++) {
+				menuItems[i].style.marginTop = "";
+			}
+		}
+	};
+
+	Menu.prototype.show = function () {
+		Page.prototype.show.call(this);
+		var self = this;
+
+		// Put items off screen
+		for (var i =0 ; i < this.items.length; i ++) {
+			setTimeout( function (mod) {
+				return function () {
+					_.removeClass(mod, "invisible");
+					_.removeClass(mod, "offscreen-item");
+				};
+			}(this.items[i]), (i%3) * 200 + parseInt(i/3)*100+200);
+		}
+
+		this.resize();
+	};
+
+	Menu.prototype.hide = function () {
+		Page.prototype.hide.call(this);
+		var self = this;
+
+		// Put items off screen
+		for (var i =0 ; i < this.items.length; i ++) {
+			setTimeout( function (mod) {
+				return function () {
+					_.addClass(mod, "offscreen-item");
+				};
+			}(this.items[this.items.length - 1 - i]), (i%3) * 200 + parseInt(i/3)*100);
+		}
+
+	};
 	
 	// Provide interface for other class
 	ns.Page 	= Page;
