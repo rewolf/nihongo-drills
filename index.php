@@ -67,6 +67,7 @@
 			<a href="#!/about">About</a>
 		</div>
 		<nav id="footer-nav">
+			<a class="nav-part" href="#!/">[Home]</a>
 		</nav>
 		<div id="footer-ad" class="">
 			<script type="text/javascript"><!--

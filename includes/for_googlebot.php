@@ -15,7 +15,7 @@
 		$for_gbot = true;
 
 		if ($hash=="") {
-			$page_text = loadMenu($hash);
+			$page_text = loadMenu($hash,"pages/");
 		}
 		else if (!file_exists($path) && !file_exists("$path.php")){
 			# Tell the Bot that this page is invalid
@@ -27,7 +27,9 @@
 			$page_text = loadMenu($hash, "pages/$hash");
 		}
 		else {
-			$page_text = loadPage("$path.php");
+			$page_text = "<div id=\"content-pane\">\n";
+			$page_text .= loadPage("$path.php");
+			$page_text .= "</div>\n";
 		}
 	}
 

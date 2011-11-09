@@ -3,6 +3,10 @@ body {
 	overflow:				hidden;
 }
 
+.mobile-only {
+	display:				none;
+}
+
 /************************************************
  * HEADER
  ***********************************************/
@@ -41,43 +45,35 @@ footer {
 	padding:				0px 10px;
 }
 
+.footer-link-separator {
+	height:					50px;
+}
+
+  /* AD */
 #footer-ad {
 	display:				block;
 	left:					-100px;
 	margin:					17px 5px;
 }
 
-#footer-nav {/*
-	border-top:				1px solid #666;
-	border-bottom:			1px solid #666;*/
-	display:				inline-block;
+ /* NAV */
+#footer-nav {
 	font-size:				14px;
 	margin:					17px 5px;
-	text-shadow:			0px 0px 0px #900;
 }
 #footer-nav.anim {
 	-webkit-transition:		box-shadow .5s ease;
+	-moz-transition:		box-shadow .5s ease;
+	-o-transition:			box-shadow .5s ease;
+	-ms-transition:			box-shadow .5s ease;
+	transition:				box-shadow .5s ease;
 }
 #footer-nav.highlight {
+	-webkit-box-shadow:		0px 0px 15px #aaa, 0px 0px 10px #aaa inset;
+	-moz-box-shadow:		0px 0px 15px #aaa, 0px 0px 10px #aaa inset;
+	-o-box-shadow:			0px 0px 15px #aaa, 0px 0px 10px #aaa inset;
+	-ms-box-shadow:			0px 0px 15px #aaa, 0px 0px 10px #aaa inset;
 	box-shadow:				0px 0px 15px #aaa, 0px 0px 10px #aaa inset;
-}
-#footer-nav .nav-sep {
-	color:					#aaa;
-	margin:					0px 5px;
-}
-#footer-nav .nav-part {
-	color:					#888;
-	text-decoration:		none;
-}
-#footer-nav .nav-part:hover {
-	color:					red;
-}
-#footer-nav .nav-part.nav-current {
-	color:					white;
-}
-
-.footer-link-separator {
-	height:					50px;
 }
 
 /************************************************
@@ -217,13 +213,7 @@ footer {
 }
 
 #content-pane {
-	background-color:		#aaa;
-	box-shadow:				inset 0px 0px 5px 3px #000;
-	-moz-box-shadow:		inset 0px 0px 5px 3px #000;
-	-webkit-box-shadow:		inset 0px 0px 5px 3px #000;
-	-o-box-shadow:			inset 0px 0px 5px 3px #000;
-	-ms-box-shadow:			inset 0px 0px 5px 3px #000;
-	overflow:				hidden;
+	overflow-y:				auto;
 	position:				absolute;
 	z-index;				3;
 }
@@ -250,15 +240,12 @@ footer {
 .panel-link:hover {
 }
 
-.module {
-	text-align:				center;
-	width:					100%;
-}
-
+/************************************************
+ * MODULE SETTINGS
+ ***********************************************/
 .drill-settings {
 	color:					#333;
 	font-size:				12px;
-	margin:					20px 0px;
 	opacity:				.4;
 	position:				absolute;
 	right:					0px;
@@ -271,6 +258,21 @@ footer {
 	-ms-transition:			opacity .4s ease;
 	transition:				opacity .4s ease;
 	min-width:					200px;
+}
+.drill-settings.mobile-hidden {
+	display:				block;
+}
+
+.drill-settings table {
+	border-collapse:		separate;
+	margin:					20px auto;
+	text-align:				left;
+}
+.drill-settings table td {
+	padding:				inherit;
+}
+.drill-settings select {
+	font-size:				inherit;
 }
 
 .drill-settings:hover {
@@ -333,103 +335,59 @@ footer {
 	text-align:				center;
 	width:					20px;
 }
-/*----------------------------------------------
- *------------- CHAR HTV -----------------------
- *--------------------------------------------*/
+/************************************************
+ * MODULES
+ ***********************************************/
 
 .module h1 {
 	font-size:				2em;
 	font-weight:			bold;
 	margin-top:				30px;
-	text-align:				center;
 }
 
 .module p {
 	font-size:				10px;
 	margin:					5px auto 15px auto;
-	text-align:				justify;
 	width:					350px;
-}
-
-.random-char-holder {
-	background-color:		white;
-	border:					4px solid #000;
-	box-shadow:				2px 2px 3px #000;
-	font-size:				80px;
-	margin:					40px auto;
-	text-align:				center;
-	width:					100px;
 }
 
 .button-box {
 	height:					32px;
-	margin:					0px auto;
 	width:					100px;
 }
 
-.button-box.inline {
-	display:				inline-block;
-}
-
 .button-box button {
-	background-color:		#333;
-	border:					2px solid #555;
-	border-radius:			5px;
-	box-shadow:				1px 1px 1px #555;
-	color:					white;
-	cursor:					pointer;
 	height:					27px;
-	margin-right:			2px;
-	margin-left:			2px;
+	font-size:				12px;
 	width:					90px;
 	-webkit-transition:		all .1s linear;
+	-moz-transition:		all .1s linear;
+	-o-transition:			all .1s linear;
+	-ms-transition:			all .1s linear;
+	transition:				all .1s linear;
 }
 
 .button-box button:hover {
-	background-color:		#833;
-	border-color:			#933;
-	box-shadow:				0px 0px 5px #b22;
 	height:					31px;
-	margin-top:				-2px;
-	margin-right:			0px;
-	margin-left:			0px;
-	margin-bottom:			-2px;
 	width:					94px;
 }
+/*----------------------------------------------
+ *------------- CHAR toVoice -------------------
+ *--------------------------------------------*/
 
-
+.random-char-holder {
+	font-size:				80px;
+	margin:					40px auto;
+	min-height:				100px;
+	width:					100px;
+}
 
 /*----------------------------------------------
  *------------- CHAR VTH -----------------------
  *--------------------------------------------*/
 .char-choice-holder table {
-	background-color:		white;
-	border:					4px solid #000;
-	box-shadow:				2px 2px 3px #000;
 	font-size:				24px;
 	margin:					10px auto 20px auto;
-	text-align:				center;
-	width:					100px;
-}
-
-.char-choice-holder td {
-	padding:				3px;
-}
-
-.char-choice-holder td:hover {
-	background-color:		black;
-	color:					white;
-	cursor:					pointer;
-}
-
-.char-choice-holder td.cheat-cell {
-	background-color:		#cfc;
-	outline:				#ada 1px solid;
-}
-
-.char-choice-holder td.wrong-cell {
-	background-color:		#fcc;
-	outline:				#daa 1px solid;
 }
 
 /*----------------------------------------------

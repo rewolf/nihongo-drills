@@ -264,54 +264,6 @@ JAP.image.loadBatch("essential",
 		JAP.main.tableLeft = buildTable(leftArray, parseInt(JAP.mods.UNICODE_MAP.length/5),leftH, topH, true);
 	}
 
-	function showMenu () {
-		_.removeClass($id("screen-block"), "nothing");
-		
-		if (contentPane.visible) {
-			setTimeout(showMenu, 500);
-			contentPane.hide();
-			return;
-		}
-
-		// Put items off screen
-		var items = $cls("menu-item");
-		for (var i =0 ; i < items.length; i ++) {
-			setTimeout( function (mod) {
-				return function () {
-					_.removeClass(mod, "invisible");
-					_.removeClass(mod, "offscreen-item");
-				};
-			}(items[i]), (i%3) * 200 + parseInt(i/3)*100);
-		}
-
-		setTimeout(function () {
-			_.addClass($id("screen-block"), "nothing");
-		}, 1000);
-	}
-
-	function hideMenu () {
-		_.removeClass($id("screen-block"), "nothing");
-
-		// Put items off screen
-		var items = $cls("menu-item");
-		for (var i =0 ; i < items.length; i ++) {
-			setTimeout( function (mod) {
-				return function () {
-					_.addClass(mod, "offscreen-item");
-				};
-			}(items[items.length - 1 - i]), (i%3) * 200 + parseInt(i/3)*100);
-		}
-
-		setTimeout(function () {
-			_.addClass($id("screen-block"), "nothing");
-			for (var i =0 ; i < items.length; i ++) {
-				_.addClass(items[i], "invisible");
-			}
-
-			// Show content pane
-			contentPane.show();
-		}, 1000);
-	}
 
 	function onResize() {
 		var midlayout		= $id("layout-middle"),
@@ -386,14 +338,8 @@ JAP.image.loadBatch("essential",
 			if (newHash!="#!/"){
 				window.location.hash = "#!/";
 			}
-			else {
-				if (JAP.pageManager.load("#!/")) {
-					_.doAJAXPost("error=0&link="+uriSafe+"&from="+from,"ajax/log_usage.php");
-				}
-				else{
-					window.location.hash = oldHash;
-					return;
-				}
+			if (JAP.pageManager.load("#!/")) {
+				_.doAJAXPost("error=0&link="+uriSafe+"&from="+from,"ajax/log_usage.php");
 			}
 		}
 		ns.oldHash	= newHash;

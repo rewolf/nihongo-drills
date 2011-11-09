@@ -99,31 +99,57 @@
 	Module.prototype.setup = function (pageInfo) {
 		Page.prototype.setup.call(this, pageInfo);
 		this.container	= $id("layout-middle");
-		this.contentNode= $id("content-pane");
+		this.container.innerHTML ="";
 		var html		= pageInfo.content;
 
-		if (!this.contentNode) {
-			this.contentNode 			= document.createElement("div");
-			
-			this.contentNode.className	= "nothing zero-width";
-			this.contentNode.id			= "content-pane";
-			
-			this.container.appendChild(this.contentNode);
-		}
+		this.contentNode 			= document.createElement("div");
+		
+		this.contentNode.className	= "nothing zero-width";
+		this.contentNode.id			= "content-pane";
+		
+		this.container.appendChild(this.contentNode);
+
 		this.contentNode.innerHTML = html;
 
 		this.node = $cls("module", this.contentNode)[0];
+	};
+
+	Module.prototype.addSettingsHideToggle = function (){
+		// button to show settings
+		var setBut 			= document.createElement("button"),
+			self			= this;
+		setBut.innerHTML	= "[show drill options]";
+		setBut.className	= "mobile-only show-settings-but";
+		_.addEvent(setBut, "click", function () {
+			if (self.settings.node.className.indexOf("mobile-hidden") != -1){
+				_.removeClass(self.settings.node, "mobile-hidden");
+				setBut.innerHTML = "[hide drill options]";
+			}
+			else {
+				_.addClass(self.settings.node, "mobile-hidden");
+				setBut.innerHTML = "[show drill options]";
+			}
+
+		});
+		this.node.appendChild(setBut);
 	};
 
 	Module.prototype.resize = function () {
 		Page.prototype.resize.call(this);
 
 		this.contentWidth	= parseInt(this.container.clientWidth * .666);
-		this.contentNode.style.height = this.container.clientHeight + "px";
-		if (this.visible) {
-			// move to the new centre
-			this.contentNode.style.left 	= this.container.clientWidth/2 - this.contentWidth/2 + "px";
-			this.contentNode.style.width 	= this.contentWidth + "px";
+		if (JAP.main.isAppOnePage()) {
+			this.contentNode.style.height = this.container.clientHeight + "px";
+			if (this.visible) {
+				// move to the new centre
+				this.contentNode.style.left 	= this.container.clientWidth/2 - this.contentWidth/2 + "px";
+				this.contentNode.style.width 	= this.contentWidth + "px";
+			}
+		}
+		else {
+			this.contentNode.style.height = "";
+			this.contentNode.style.left 	= "";
+			this.contentNode.style.width 	= "";
 		}
 	};
 
@@ -174,7 +200,7 @@
 	 ***********************************************************/
 	function ModuleSettingsBox () {
 		this.node			= document.createElement("div");
-		this.node.className	= "drill-settings zero-opacity";
+		this.node.className	= "drill-settings mobile-hidden zero-opacity";
 		this.table			= document.createElement("table");
 		this.node.appendChild(this.table);
 	}
@@ -220,16 +246,14 @@
 		Page.prototype.setup.call(this, pageInfo);
 
 		this.container	= $id("layout-middle");
-		this.node		= $id("menu-pane");
+		this.container.innerHTML = "";
 		var html		= pageInfo.content;
 
-		if (!this.node) {
-			this.node 			= document.createElement("div");
-			
-			this.node.id		= "menu-pane";
-			
-			this.container.appendChild(this.node);
-		}
+		this.node 			= document.createElement("div");
+		
+		this.node.id		= "menu-pane";
+		
+		this.container.appendChild(this.node);
 
 		this.node.innerHTML = html;
 		this.items			= $cls("menu-item", this.node);

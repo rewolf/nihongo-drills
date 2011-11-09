@@ -7,6 +7,8 @@
 		<button class="play-button">Play Again</button>
 	</div>
 	<div class="char-choice-holder">
+		<table width=80 height=80>
+		</table>
 	</div>
 	<div class="button-box inline">
 		<button class="cheat-button drill-button">Cheat</button>

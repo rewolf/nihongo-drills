@@ -1,7 +1,6 @@
 <?php
 
 	function loadMenu($hash, $path) {
-
 		$handle 	= opendir($path);
 		if ($handle) {
 			

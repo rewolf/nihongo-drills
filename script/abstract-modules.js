@@ -77,10 +77,10 @@
 		this.audio.setAttribute("preload", "preload");
 		this.node.appendChild(this.audio);
 
+		this.addSettingsHideToggle();
 		// build up the settings
 		this.buildSettings();
 		this.node.appendChild(this.settings.node);
-
 
 		// Add event handlers to buttons
 		_.addEvent(this.playBut, "click", function () {
@@ -291,6 +291,7 @@
 		this.audio.setAttribute("autoplay", "autoplay");
 		this.node.appendChild(this.audio);
 
+		this.addSettingsHideToggle();
 		// build up the settings
 		this.buildSettings();
 		this.node.appendChild(this.settings.node);
@@ -509,6 +510,7 @@
 		this.vidLink.target		= "_blank";
 		this.node.appendChild(this.vidLink);
 
+		this.addSettingsHideToggle();
 		// build up the settings
 		this.buildSettings();
 		this.node.appendChild(this.settings.node);
@@ -524,6 +526,20 @@
 		_.addEvent(this.eraseBut, "click", function () {
 			self.eraseCanvas();
 		});
+	};
+
+	Char_writeTest.prototype.resize = function () {
+		JAP.Module.prototype.resize.call(this);
+/*
+		if (JAP.main.isAppOnePage()) {
+			this.canvas.width	= "100px";
+			this.canvas.height	= "100px";
+		}
+		else {
+			this.canvas.width	= "100px";
+			this.canvas.height	= "100px";
+		}
+*/
 	};
 
 	Char_writeTest.prototype.buildSettings = function() {
@@ -690,15 +706,17 @@
 					scroll	= _.getScrollXY(),
 					topleft	= _.getAbsolutePosition(self.canvas);
 				if (evt.type == "touchend") {
+					console.log("end");
 					for (var i = 0; i < evt.changedTouches.length; i++) {
 						if (evt.changedTouches[i].identifier==hasTouch) {
 							cur = {
-								x:	evt.targetTouches[0].clientX + scroll[0] - topleft[0],
-								y:	evt.targetTouches[0].clientY + scroll[1] - topleft[1]
+								x:	evt.changedTouches[i].clientX + scroll[0] - topleft[0],
+								y:	evt.changedTouches[i].clientY + scroll[1] - topleft[1]
 							};
 							_.removeEvent(document, "touchend", onMouseUp);
 							_.removeEvent(document, "touchmove", onMouseMove);
 							hasTouch = null;
+							console.log("cancelled");
 						}
 					}
 				}
