@@ -37,4 +37,42 @@
 		global $page_text;
 		echo $page_text;
 	}
+
+	function fillPageDesc () {
+		global $hash;
+		$pageMeta = getPageMeta("#!/$hash");
+		$desc	  = $pageMeta["desc"];
+		if ($pageMeta) {
+			echo "<meta name=\"description\" content=\"$desc\" />";
+		}
+	}
+	function fillPageTitle () {
+		global $hash;
+		$pageMeta = getPageMeta("#!/$hash");
+		$title	  = $pageMeta["title"];
+		if ($pageMeta) {
+			echo "<title>$title</title>";
+		}
+	}
+	function fillPageNav () {
+		global $hash;
+		$parts		= split("/", $hash);
+
+		if (strlen($hash)>0){
+			$url		= "#!";
+			$out 		= "";
+
+			$out .= "<a href=\"#!/\" class=\"nav-part\">Japanese</a>";
+			$out .= "<span class=\"nav-sep\">&gt;</span>";
+			foreach ($parts as $k=>$p) {
+				$name = ucwords(join(" ",split("-", $p)));
+				$url .= "/$p";
+				$out .= "<a href=\"$url\" class=\"nav-part\">$name</a>";
+				if ($k != sizeof($parts)-1) {
+					$out .= "<span class=\"nav-sep\">&gt;</span>";
+				}
+			}
+			echo $out;
+		}
+	}
 ?>

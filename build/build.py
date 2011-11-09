@@ -52,7 +52,7 @@ pages = {
 			"hira-main"
 		],
 		"css":	[
-			("basic", 		"screen,handheld"),
+			("basic", 		""),
 			("desktop",		"screen and (min-width: 1024px)")
 		]
 	}
@@ -64,7 +64,8 @@ res = [
 	"res/audio",
 	"includes",
 	"ajax",
-	"pages"
+	"pages",
+	"page-meta.json"
 ]
 
 def main():

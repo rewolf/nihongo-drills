@@ -22,6 +22,7 @@
 	Page.prototype.show = function () {
 		this.visible	= true;
 		this.updateNav();
+		document.title	= this.pageInfo.title;
 	};
 
 	Page.prototype.hide = function () {

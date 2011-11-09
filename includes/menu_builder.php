@@ -1,5 +1,24 @@
 <?php
 
+	// Load up the metadata file for all pages
+	if (file_exists("../page-meta.json")) {
+		$metafile = file_get_contents("../page-meta.json");
+	}
+	else {
+		$metafile = file_get_contents("page-meta.json");
+	}
+	$pageData = json_decode($metafile, true);
+
+	function getPageMeta($hash) {
+		global $pageData;
+		if (isset($pageData[$hash])) {
+			return $pageData[$hash];
+		}
+		else {
+			return FALSE;
+		}
+	}
+
 	function loadMenu($hash, $path) {
 		$handle 	= opendir($path);
 		if ($handle) {

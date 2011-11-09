@@ -25,13 +25,17 @@
 	}
 
 	function loadPage ($path, $hash) {
+		$pageMeta  = getPageMeta("#!/$hash");
 		$page_info = array(
 			"type"			=> "module",
-			"title"			=> "Not Sure",
+			"title"			=> "Nihongo Drills",
 			"url"			=> "#!/$hash",
 			"content"		=> file_get_contents($path)
 		);
-		
+		if ($pageMeta) {
+			$page_info["title"] 	= $pageMeta["title"];
+		}
+
 		if ($page_info["content"] === false) {
 			$page_info["error"]	= 1;
 			$page_info["msg"]	= "no content";
@@ -41,14 +45,18 @@
 	}
 
 	function loadAJAXMenu ($menu) {
+		$pageMeta  = getPageMeta("#!/$menu");
 		# Creates a menu content from the files in the directory
 		# Returns the menu code as well as the content from all contained pages
 		$page_info = array(
 			"type"			=>	"menu",
-			"title"			=>	"Not sure menu",
+			"title"			=>	"Nihongo Drills Menu",
 			"url"			=>	"#!/$menu",
 			"content"		=>	loadMenu($menu, "../pages/$menu")
 		);
+		if ($pageMeta) {
+			$page_info["title"] 	= $pageMeta["title"];
+		}
 		if ($page_info["content"] == false) {
 			$page_info["error"]	= 1;
 		}

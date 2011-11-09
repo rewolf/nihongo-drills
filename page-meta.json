@@ -1,0 +1,73 @@
+{
+	"#!/" :
+			{
+				"title"		:		"Nihongo Drills | Practise Effectively",
+				"desc"		:		"Practise and test your memorisation of Japanese hiragana and katakana characters and their pronunciations using the drills on this site."
+			},
+	"#!/character-drills" :
+			{
+				"title"		:		"Japanese Kana Character Drills Menu",
+				"desc"		:		"Choose which kana character set you wish to be drilled on: Hiragana or Katakana."
+			},
+
+
+
+	
+	"#!/character-drills/hiragana" :
+			{
+				"title"		:		"Hiragana Drills Menu",
+				"desc"		:		"Choose from the available tests to help you practise the Japanese hiragana characters you have been learning."
+			},
+	"#!/character-drills/hiragana/to-voice" :
+			{
+				"title"		:		"Hiragana Character-to-Voice Drill",
+				"desc"		:		"Test your ability to recognise characters and pronounce the corresponding sounds or syllables.  This page displays random hiragana characters for you to identify verbally"
+			},
+	"#!/character-drills/hiragana/from-voice" :
+			{
+				"title"		:		"Hiragana Voice-to-Character Drill",
+				"desc"		:		"Test your ability to recognise which random Japanese syllable/sound is played by choosing the correct hiragana character from a grid of possibilities."
+			},
+	"#!/character-drills/hiragana/write-test" :
+			{
+				"title"		:		"Hiragana Character-Writing Drill",
+				"desc"		:		"Test your hiragana writing skill with this drill.  A random Japanese syllable/sound is played and you have to draw the corresponding Hiragana character."
+			},
+
+
+
+	"#!/character-drills/katakana" :
+			{
+				"title"		:		"Katakana Drills Menu",
+				"desc"		:		"Choose from the available tests to help you practise the Japanese katakana characters you have been learning."
+			},
+	"#!/character-drills/katakana/to-voice" :
+			{
+				"title"		:		"Katakana Character-to-Voice Drill",
+				"desc"		:		"Test your ability to recognise characters and pronounce the corresponding sounds or syllables.  This page displays random katakana characters for you to identify verbally"
+			},
+	"#!/character-drills/katakana/from-voice" :
+			{
+				"title"		:		"Katakana Voice-to-Character Drill",
+				"desc"		:		"Test your ability to recognise which random Japanese syllable/sound is played by choosing the correct katakana character from a grid of possibilities."
+			},
+	"#!/character-drills/katakana/write-test" :
+			{
+				"title"		:		"Katakana Character-Writing Drill",
+				"desc"		:		"Test your katakana writing skill with this drill.  A random Japanese syllable/sound is played and you have to draw the corresponding Katakana character."
+			},
+
+
+
+
+	"#!/_about" :
+			{
+				"title"		:		"About Nihongo Drills",
+				"desc"		:		"Explains the purpose of this interactive site and its many useful drills and tests that helps one practise their memorisation and learning of Japanese kana (both Hiragana and Katakana)."
+			},
+	"#!/_links" :
+			{
+				"title"		:		"Useful Japanese learning links.",
+				"desc"		:		"A list of recommended links to online resources that may help you in your learning of the Japanese language, Nihongo. Come back here to practise!"
+			}
+}

@@ -8,10 +8,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" /> 
     <meta name="fragment" content="!" />
-	<title>Nihongo Drills | Japanese Hiragana and Katakana Tests and Quiz</title>
+<?php 
+if (isset($for_gbot)) {
+	fillPageTitle();
+	fillPageDesc();
+} else { 
+?>
     <meta name="description" content="Practise and test your memorisation of Japanese hiragana and katakana characters and their pronunciations using the drills on this site." />
+	<title>Nihongo Drills | Japanese Hiragana and Katakana Tests and Quiz</title>
+<?php 
+} 
+?>
     <meta name="keywords" content="japanese,nihongo,practise,drill,memorise,pronounce,speak,learn" />
-	<meta property="og:title" content="Hiragana Drills" />
+	<meta property="og:title" content="Nihongo Drills" />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="http://www.nihongodrills.com" />
 	<meta property="og:image" content="http://www.nihongodrills.com/res/images/favicon.gif" />
@@ -59,15 +68,19 @@
 	</div>
 	<footer id="layout-bottom" class="dark-panel">
 		<div id="footer-links" class="start" >
-			<div class="footer-link-separator"></div>
+		<!--	<div class="footer-link-separator"></div>
 			<a id="show-table-button" href="#!/">Table</a>
-			<div class="footer-link-separator"></div>
+		-->	<div class="footer-link-separator"></div>
 			<a href="#!/_links">Links</a>
 			<div class="footer-link-separator"></div>
 			<a href="#!/_about">About</a>
 		</div>
 		<nav id="footer-nav">
-			<a class="nav-part" href="#!/">[Home]</a>
+<?php
+	if (isset($for_gbot)) {
+		fillPageNav();
+	}
+?>
 		</nav>
 		<div id="footer-ad" class="">
 			<script type="text/javascript"><!--
