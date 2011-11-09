@@ -7,9 +7,7 @@
 	 ***********************************************************/
 	function Page () {
 		this.node 		= null;
-		this.content	= null;
 		this.pageInfo	= null;
-		this.hashURL	= null;
 		this.visible	= false;
 		this.hideTime	= 0;
 	}
@@ -23,11 +21,68 @@
 
 	Page.prototype.show = function () {
 		this.visible	= true;
+		this.updateNav();
 	};
 
 	Page.prototype.hide = function () {
 		this.visible	= false;
 		this.resize();
+	};
+
+	Page.prototype.updateNav = function () {
+		var path 	= this.pageInfo.url.substr(3),
+			parts	= path.split("/"),
+			curPath = "#!/",
+			html	= "",
+			nav		= $id("footer-nav"),
+			anchor, sep;
+
+		_.removeClass(nav, "anim");
+		_.addClass(nav, "highlight");
+		nav.innerHTML = "";
+
+		if (path.trim() != "") {
+			anchor		= document.createElement("a");
+			anchor.className= "nav-part"; 
+			anchor.href		= curPath;
+			anchor.innerHTML= "Japanese";
+			nav.appendChild(anchor);
+
+			sep			= document.createElement("span");
+			sep.className	= "nav-sep";
+			sep.innerHTML	= "&gt;";
+			nav.appendChild(sep);
+		}
+
+		for (var i = 0; i < parts.length; i++) {
+			curPath += parts[i];
+
+			if (i == parts.length-1){
+				anchor		= document.createElement("span");
+				anchor.className= "nav-current nav-part"; 
+			}
+			else {
+				anchor		= document.createElement("a");
+				anchor.href		= curPath;
+				anchor.className= "nav-part"; 
+			}
+			var title	= parts[i];
+			anchor.innerHTML= parts[i].split("-").join(" ").replace(/\b([a-z])/g, function(sz){return sz.toUpperCase();});
+
+			nav.appendChild(anchor);
+
+			if (i != parts.length-1){
+				curPath			+= "/";
+				var sep			= document.createElement("span");
+				sep.className	= "nav-sep";
+				sep.innerHTML	= "&gt;";
+				nav.appendChild(sep);
+			}
+		}
+		_.invokeLater(function(){
+			_.addClass(nav, "anim");
+			_.removeClass(nav, "highlight");
+		});
 	};
 
 	

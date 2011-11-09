@@ -39,7 +39,7 @@
 
 	function queuePage (pageInfo) {
 		var timer = setInterval( function () {
-			if (new Date().getTime() > JAP.pageManager.hideEndTime) {
+			if (new Date().getTime() > JAP.pageManager.hideEndTime && JAP.main.isLoaded) {
 				clearInterval(timer);
 				JAP.pageManager.showPage(pageInfo);
 			}

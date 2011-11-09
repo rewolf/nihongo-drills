@@ -1,16 +1,14 @@
 <?php
 
-	function loadMenu($hash) {
-		$path 		= "../pages/$hash";
+	function loadMenu($hash, $path) {
 
 		$handle 	= opendir($path);
-		
 		if ($handle) {
 			
 			$out_text 	= "";
 	
 			$items 		= array();
-			while (false !== ($fname = readdir($handle))) {
+			foreach (scandir($path) as $i=>$fname) {
 				if ($fname==".." || $fname==".") {
 					continue;
 				}

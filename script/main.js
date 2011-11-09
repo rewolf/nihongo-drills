@@ -12,6 +12,7 @@ JAP.image.loadBatch("essential",
 	_.addEvent(window, "load", onLoad);
 	
 	ns.currentModule = null;
+	ns.isLoaded		 = false;
 
 	function isAppOnePage() {
 		var THRESHOLD_W = 1024;
@@ -21,10 +22,15 @@ JAP.image.loadBatch("essential",
 
 	var firstContentLoadTimer = setInterval(function () {
 		if ($id("layout-middle")) {
+			preload();
 			loadHashBang();
 			clearInterval(firstContentLoadTimer);
 		}
 	}, 100);
+
+	function preload() {
+		_.addClass($id("layout-middle", "zero-height"));
+	}
 
 	/*
 		Finished loading -> open up the screen
@@ -55,12 +61,7 @@ JAP.image.loadBatch("essential",
 				var pageState = JAP.pageManager.getLoadState(),
 					imageState= JAP.image.getBatchProgress("essential");
 				if (imageState >= 1  &&  pageState == "idle") {
-					if (JAP.pageManager.currentPage != null) {
-						onReady();
-					}
-					else {
-						// error happened
-					}
+					onReady();
 					clearInterval(resLoadTimer);
 				}
 				
@@ -79,8 +80,10 @@ JAP.image.loadBatch("essential",
 	function setup () {
 		var items 	= $cls("menu-item");
 		_.removeClass($id("layout-middle"), "color-change-anim");
-		_.removeClass($id("footer-links"), "zero-opacity");
+		_.removeClass($id("footer-links"), "start");
 		_.addEvent(window, "resize", onResize);
+
+		ns.isLoaded = true;
 
 		onResize();
 
@@ -399,6 +402,6 @@ JAP.image.loadBatch("essential",
 	ns.loadHashBang		= loadHashBang;
 	ns.isAppOnePage		= isAppOnePage;
 
-	loadHashBang();
+	//loadHashBang();
 
 }) (JAP.namespace("JAP.main"));

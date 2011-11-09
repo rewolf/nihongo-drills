@@ -44,6 +44,9 @@ a, a img {
 .zero-width {
 	width:						0px !important;
 }
+.zero-height {
+	height:						0px !important;
+}
 
 .zero-opacity {
 	opacity:					0 !important;

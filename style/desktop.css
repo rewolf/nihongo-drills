@@ -33,6 +33,10 @@ footer {
 	line-height:			50px;
 }
 
+#footer-links.start {
+	opacity:				0;
+}
+
 #footer-links a {
 	padding:				0px 10px;
 }
@@ -41,6 +45,35 @@ footer {
 	display:				block;
 	left:					-100px;
 	margin:					17px 5px;
+}
+
+#footer-nav {/*
+	border-top:				1px solid #666;
+	border-bottom:			1px solid #666;*/
+	display:				inline-block;
+	font-size:				14px;
+	margin:					17px 5px;
+	text-shadow:			0px 0px 0px #900;
+}
+#footer-nav.anim {
+	-webkit-transition:		box-shadow .5s ease;
+}
+#footer-nav.highlight {
+	box-shadow:				0px 0px 15px #aaa, 0px 0px 10px #aaa inset;
+}
+#footer-nav .nav-sep {
+	color:					#aaa;
+	margin:					0px 5px;
+}
+#footer-nav .nav-part {
+	color:					#888;
+	text-decoration:		none;
+}
+#footer-nav .nav-part:hover {
+	color:					red;
+}
+#footer-nav .nav-part.nav-current {
+	color:					white;
 }
 
 .footer-link-separator {
@@ -56,7 +89,7 @@ footer {
 	-webkit-box-shadow:		inset 0px 0px 3px 1px #000;
 	-o-box-shadow:			inset 0px 0px 3px 1px #000;
 	-ms-box-shadow:			inset 0px 0px 3px 1px #000;
-	height:					0px;
+	/*height:					0px;*/
 	padding:				6px 0px;
 	position:				relative;
 }

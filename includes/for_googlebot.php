@@ -12,7 +12,7 @@
 		$hash = trim($_REQUEST["_escaped_fragment_"], " /");
 		$path = "pages/$hash";
 
-		$exclude_js = true;
+		$for_gbot = true;
 
 		if ($hash=="") {
 			$page_text = loadMenu($hash);
@@ -23,7 +23,8 @@
 			die();
 		}
 		else if (is_dir($path)) {
-			$page_text = loadMenu($hash);
+			echo $page_text;
+			$page_text = loadMenu($hash, "pages/$hash");
 		}
 		else {
 			$page_text = loadPage("$path.php");

@@ -47,7 +47,7 @@
 			"type"			=>	"menu",
 			"title"			=>	"Not sure menu",
 			"url"			=>	"#!/$menu",
-			"content"		=>	loadMenu($menu)
+			"content"		=>	loadMenu($menu, "../pages/$menu")
 		);
 		if ($page_info["content"] == false) {
 			$page_info["error"]	= 1;

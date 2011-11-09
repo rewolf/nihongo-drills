@@ -58,7 +58,7 @@
 		<?php fillPageContent(); ?>
 	</div>
 	<footer id="layout-bottom" class="dark-panel">
-		<div id="footer-links" class="zero-opacity" >
+		<div id="footer-links" class="start" >
 			<div class="footer-link-separator"></div>
 			<a id="show-table-button" href="#!/">Table</a>
 			<div class="footer-link-separator"></div>
@@ -66,6 +66,8 @@
 			<div class="footer-link-separator"></div>
 			<a href="#!/about">About</a>
 		</div>
+		<nav id="footer-nav">
+		</nav>
 		<div id="footer-ad" class="">
 			<script type="text/javascript"><!--
 			google_ad_client = "ca-pub-2949063356844479";
