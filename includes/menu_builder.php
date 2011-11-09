@@ -8,7 +8,7 @@
 	
 			$items 		= array();
 			foreach (scandir($path) as $i=>$fname) {
-				if ($fname==".." || $fname==".") {
+				if ($fname==".." || $fname=="." || $fname[0]=="_") {
 					continue;
 				}
 				$fpath 		= "$path/$fname";

@@ -31,7 +31,7 @@
 
 	Page.prototype.updateNav = function () {
 		var path 	= this.pageInfo.url.substr(3),
-			parts	= path.split("/"),
+			parts	= path.replace("_","").split("/"),
 			curPath = "#!/",
 			html	= "",
 			nav		= $id("footer-nav"),

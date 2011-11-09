@@ -27,7 +27,13 @@
 					queuePage(pageMap[data.url]);
 				}
 				else {
-					// error
+					if (JAP.pageManager.currentPage) {
+						location.hash = JAP.pageManager.currentPage.url;
+					}
+					else {
+						location.href = "#!/";
+					}
+					JAP.pageManager.isBusy = false;
 				}
 			}
 		}
@@ -58,6 +64,7 @@
 	};
 
 	PageManager.prototype.load = function (hashPath) {
+		console.log(hashPath);
 		// Busy while page is loading.. 
 		// isBusy is falsened when showPage is called or the load fails
 		if (this.isBusy) {
@@ -83,6 +90,7 @@
 	PageManager.prototype.showPage = function (pageInfo) {
 		var container		= $id("layout-middle");
 		if (pageInfo.type == "module") {
+			var found = false;
 			// find the appropriate module handler
 			for (var m in JAP.mods) {
 				var mod 	= JAP.mods[m];
@@ -94,7 +102,18 @@
 					pageInfo.handler = obj;
 					this.lastPage	 = this.currentPage;
 					this.currentPage = obj;
+					found 			 = true;
+					this.currentPage.show();
 					break;
+				}
+			}
+
+			if (!found) {
+				if (this.lastPage) {
+					location.hash = this.currentPage.pageInfo.url;
+				}
+				else {
+					location.hash = "#!/";
 				}
 			}
 		}
@@ -104,9 +123,9 @@
 			menu.setup(pageInfo);
 			pageInfo.handler = menu;
 			this.currentPage = menu;
+			this.currentPage.show();
 		}
 		this.isBusy = false;
-		this.currentPage.show();
 	};
 
 	// singleton

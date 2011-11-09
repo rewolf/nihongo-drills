@@ -62,9 +62,9 @@
 			<div class="footer-link-separator"></div>
 			<a id="show-table-button" href="#!/">Table</a>
 			<div class="footer-link-separator"></div>
-			<a href="#!/links">Links</a>
+			<a href="#!/_links">Links</a>
 			<div class="footer-link-separator"></div>
-			<a href="#!/about">About</a>
+			<a href="#!/_about">About</a>
 		</div>
 		<nav id="footer-nav">
 			<a class="nav-part" href="#!/">[Home]</a>
@@ -84,43 +84,6 @@
 		</div>
 	</footer>
 	<div id="screen-block" class="nothing">
-	</div>
-
-	<div id="about-text" class="nothing">
-		<h3>
-			About this site..
-		</h3>
-		<p>
-			There are plenty of books, audio CDs and online resources that teach the Japanese language.
-			The aim of this site is not to teach but to provide repetitive drills, or tests,  to help you
-			memorise the fundamentals of the language, namely, the hiragana characters.
-		</p>
-		<p>
-			This site aims to avoid the use of <a href="http://en.wikipedia.org/wiki/Romanization_of_Japanese">rōmaji characters</a> so that the learner's brain
-			forms direct associations between sounds/syllables and <a href="http://en.wikipedia.org/wiki/Hiragana">hiragana characters</a> rather than
-			wasting time converting to/from the romanization.
-		</p>
-		<p>
-			Note that the audio clips may not pronounce the characters/words correctly, but are good
-			enough to understand and distinguish.  Google's pronunciation is provided as an alternative.
-		</p>
-		<p>
-			I, myself, am still learning Japanese and this site is the evolution of something I
-			made to drill myself.  If you have any ideas, complaints or requests for drills, let me know via
-			<a href="mailto:feedback@nihongodrills.com">feedback@nihongodrills.com</a> or <a href="http://www.twitter.com/nihongo_drills" target="_blank">Twitter</a>.
-		</p>
-	</div>
-	<div id="links-text" class="nothing">
-		<h3>
-			Links for learning..
-		</h3>
-		<p>
-			If you require some guidance in learning how to speak or write japanese there
-			are a number of very useful online resources.  The YouTube user, 
-			<a href="http://www.youtube.com/user/hirakana2010" target="_blank">hirakana2010 has useful Channel</a> with videos demonstrating how to
-			write and pronounce the hiragana, katakana and kanji characters.
-			User <a href="http://www.youtube.com/user/edufirejapanese">eduefirejapanese</a> also has many useful videos!
-		</p>
 	</div>
 	<div id="char-table" class="nothing centred-X centred-Y">
 	</div>

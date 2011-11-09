@@ -97,6 +97,28 @@
 	Char_Kata_toVoice.prototype.constructor = Char_Kata_writeTest;
 	Char_Kata_writeTest.pageHash			= "#!/character-drills/katakana/write-test";
 
+	/***************************************************************
+	 * About
+	 **************************************************************/
+	function About_Page () {
+		JAP.Module.call(this);
+	}
+	About_Page.prototype			= new JAP.Module();
+	About_Page.prototype.constructor = About_Page;
+	// Set this to identify this class for handling the following hash url
+	About_Page.pageHash				= "#!/_about";
+
+	/***************************************************************
+	 * Links
+	 **************************************************************/
+	function Links_Page () {
+		JAP.Module.call(this);
+	}
+	Links_Page.prototype			= new JAP.Module();
+	Links_Page.prototype.constructor = Links_Page;
+	// Set this to identify this class for handling the following hash url
+	Links_Page.pageHash				= "#!/_links";
+
 	// Export to outside
 	ns.Char_Hira_toVoice 		= Char_Hira_toVoice;
 	ns.Char_Hira_fromVoice 		= Char_Hira_fromVoice;
@@ -104,6 +126,8 @@
 	ns.Char_Kata_toVoice 		= Char_Kata_toVoice;
 	ns.Char_Kata_fromVoice 		= Char_Kata_fromVoice;
 	ns.Char_Kata_writeTest 		= Char_Kata_writeTest;
+	ns.About_Page				= About_Page;
+	ns.Links_Page				= Links_Page;
 
 })(JAP.namespace("JAP.mods"));
 
