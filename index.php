@@ -40,7 +40,7 @@ if (isset($for_gbot)) {
 </head>
 <body>
 	<header id="layout-top" class="dark-panel">
-		<span id="header-title">「&nbsp;nihongo / にほんご / japanese&nbsp;」&nbsp;&nbsp; drills</span>
+		<a href="#!/" id="header-title">「&nbsp;nihongo / にほんご / japanese&nbsp;」&nbsp;&nbsp; drills</a>
 		<div id="header-links">
 
 			<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.nihongodrills.com&amp;send=false&amp;layout=standard&amp;width=49&amp;show_faces=false&amp;action=like&amp;colorscheme=dark&amp;font&amp;height=35&amp;appId=279700025395628" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:49px; height:24px;" allowTransparency="true"></iframe>

@@ -12,14 +12,16 @@ body {
  ***********************************************/
 header {
 	font-size:				x-large;
-	line-height:			50px;
 	height:					50px;
+	letter-spacing:			0px;
+	line-height:			50px;
 	padding-left:			20px;
 }
 
 #header-links {
 	float:					right;
 	height:					24px;
+	margin-right:			15px;
 }
 
 
@@ -85,7 +87,6 @@ footer {
 	-webkit-box-shadow:		inset 0px 0px 3px 1px #000;
 	-o-box-shadow:			inset 0px 0px 3px 1px #000;
 	-ms-box-shadow:			inset 0px 0px 3px 1px #000;
-	/*height:					0px;*/
 	padding:				6px 0px;
 	position:				relative;
 }
@@ -95,6 +96,7 @@ footer {
 	-moz-transition:		background-color 1s ease, height .5s linear;
 	-o-transition:			background-color 1s ease, height .5s linear;
 	-ms-transition:			background-color 1s ease, height .5s linear;
+	transition:				background-color 1s ease, height .5s linear;
 }
 
 
@@ -130,7 +132,6 @@ footer {
 	display:				block;
 	float:					left;
 	left:					0px;
-	line-height:			150px;
 	margin:					7px;
 	position:				relative;
 	-webkit-transition:		-webkit-transform .4s linear, left .5s linear;
@@ -151,51 +152,81 @@ footer {
 }
 
 .menu-item-icon {
-	background-image:		url("../res/images/htv.png");
 	display:				inline-block;
-	height:					83px;
 	margin:					0px 15px;
 }
 
-/* htv */
-#item-char-htv .icon-1 {
+.menu-item-label {
+	line-height:			inherit;
+}
+
+.item-label-kana {
+	font-size:				1.5em;
+}
+
+/************************************************
+ * ITEM ICONS 
+ ***********************************************/
+
+
+.htv-hira {
+	background-image:		url("../res/images/htv.png");
 	background-position:	-4px 0px;
 	width:					68px;
 }
-#item-char-htv .icon-2 {
+.htv-kata {
+	background-image:		url("../res/images/htv.png");
+	background-position:	-319px 0px;
+	width:					67px;
+}
+.htv-arrow {
+	background-image:		url("../res/images/htv.png");
 	background-position:	-181px 0px;
 	width:					33px;
 }
-#item-char-htv .icon-3 {
+.htv-voice {
+	background-image:		url("../res/images/htv.png");
 	background-position:	-85px 0px;
 	width:					85px;
 }
-/* vth */
-#item-char-vth .icon-1 {
-	background-position:	-85px 0px;
-	width:					85px;
-}
-#item-char-vth .icon-2 {
-	background-position:	-181px 0px;
-	width:					33px;
-}
-#item-char-vth .icon-3 {
-	background-position:	-4px 0px;
-	width:					68px;
-}
-/* vtw */
-#item-char-vtw .icon-1 {
-	background-position:	-85px 0px;
-	width:					85px;
-}
-#item-char-vtw .icon-2 {
-	background-position:	-181px 0px;
-	width:					33px;
-}
-#item-char-vtw .icon-3 {
+.htv-write {
+	background-image:		url("../res/images/htv.png");
 	background-position:	-219px 0px;
 	width:					100px;
 }
+
+.htv-hira.small {
+	background-image:		url("../res/images/htv-small.png");
+	background-position:	-3px 0px;
+	width:					34px;
+}
+.htv-kata.small {
+	background-image:		url("../res/images/htv-small.png");
+	background-position:	-168px 0px;
+	width:					34px;
+}
+.htv-arrow.small {
+	background-image:		url("../res/images/htv-small.png");
+	background-position:	-94px 0px;
+	width:					17px;
+}
+.htv-voice.small {
+	background-image:		url("../res/images/htv-small.png");
+	background-position:	-46px 0px;
+	width:					43px;
+}
+.htv-write.small {
+	background-image:		url("../res/images/htv-small.png");
+	background-position:	-114px 0px;
+	width:					50px;
+}
+
+.htv-hira.too-small, .htv-kata.too-small, .htv-arrow.too-small, .htv-voice.too-small, .htv-write.too-small {
+	background:				none;
+	height:					0px !important;
+	width:					0px !important;
+}
+	
 
 #screen-block {
 	left:					0px;

@@ -46,7 +46,7 @@
 			anchor		= document.createElement("a");
 			anchor.className= "nav-part"; 
 			anchor.href		= curPath;
-			anchor.innerHTML= "Japanese";
+			anchor.innerHTML= "Home";
 			nav.appendChild(anchor);
 
 			sep			= document.createElement("span");
@@ -253,6 +253,9 @@
 		this.node 			= document.createElement("div");
 		
 		this.node.id		= "menu-pane";
+		this.node.className	= "menu-"+pageInfo.url.substr(pageInfo.url.lastIndexOf("/")+1);
+
+		this.hasIcons		= !pageInfo.noicon;
 		
 		this.container.appendChild(this.node);
 
@@ -269,20 +272,53 @@
 
 		var midHeight = JAP.winH - $id("layout-top").clientHeight - $id("layout-bottom").clientHeight - 12;
 		if (JAP.main.isAppOnePage()) {
-			var numCols = $cls("menu-item", $cls("menu-row", this.node)[0]).length;
-			var numRows	= $cls("menu-row", this.node).length;
+			// For full desktop with a single-page layout -> fits to screen
+			var numCols = $cls("menu-item", $cls("menu-row", this.node)[0]).length,
+				numRows	= $cls("menu-row", this.node).length,
+				itemW	= Math.floor(this.container.clientWidth/numCols) -14,
+				itemH	= Math.floor(midHeight/numRows) -14 ;
 
 			for (var i = 0; i < this.items.length;  i++) {
-				this.items[i].style.width		= Math.floor(this.container.clientWidth/numCols) -14 + "px";
-				this.items[i].style.height		= Math.floor(midHeight/numRows) -14 + "px";
+				this.items[i].style.width		= itemW + "px"; 
+				this.items[i].style.height		= itemH + "px";
 			}
 
-			var menuItems = $cls("menu-item-icon");
-			for (var i = 0; i < menuItems.length; i++) {
-				menuItems[i].style.marginTop = (parseInt(midHeight/numRows)-14)/2 - 40 + "px";
+			// Adjust sizing 
+			var itemIcons = $cls("menu-item-icon"),
+				iconH,
+				textH	= $cls("menu-item-label")[0].clientHeight;
+
+			// First remove all sizing classes
+			for (var i = 0; i < itemIcons.length; i++) {
+				_.removeClass(itemIcons[i], "too-small");
+				_.removeClass(itemIcons[i], "small");
+			}
+			// Now check the current item sizes to deduce icon sizes
+			if (itemH > 140 && itemW > 330 && this.hasIcons) {
+				// Maximum size for icons
+				iconH = 80;
+			}
+			else if (itemH > 95 && itemW > 110 && this.hasIcons) {
+				// Medium size for icons
+				iconH = 42;
+				for (var i = 0; i < itemIcons.length; i++) {
+					_.addClass(itemIcons[i], "small");
+				}
+			}
+			else {
+				// No icons
+				iconH = 0;
+				for (var i = 0; i < itemIcons.length; i++) {
+					_.addClass(itemIcons[i], "too-small");
+				}
+			}
+			for (var i = 0; i < itemIcons.length; i++) {
+				itemIcons[i].style.marginTop 	= itemH/2 - iconH/2 -textH/2 + "px";
+				itemIcons[i].style.height 		= iconH + "px";
 			}
 		}
 		else {
+			// For a mobile, scrollable layout
 			for (var i = 0; i < this.items.length;  i++) {
 				this.items[i].style.width		= "";
 				this.items[i].style.height		= "";

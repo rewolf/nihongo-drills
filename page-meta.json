@@ -3,60 +3,94 @@
 			{
 				"title"		:		"Nihongo Drills | Practise Effectively",
 				"desc"		:		"Practise and test your memorisation of Japanese hiragana and katakana characters and their pronunciations using the drills on this site."
+				"menu-noicon":		"noicon",
 			},
 	"#!/character-drills" :
 			{
 				"title"		:		"Japanese Kana Character Drills Menu",
-				"desc"		:		"Choose which kana character set you wish to be drilled on: Hiragana or Katakana."
+				"desc"		:		"Choose which kana character set you wish to be drilled on: Hiragana or Katakana.",
+				"menu-noicon":		"noicon",
+				"menu-label":		"Character Drills",
+				"menu-tooltip":		"Drills to test your memory of characters"
 			},
-
-
 
 	
 	"#!/character-drills/hiragana" :
 			{
 				"title"		:		"Hiragana Drills Menu",
-				"desc"		:		"Choose from the available tests to help you practise the Japanese hiragana characters you have been learning."
+				"desc"		:		"Choose from the available tests to help you practise the Japanese hiragana characters you have been learning.",
+				"menu-label":		"<span class='item-label-kana'>&#12402;&#12425;&#12364;&#12394;</span><br/>Hiragana Drills"
 			},
 	"#!/character-drills/hiragana/to-voice" :
 			{
 				"title"		:		"Hiragana Character-to-Voice Drill",
-				"desc"		:		"Test your ability to recognise characters and pronounce the corresponding sounds or syllables.  This page displays random hiragana characters for you to identify verbally"
+				"desc"		:		"Test your ability to recognise characters and pronounce the corresponding sounds or syllables.  This page displays random hiragana characters for you to identify verbally",
+				"menu-label":		"Speak the Character",
+				"menu-icon-1":		"htv-hira",
+				"menu-icon-2":		"htv-arrow",
+				"menu-icon-3":		"htv-voice"
 			},
 	"#!/character-drills/hiragana/from-voice" :
 			{
 				"title"		:		"Hiragana Voice-to-Character Drill",
-				"desc"		:		"Test your ability to recognise which random Japanese syllable/sound is played by choosing the correct hiragana character from a grid of possibilities."
+				"desc"		:		"Test your ability to recognise which random Japanese syllable/sound is played by choosing the correct hiragana character from a grid of possibilities.",
+				"menu-label":		"Select the Character",
+				"menu-icon-1":		"htv-voice",
+				"menu-icon-2":		"htv-arrow",
+				"menu-icon-3":		"htv-hira"
 			},
 	"#!/character-drills/hiragana/write-test" :
 			{
 				"title"		:		"Hiragana Character-Writing Drill",
-				"desc"		:		"Test your hiragana writing skill with this drill.  A random Japanese syllable/sound is played and you have to draw the corresponding Hiragana character."
+				"desc"		:		"Test your hiragana writing skill with this drill.  A random Japanese syllable/sound is played and you have to draw the corresponding Hiragana character.",
+				"menu-label":		"Draw the Character",
+				"menu-icon-1":		"htv-voice",
+				"menu-icon-2":		"htv-arrow",
+				"menu-icon-3":		"htv-write"
 			},
-
 
 
 	"#!/character-drills/katakana" :
 			{
 				"title"		:		"Katakana Drills Menu",
-				"desc"		:		"Choose from the available tests to help you practise the Japanese katakana characters you have been learning."
+				"desc"		:		"Choose from the available tests to help you practise the Japanese katakana characters you have been learning.",
+				"menu-label":		"<span class='item-label-kana'>&#12459;&#12479;&#12459;&#12490;</span><br/>Katakana Drills"
 			},
 	"#!/character-drills/katakana/to-voice" :
 			{
 				"title"		:		"Katakana Character-to-Voice Drill",
-				"desc"		:		"Test your ability to recognise characters and pronounce the corresponding sounds or syllables.  This page displays random katakana characters for you to identify verbally"
+				"desc"		:		"Test your ability to recognise characters and pronounce the corresponding sounds or syllables.  This page displays random katakana characters for you to identify verbally",
+				"menu-label":		"Speak the Character",
+				"menu-icon-1":		"htv-kata",
+				"menu-icon-2":		"htv-arrow",
+				"menu-icon-3":		"htv-voice"
 			},
 	"#!/character-drills/katakana/from-voice" :
 			{
 				"title"		:		"Katakana Voice-to-Character Drill",
-				"desc"		:		"Test your ability to recognise which random Japanese syllable/sound is played by choosing the correct katakana character from a grid of possibilities."
+				"desc"		:		"Test your ability to recognise which random Japanese syllable/sound is played by choosing the correct katakana character from a grid of possibilities.",
+				"menu-label":		"Select the Character",
+				"menu-icon-1":		"htv-voice",
+				"menu-icon-2":		"htv-arrow",
+				"menu-icon-3":		"htv-kata"
 			},
 	"#!/character-drills/katakana/write-test" :
 			{
 				"title"		:		"Katakana Character-Writing Drill",
-				"desc"		:		"Test your katakana writing skill with this drill.  A random Japanese syllable/sound is played and you have to draw the corresponding Katakana character."
+				"desc"		:		"Test your katakana writing skill with this drill.  A random Japanese syllable/sound is played and you have to draw the corresponding Katakana character.",
+				"menu-label":		"Draw the Character",
+				"menu-icon-1":		"htv-voice",
+				"menu-icon-2":		"htv-arrow",
+				"menu-icon-3":		"htv-write"
 			},
 
+	"#!/resources" :
+			{
+				"title"		:		"Resources for practising Japanese",
+				"desc"		:		"Download or print resources for practising Japanese such as practising writing paper, labels for everyday items and links for kana keyboard stickers.",
+				"menu-noicon":		"noicon",
+				"menu-label":		"Resources"
+			},
 
 
 

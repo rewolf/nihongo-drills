@@ -1,7 +1,7 @@
 @font-face {
 	font-family:    "Incubus";
 	/*src:            url('../res/fonts/brankovic.eot');*/
-	src:            local('☺'),
+	src:           /* local('☺'),*/
 					/*url('../res/fonts/brankovic.eot'),*/
 					url('../res/fonts/incubus.ttf');
 }
@@ -70,10 +70,16 @@ header {
 	color:					#d00;
 	font-family:			"Incubus", Arial, sans-serif;
 	font-size:				14px;
+	letter-spacing:			-2px;
 	min-height:				25px;
 }
 
 #header-title  {
+	color:					#f00;
+	text-decoration:		none;
+}
+#header-title:hover  {
+	color:					#a00;
 }
 
 #header-links {
@@ -208,9 +214,9 @@ footer {
 	cursor:					pointer;
 	display:				block;
 	left:					0px;
-	line-height:			20px;
 	height:					42px;
 	margin:					10px;
+	overflow:				hidden;
 	position:				relative;
 	-webkit-transition:		-webkit-transform .4s linear, left .5s linear;
 	-moz-transition:		-moz-transform .4s linear, left .5s linear;
@@ -230,11 +236,12 @@ footer {
 	left:					2000px;
 }
 
-.menu-item-icon {
-	background-image:		url("../res/images/htv-small.png");
-	display:				inline-block;
-	height:					42px;
-	margin:					0px 15px;
+.menu-item-label {
+	color:					#ddd;
+	font-family:			"Incubus", Arial, sans-serif;
+	font-size:				17px;
+	letter-spacing:			2px;
+	line-height:			42px;
 }
 
 .panel-link {

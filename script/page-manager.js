@@ -21,6 +21,7 @@
 						title:		data.title,
 						type:		data.type,
 						content:	data.content,
+						noicon:		data.noicon,
 						url:		data.url
 					};
 					

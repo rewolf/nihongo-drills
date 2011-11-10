@@ -19,6 +19,19 @@
 		}
 	}
 
+	function getPageMetaDatum($hash, $item) {
+		$meta = getPageMeta($hash);
+		if (!$meta) {
+			return "";
+		}
+		if (isset($meta[$item])) {
+			return $meta[$item];
+		}
+		else {
+			return "";
+		}
+	}
+
 	function loadMenu($hash, $path) {
 		$handle 	= opendir($path);
 		if ($handle) {
@@ -55,15 +68,21 @@
 					";
 					$row = "";
 				}
-				$n 	= $item["name"];
-				$p	= $item["path"];
-				$l  = strlen($hash)==0 ? "#!/$n" : "#!/$hash/$n";
-				$row .= "
-				<a href=\"$l\" id=\"item-$n\" 
-						class=\"menu-item panel-link \">
-					<div class=\"menu-item-icon icon-1\"></div>
-					<div class=\"menu-item-icon icon-2\"></div>
-					<div class=\"menu-item-icon icon-3\"></div>
+				$n 		= $item["name"];
+				$p		= $item["path"];
+				$l  	= strlen($hash)==0 ? "#!/$n" : "#!/$hash/$n";
+				$meta 	= getPageMeta($l);
+				$label 	= getPageMetaDatum($l, "menu-label");
+				$tooltip= isset($meta["menu-tooltip"]) ? $meta["menu-tooltip"] : (isset($meta["desc"]) ? $meta["desc"] : "");
+				$icon1	= getPageMetaDatum($l, "menu-icon-1");
+				$icon2	= getPageMetaDatum($l, "menu-icon-2");
+				$icon3	= getPageMetaDatum($l, "menu-icon-3");
+				$row 	.= "
+				<a href=\"$l\" class=\"item-$n menu-item panel-link \" title=\"$tooltip\">
+					<div class=\"menu-item-icon icon-1 $icon1\"></div>
+					<div class=\"menu-item-icon icon-2 $icon2\"></div>
+					<div class=\"menu-item-icon icon-3 $icon3\"></div>
+					<div class=\"menu-item-label\">$label</div>
 				</a>
 				";
 			}

@@ -57,6 +57,7 @@
 		if ($pageMeta) {
 			$page_info["title"] 	= $pageMeta["title"];
 		}
+		$page_info["noicon"] = isset($pageMeta["menu-noicon"]);
 		if ($page_info["content"] == false) {
 			$page_info["error"]	= 1;
 		}
