@@ -48,6 +48,15 @@
 				"menu-icon-2":		"htv-arrow",
 				"menu-icon-3":		"htv-write"
 			},
+	"#!/character-drills/hiragana/from-katakana" :
+			{
+				"title"		:		"Match Hiragana and Katakana",
+				"desc"		:		"Test your ability to match up corresponding hiragana characters with katakana",
+				"menu-label":		"Match with Katakana",
+				"menu-icon-1":		"htv-kata",
+				"menu-icon-2":		"htv-arrow",
+				"menu-icon-3":		"htv-hira"
+			},
 
 
 	"#!/character-drills/katakana" :
@@ -82,6 +91,15 @@
 				"menu-icon-1":		"htv-voice",
 				"menu-icon-2":		"htv-arrow",
 				"menu-icon-3":		"htv-write"
+			},
+	"#!/character-drills/katakana/from-hiragana" :
+			{
+				"title"		:		"Match Hiragana and Katakana",
+				"desc"		:		"Test your ability to match up corresponding katakana characters with hiragana",
+				"menu-label":		"Match with Hiragana",
+				"menu-icon-1":		"htv-hira",
+				"menu-icon-2":		"htv-arrow",
+				"menu-icon-3":		"htv-kata"
 			},
 
 	"#!/resources" :

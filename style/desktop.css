@@ -395,6 +395,11 @@ footer {
 	min-height:				100px;
 	width:					100px;
 }
+.random-char-holder.no-margin {
+	margin:					5px auto;
+	min-height:				90px;
+	width:					90px;
+}
 
 /*----------------------------------------------
  *------------- CHAR VTH -----------------------

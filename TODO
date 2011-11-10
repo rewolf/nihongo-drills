@@ -1,46 +1,22 @@
  
- 
+coffee app
+g-force app
 
- HIRA TABLE!!!!!!!!
-
-browser fixes
-indexability
-the table
-(rethink layout)
-character recognition
 resources
 	- writing paper
 	- labels
 	- links to keyboard stickers
-timeout audio loading and restart loading... in case it freezes or something
-katakana
-intro to hira + kata
+hira -> kata   drills
+other kana character lines
+info pages
+table
+preload audio before next one is shown
 multi language
-mobile
 cache user data locally
-Practice paper + signs
-word tests
+words
+ 
 
 
- 1. finish the first module
- 2. mobile-first approach
- 	- does it work on android + opera sim ?
- 	- then get it working on desktop browsers
-
- 3. local storage possibilities?
- 4. hiragana table
- 5. other modules
-
- WARN ABOUT HTML5
-
-THOUGH
-	limit to only character drilling... not english translation at all
-
-
-
- RESOURCES
-  signs for household objects with hiragana text on
-  hiragana practice pages (like Sub A's practise alphabet)
 
  EVOLVE
   Learn fast vs. Learn Right

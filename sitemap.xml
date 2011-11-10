@@ -34,6 +34,12 @@
 		</priority>
 	</url>
 	<url>
+		<loc>http://www.nihongodrills.com/#!/character-drills/hiragana/from-katakana</loc>
+		<priority>
+			0.7
+		</priority>
+	</url>
+	<url>
 		<loc>http://www.nihongodrills.com/#!/character-drills/katakana/to-voice</loc>
 		<priority>
 			0.7
@@ -47,6 +53,12 @@
 	</url>
 	<url>
 		<loc>http://www.nihongodrills.com/#!/character-drills/katakana/write-test</loc>
+		<priority>
+			0.7
+		</priority>
+	</url>
+	<url>
+		<loc>http://www.nihongodrills.com/#!/character-drills/katakana/from-hiragana</loc>
 		<priority>
 			0.7
 		</priority>

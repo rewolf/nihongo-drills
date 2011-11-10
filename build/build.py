@@ -2,7 +2,7 @@ from rewolf.web_builder import WebApp
 import sys
 import os
 
-VERSION 		= "1_1_0"
+VERSION 		= "1_1_1"
 LOCAL_SERVER	= "/var/www/nihongo"
 REMOTE_USER		= "angry4dminbn"
 REMOTE_SERVER	= "angrytortoise.com"
@@ -65,6 +65,7 @@ res = [
 	"includes",
 	"ajax",
 	"pages",
+	"sitemap.xml",
 	"page-meta.json"
 ]
 
