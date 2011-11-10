@@ -786,5 +786,5 @@
 	ns.Char_fromVoice 		= Char_fromVoice;
 	ns.Char_writeTest 		= Char_writeTest;
 
-})(JAP.namespace("JAP.abstract"));
+})(JAP.namespace("JAP.abs"));
 

@@ -86,7 +86,7 @@ JAP.image.loadBatch("essential",
 		ns.isLoaded = true;
 
 		onResize();
-
+/*
 		// Show table
 		_.addEvent($id("show-table-button"), "click", function (e) {
 			var evt = e || window.event;
@@ -95,10 +95,10 @@ JAP.image.loadBatch("essential",
 			onResize();
 			return _.cancelEvent(evt);
 		});
-
 		_.addEvent($id("char-table"), "click", function () {
 			_.addClass($id("char-table"), "nothing");
 		});
+*/
 
 		// Listen for hashchanges
 		if (window.onhashchange) {

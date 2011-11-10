@@ -64,7 +64,6 @@
 	};
 
 	PageManager.prototype.load = function (hashPath) {
-		console.log(hashPath);
 		// Busy while page is loading.. 
 		// isBusy is falsened when showPage is called or the load fails
 		if (this.isBusy) {
