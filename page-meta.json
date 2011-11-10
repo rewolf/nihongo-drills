@@ -2,8 +2,8 @@
 	"#!/" :
 			{
 				"title"		:		"Nihongo Drills | Practise Effectively",
-				"desc"		:		"Practise and test your memorisation of Japanese hiragana and katakana characters and their pronunciations using the drills on this site."
-				"menu-noicon":		"noicon",
+				"desc"		:		"Practise and test your memorisation of Japanese hiragana and katakana characters and their pronunciations using the drills on this site.",
+				"menu-noicon":		"noicon"
 			},
 	"#!/character-drills" :
 			{
