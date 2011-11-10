@@ -261,7 +261,6 @@ footer {
 	cursor:					pointer;
 	display:				block;
 	left:					0px;
-	height:					42px;
 	margin:					10px;
 	overflow:				hidden;
 	position:				relative;
@@ -288,7 +287,6 @@ footer {
 	font-family:			"Incubus", Arial, sans-serif;
 	font-size:				17px;
 	letter-spacing:			2px;
-	line-height:			42px;
 }
 
 .panel-link {

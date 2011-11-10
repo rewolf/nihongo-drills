@@ -73,6 +73,7 @@ JAP.image.loadBatch("essential",
 	function onReady () {
 		// Open the content area
 		setTimeout(setup, 600);
+		_.removeClass($id("layout-middle"), "nothing");
 		$id("layout-middle").style.backgroundColor = "#222";
 
 		// remove the loading spinner

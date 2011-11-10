@@ -63,7 +63,7 @@ if (isset($for_gbot)) {
 			</script>
 		</div>
 	</header>
-	<div id="layout-middle" class="color-change-anim">
+	<div id="layout-middle" class="color-change-anim <?php if (!$for_gbot){echo "nothing";}?>" <?php if ($for_gbot){ echo "style=\"background-color:#222;\"";}?>>
 		<?php fillPageContent(); ?>
 	</div>
 	<footer id="layout-bottom" class="dark-panel">
@@ -115,10 +115,12 @@ if (isset($for_gbot)) {
 		</p>
 		<?php } ?>
 	</div>
+<?php if (!$for_gbot){ ?>
 	<div id="loading-box">
 		<div id="loading-symbol"></div>
 		Loading
 	</div>
+<?php } ?>
 	<audio id="audio-cap-tester" class="nothing"></audio>
 	<script type="text/javascript">
 		document.getElementById("no-js-message").innerHTML = "";
