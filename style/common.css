@@ -62,6 +62,53 @@ body {
 	width:					100%;
 }
 
+#no-js-message {
+	background-color:		black;
+	color:					red;
+	margin:					20px auto;
+	max-width:					400px;
+}
+
+#no-js-message.audio-fail-message {
+	border:					#800 4px solid;
+	background-color:		#200;
+	color:					#a00;
+	font-size:				16px;
+	min-height:				200px;
+	margin:					20px auto;
+	padding:				20px;
+	text-align:				center;
+	max-width:					400px;
+}
+#loading-box  {
+	color:					white;
+	font-size:				16px;
+	letter-spacing:			2px;
+	margin:					20px auto;
+	text-align:				center;
+	text-transform:			uppercase;
+	width:					140px;
+	-webkit-transition:		opacity .2s ease-out;
+}
+#loading-symbol {
+	background:				url("../res/images/loader2.png");
+	height:					60px;
+	margin:					10px auto;
+	-webkit-animation-name:	loading-spinner;
+	-webkit-animation-duration:	1.5s;
+	-webkit-animation-timing-function:	linear;
+	-webkit-animation-iteration-count:	infinite;
+	width:					60px;
+}
+
+@-webkit-keyframes loading-spinner {
+	from {
+		-webkit-transform: rotateZ(0deg);
+	}
+	to {
+		-webkit-transform: rotateZ(-360deg);
+	}
+}
 /************************************************
  * HEADER
  ***********************************************/

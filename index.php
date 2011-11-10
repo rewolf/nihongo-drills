@@ -109,15 +109,19 @@ if (isset($for_gbot)) {
 			the Kana characters fundamental to the Japanese language.
 		</p>
 		<p>
-			Due to the interactivity, this site cannot function without Javascript.  You
+			Due to the interactive nature of the tests, this site cannot function without Javascript.  You
 			will need to either enable Javascript or download a browser that does support
 			it.
 		</p>
 		<?php } ?>
 	</div>
+	<div id="loading-box">
+		<div id="loading-symbol"></div>
+		Loading
+	</div>
 	<audio id="audio-cap-tester" class="nothing"></audio>
 	<script type="text/javascript">
-		document.getElementById("no-js-message").innerHTML = "Loading..";
+		document.getElementById("no-js-message").innerHTML = "";
 	</script>
 </body>
 </html>

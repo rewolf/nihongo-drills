@@ -28,6 +28,7 @@ header {
 #header-title  {
 	float:					left;
 }
+
 /************************************************
  * FOOTER
  ***********************************************/
@@ -100,24 +101,6 @@ footer {
 }
 
 
-#no-js-message {
-	background-color:		black;
-	color:					red;
-	margin:					200px auto;
-	width:					400px;
-}
-
-#no-js-message.audio-fail-message {
-	border:					#800 4px solid;
-	background-color:		#200;
-	color:					#a00;
-	font-size:				16px;
-	height:					200px;
-	margin:					100px auto;
-	padding:				20px;
-	text-align:				center;
-	width:					400px;
-}
 
 
 .menu-row {

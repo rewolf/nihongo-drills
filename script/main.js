@@ -1,6 +1,7 @@
 
 JAP.image.loadBatch("essential",
 	[
+		"res/images/loader2.png",
 		"res/images/htv.png"
 	]
 );
@@ -42,11 +43,11 @@ JAP.image.loadBatch("essential",
 			display.className = "audio-fail-message";
 			display.innerHTML = "Your browser does not support the necessary Audio features required to use the interactive Japanese/Hiragana Drills and Tests." +
 								'<p>The latest versions of the following browsers are supported for PC, Mac: </p>' +
-								'<a href="http://www.google.com/chrome" title="Google Chrome v4.0+"><img src="res/images/chrome.png" width="60" height="60"></a>'+
-								'<a href="http://www.mozilla.com/en-US/firefox/new/" title="Mozilla Firefox v3.5+"><img src="res/images/firefox.png" width="60" height="60"></a>'+
-								'<a href="http://www.opera.com/browser/download/" title="Opera v10.0+"><img src="res/images/opera.png" width="60" height="60"></a>'+
-								'<a href="http://www.apple.com/safari/download/" title="Apple Safari"><img src="res/images/safari.png" width="60" height="60"></a>'+
-								'<a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home" title="Internet Explorer 9.0"><img src="res/images/ie.png"></a><br/>';
+								'<a href="http://www.google.com/chrome" title="Google Chrome v4.0+"><img src="res/images/chrome.png" width="50" height="50"></a>'+
+								'<a href="http://www.mozilla.com/en-US/firefox/new/" title="Mozilla Firefox v3.5+"><img src="res/images/firefox.png" width="50" height="50"></a>'+
+								'<a href="http://www.opera.com/browser/download/" title="Opera v10.0+"><img src="res/images/opera.png" width="50" height="50"></a>'+
+								'<a href="http://www.apple.com/safari/download/" title="Apple Safari"><img src="res/images/safari.png" width="50" height="50"></a>'+
+								'<a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home" title="Internet Explorer 9.0"><img src="res/images/ie.png" width="50" height="50"></a><br/>';
 			display.innerHTML +=  _.exists(audtest.play) 	&& 1 || 0;
 			display.innerHTML +=  _.exists(audtest.pause) 	&& 1 || 0;
 			display.innerHTML +=  _.exists(audtest.load) 	&& 1 || 0;
@@ -73,6 +74,9 @@ JAP.image.loadBatch("essential",
 		// Open the content area
 		setTimeout(setup, 600);
 		$id("layout-middle").style.backgroundColor = "#222";
+
+		// remove the loading spinner
+		_.addClass($id("loading-box"), "zero-opacity");
 
 		onResize();
 	}
