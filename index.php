@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" /> 
-    <meta name="fragment" content="!" />
+   <!-- <meta name="fragment" content="!" /> -->
 <?php 
 if (isset($for_gbot)) {
 	fillPageTitle();
