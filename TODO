@@ -1,4 +1,20 @@
- 
+FOR V1.1.1
+	* hira->kata, kata->hira drills							[x]
+	* other characters (g, z, d, b, p)						[ ]
+	* preload audio for next drill							[ ]
+
+FOR NEXT AFTER THAT
+	* resources   											[ ]
+	* kana tables 											[ ]
+
+THEN
+	* multi-language ability (not necessarily with langs)	[ ]
+	* info pages											[ ]
+	* cache/web-storage some user data						[ ]
+
+THEN
+	* word-drills
+
 coffee app
 g-force app
 
@@ -6,7 +22,7 @@ resources
 	- writing paper
 	- labels
 	- links to keyboard stickers
-hira -> kata   drills
+	- how to enable Hiragana typing in Windows etc.
 other kana character lines
 info pages
 table

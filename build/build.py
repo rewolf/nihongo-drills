@@ -87,7 +87,7 @@ def main():
 			app.deploy_remote(REMOTE_USER, REMOTE_SERVER, REMOTE_PATH)
 		else:
 			print "Deployment aborted"
-	if "-t" in sys.argv or "--test" in sys.argv:
+	elif "-t" in sys.argv or "--test" in sys.argv:
 		if raw_input("Are you sure you wish to deploy to the testing path on teh remote server? ").lower()=="y":
 			app.deploy_remote(REMOTE_USER, REMOTE_SERVER, TEST_PATH)
 		else:
