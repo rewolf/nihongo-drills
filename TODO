@@ -1,11 +1,15 @@
 FOR V1.1.1
 	* hira->kata, kata->hira drills							[x]
-	* other characters (g, z, d, b, p)						[ ]
-	* preload audio for next drill							[ ]
+	* name-tag resources   									[ ]
+	* error handling for load_page fail.. show loading		[ ]
 
 FOR NEXT AFTER THAT
-	* resources   											[ ]
+	* room names themselves									[ ]
+	* writing paper resources   							[ ]
+	* other characters (g, z, d, b, p)						[ ]
+	* preload audio for next drill							[ ]
 	* kana tables 											[ ]
+	* Fix styling: content-page drop-shadow overlap			[ ]
 
 THEN
 	* multi-language ability (not necessarily with langs)	[ ]

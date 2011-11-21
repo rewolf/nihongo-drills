@@ -13,7 +13,6 @@
 				"menu-label":		"Character Drills",
 				"menu-tooltip":		"Drills to test your memory of characters"
 			},
-
 	
 	"#!/character-drills/hiragana" :
 			{
@@ -104,12 +103,18 @@
 
 	"#!/resources" :
 			{
-				"title"		:		"Resources for practising Japanese",
-				"desc"		:		"Download or print resources for practising Japanese such as practising writing paper, labels for everyday items and links for kana keyboard stickers.",
+				"title"		:		"Resources for Learning Japanese",
+				"desc"		:		"A set of resources to assist in learning the Japanese language.  Print out name-tags or labels for everyday household items to help with your vocabulary.",
 				"menu-noicon":		"noicon",
-				"menu-label":		"Resources"
+				"menu-label":		"Resources",
+				"menu-tooltip":		"Get resources to help you learn, like name-tags for household items."
 			},
-
+	"#!/resources/name-tags" :
+			{
+				"title"		:		"Japanese Name Tags for household items",
+				"desc"		:		"Print out name-tags or labels for everyday, household items to help with your vocabulary. There are labels for different rooms of the house.",
+				"menu-label":		"Name Tags"
+			},
 
 
 	"#!/_about" :

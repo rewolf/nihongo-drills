@@ -29,7 +29,14 @@ if (isset($for_gbot)) {
 
     <link rel="shortcut icon" href="res/images/favicon.gif" />
     <link rel="stylesheet" href="style/common.css" media="all"/>
-    <link rel="stylesheet" href="style/desktop.css" media="screen and (min-width: 1024px)" />
+    <link rel="stylesheet" href="style/basic/main.css" media="all"/>
+    <link rel="stylesheet" href="style/basic/menu.css" media="all"/>
+    <link rel="stylesheet" href="style/basic/drills.css" media="all"/>
+    <link rel="stylesheet" href="style/basic/resources.css" media="all"/>
+    <link rel="stylesheet" href="style/desktop/main.css" media="screen and (min-width: 1024px)"/>
+    <link rel="stylesheet" href="style/desktop/menu.css" media="screen and (min-width: 1024px)"/>
+    <link rel="stylesheet" href="style/desktop/drills.css" media="screen and (min-width: 1024px)"/>
+    <link rel="stylesheet" href="style/desktop/resources.css" media="screen and (min-width: 1024px)"/>
     <script type="text/javascript" src="script/common.js"></script>
     <script type="text/javascript" src="script/image.js"></script>
     <script type="text/javascript" src="script/page.js"></script>
@@ -63,7 +70,7 @@ if (isset($for_gbot)) {
 			</script>
 		</div>
 	</header>
-	<div id="layout-middle" class="color-change-anim <?php if (!$for_gbot){echo "nothing";}?>" <?php if ($for_gbot){ echo "style=\"background-color:#222;\"";}?>>
+	<div id="layout-middle" class="color-change-anim <?php if (!isset($for_gbot)){echo "nothing";}?>" <?php if (isset($for_gbot)){ echo "style=\"background-color:#222;\"";}?>>
 		<?php fillPageContent(); ?>
 	</div>
 	<footer id="layout-bottom" class="dark-panel">
@@ -115,7 +122,7 @@ if (isset($for_gbot)) {
 		</p>
 		<?php } ?>
 	</div>
-<?php if (!$for_gbot){ ?>
+<?php if (!isset($for_gbot)){ ?>
 	<div id="loading-box">
 		<div id="loading-symbol"></div>
 		Loading

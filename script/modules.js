@@ -139,6 +139,17 @@
 	// Set this to identify this class for handling the following hash url
 	Links_Page.pageHash				= "#!/_links";
 
+	/***************************************************************
+	 * Resources
+	 **************************************************************/
+	function NameTags () {
+		JAP.Module.call(this);
+	}
+	NameTags.prototype			= new JAP.Module();
+	NameTags.prototype.constructor = NameTags;
+	// Set this to identify this class for handling the following hash url
+	NameTags.pageHash				= "#!/resources/name-tags";
+
 	// Export to outside
 	ns.Char_Hira_toVoice 		= Char_Hira_toVoice;
 	ns.Char_Hira_fromVoice 		= Char_Hira_fromVoice;
@@ -150,6 +161,7 @@
 	ns.Char_Kata_fromHira 		= Char_Kata_fromHira;
 	ns.About_Page				= About_Page;
 	ns.Links_Page				= Links_Page;
+	ns.NameTags					= NameTags;
 
 })(JAP.namespace("JAP.mods"));
 

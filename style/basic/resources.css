@@ -1,4 +1,25 @@
 .ui-check-list {
-	height:						150px;
-	width:						260px;
+	background-color:			#fff;
+	box-shadow:					inset 1px 1px 3px #444;
+	display:					inline-block;
+	height:						120px;
+	overflow-x:					hidden;
+	overflow-y:					auto;
+	resize:						vertical;
+	vertical-align:				top;
+	width:						200px;
+}
+
+.ui-check-item {
+	cursor:						pointer;
+	padding:					2px;
+	text-align:					left;
+}
+
+.ui-check-item.room-item:hover {
+	outline:					#400 1px dashed;
+}
+
+.ui-check-item.selected {
+	background-color:			#ccc;
 }

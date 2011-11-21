@@ -4,7 +4,10 @@
 
 
 	function loadPage ($path) {
-		return file_get_contents($path);
+		ob_start();
+		include ($path);
+		$page_content = ob_get_clean();
+		return $page_content;
 	}
 
 

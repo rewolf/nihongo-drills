@@ -15,23 +15,32 @@ js_files = [
 	"script/page.js",
 	"script/abstract-modules.js",
 	"script/modules.js",
+	"script/resource-modules.js",
 	"script/page-manager.js",
 	"script/main.js"
 ]
 
 css_files = [
 	"style/common.css",
-	"style/desktop.css"
+	"style/basic/main.css",
+	"style/basic/menu.css",
+	"style/basic/drills.css",
+	"style/basic/resources.css",
+	"style/desktop/main.css",
+	"style/desktop/menu.css",
+	"style/desktop/drills.css",
+	"style/desktop/resources.css",
 ]
 
 
 js_mods = {
-	"hira-main" : [
+	"nd-main" : [
 		"script/common.js", 
 		"script/image.js", 
 		"script/page.js",
 		"script/abstract-modules.js",
 		"script/modules.js",
+		"script/resource-modules.js",
 		"script/page-manager.js",
 		"script/main.js",
 	]
@@ -39,17 +48,24 @@ js_mods = {
 
 css_mods = {
 	"basic" 	: [
-		"style/common.css"
+		"style/common.css",
+		"style/basic/main.css",
+		"style/basic/menu.css",
+		"style/basic/drills.css",
+		"style/basic/resources.css",
 	],
 	"desktop"	: [
-		"style/desktop.css"
+		"style/desktop/main.css",
+		"style/desktop/menu.css",
+		"style/desktop/drills.css",
+		"style/desktop/resources.css",
 	]
 }
 
 pages = {
 	"index.php" : {
 		"js":	[
-			"hira-main"
+			"nd-main"
 		],
 		"css":	[
 			("basic", 		""),
@@ -66,7 +82,31 @@ res = [
 	"ajax",
 	"pages",
 	"sitemap.xml",
-	"page-meta.json"
+	"make-tags.php",
+	"page-meta.json",
+	"name-tags.json"
+]
+
+rename_js = [
+	"settings",
+	"addEvent",
+	"maxCharLine",
+	"minCharLine",
+	"contentNode",
+	"showNextChar",
+	"difficulty",
+	"removeClass",
+	"addClass",
+	"Module",
+	"currentModule",
+	"createElem",
+	"currentPage",
+	"Char_fromVoice",
+	"Char_toVoice",
+	"Char_writeTest",
+	"currentCharIndex"
+]
+rename_css = [
 ]
 
 def main():
@@ -79,6 +119,9 @@ def main():
 		res.remove("res/audio")
 
 	app = WebApp("nihongo", VERSION, js_files, css_files, res)
+
+	app.rename("js", rename_js)
+	app.rename("css", rename_css)
 
 	app.build(js_mods, css_mods, pages, minify)
 
