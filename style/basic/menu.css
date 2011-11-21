@@ -1,0 +1,100 @@
+.menu-row {
+}
+
+.menu-item {
+	color:					#ccc;
+	cursor:					pointer;
+	display:				block;
+	left:					0px;
+	margin:					10px;
+	overflow:				hidden;
+	position:				relative;
+	-webkit-transition:		-webkit-transform .4s linear, left .5s linear;
+	-moz-transition:		-moz-transform .4s linear, left .5s linear;
+	-o-transition:			-o-transform .4s linear, left .5s linear;
+	-ms-transition:			-ms-transform .4s linear, left .5s linear;
+	text-align:				center;
+	text-decoration:		none;
+	transition:				transform .4s linear, left .5s linear;
+	outline:none;
+}
+
+.menu-item:visited {
+	color:					#ccc;
+}
+
+.offscreen-item {
+	left:					2000px;
+}
+
+.menu-item-label {
+	color:					#ddd;
+	font-family:			"Incubus", Arial, sans-serif;
+	font-size:				17px;
+	letter-spacing:			2px;
+}
+
+.panel-link {
+	background-color:		#090707;
+	border-radius:			2px;
+	-moz-border-radius:		2px;
+	-webkit-border-radius:	2px;
+	-o-border-radius:		2px;
+	-ms-border-radius:		2px;
+	box-shadow:				inset 0px 0px 20px 2px rgba(255,255,255,.1), 2px 2px 5px #000;
+	-moz-box-shadow:		inset 0px 0px 20px 2px rgba(255,255,255,.1), 2px 2px 5px #000;
+	-webkit-box-shadow:		inset 0px 0px 20px 2px rgba(255,255,255,.1), 2px 2px 5px #000;
+	-o-box-shadow:			inset 0px 0px 20px 2px rgba(255,255,255,.1), 2px 2px 5px #000;
+	-ms-box-shadow:			inset 0px 0px 20px 2px rgba(255,255,255,.1), 2px 2px 5px #000;
+}
+
+.panel-link:hover {
+	box-shadow:				0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
+	-moz-box-shadow:		0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
+	-webkit-box-shadow:		0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
+	-o-box-shadow:			0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
+	-ms-box-shadow:			0px 0px 20px 4px rgba(100,0,0,.8), inset 0px 0px 8px 2px #f00; 
+}
+
+/************************************************
+ * MENU - HIRAGANA CHARACTER 
+ ***********************************************/
+
+#item-char-htv .icon-1 {
+	background-position:	-2px 0px;
+	width:					34px;
+}
+#item-char-htv .icon-2 {
+	background-position:	-90px 0px;
+	width:					16px;
+}
+#item-char-htv .icon-3 {
+	background-position:	-43px 0px;
+	width:					43px;
+}
+/* vth */
+#item-char-vth .icon-1 {
+	background-position:	-43px 0px;
+	width:					43px;
+}
+#item-char-vth .icon-2 {
+	background-position:	-90px 0px;
+	width:					16px;
+}
+#item-char-vth .icon-3 {
+	background-position:	-2px 0px;
+	width:					34px;
+}
+/* vtw */
+#item-char-vtw .icon-1 {
+	background-position:	-43px 0px;
+	width:					43px;
+}
+#item-char-vtw .icon-2 {
+	background-position:	-90px 0px;
+	width:					16px;
+}
+#item-char-vtw .icon-3 {
+	background-position:	-110px 0px;
+	width:					50px;
+}
