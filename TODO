@@ -4,6 +4,8 @@ FOR V1.1.1
 	* error handling for load_page fail.. show loading		[ ]
 
 FOR NEXT AFTER THAT
+	* generate katakana automatically if not available		[ ]
+		for the name-tag resources
 	* room names themselves									[ ]
 	* writing paper resources   							[ ]
 	* other characters (g, z, d, b, p)						[ ]

@@ -28,7 +28,7 @@
 				$tooltip = join("   |   ", array_values($translations));
 				echo "
 					<div class=\"ui-check-item room-item-item $visible\" data-room=\"$room\" title=\"$tooltip\">
-						<input type=\"hidden\" class=\"room-item-input\" name=\"$room_$name\"/>
+						<input type=\"checkbox\" class=\"nothing room-item-input\" name=\"|$room|$name\"/>
 						<div class=\"ui-check-box\" data-state=\"0\"></div>
 						<span>$name</span>
 					</div>
@@ -51,6 +51,24 @@
 			<?php insertItems(); ?>
 		</div>
 		<div id="room-item-count">No tags are selected</div>
+		<div id="tag-options">
+			<label title="Show the Kanji if available">
+				<input type="checkbox" name="show-kanji" checked/>
+				Show Kanji
+			</label>
+			<label title="Show the Hiragana if available">
+				<input type="checkbox" name="show-hiragana" checked/>
+				Show Hiragana
+			</label>
+			<label title="Show the Katakana if available">
+				<input type="checkbox" name="show-katakana" checked/>
+				Show Katakana
+			</label>
+			<label title="Don't put the english translation">
+				<input type="checkbox" name="no-english" />
+				No English
+			</label>
+		</div>
 		<div class="button-box">
 			<input type="submit" value="Generate" />
 		</div>
