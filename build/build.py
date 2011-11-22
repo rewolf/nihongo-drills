@@ -30,7 +30,8 @@ css_files = [
 	"style/desktop/menu.css",
 	"style/desktop/drills.css",
 	"style/desktop/resources.css",
-	"style/name-tags.css"
+	"style/name-tags.css",
+	"style/name-tags-print.css"
 ]
 
 
@@ -63,6 +64,9 @@ css_mods = {
 	],
 	"name-tags" : [
 		"style/name-tags.css"
+	],
+	"name-tags-print" : [
+		"style/name-tags-print.css"
 	]
 }
 
@@ -79,7 +83,8 @@ pages = {
 	"make-tags.php" : {
 		"js": [],
 		"css": [
-			("name-tags", "")
+			("name-tags", ""),
+			("name-tags-print", "print")
 		]
 	}
 }

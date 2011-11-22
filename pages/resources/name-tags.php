@@ -41,7 +41,7 @@
 <div id="mod-name-tags" class="module" data-title="">
 	<h1>Design and Print Name Tags</h1>
 	<p class="mod-instruction">
-		Name tags can be printed and stuck to household items as labels to remember their names and how to pronounce them. First, you can customize or choose how you the want the name-tags to appear and which items you want.  Some household items will have come from the west and are written with katakana usually.  You can choose whether you still want pronunciation in hiragana though if you are not comfortable with katakana yet. Actual names, containing kanji, are also provided.
+		Name tags can be printed and stuck to household items as labels to remember their names and how to pronounce them. First, you can customize or choose how you the want the name-tags to appear and which items you want.  Some household items will have come from the west and are written with katakana usually.  You can choose whether you still want pronunciation in hiragana though if you are not comfortable with katakana yet. Actual names, containing kanji, are also provided.  When you are done, press the "Generate" button to preview the tags.
 	</p>
 	<form method="POST" action="make-tags.php" target="_blank">
 		<div id="room-list" class="ui-check-list">
@@ -68,9 +68,13 @@
 				<input type="checkbox" name="no-english" />
 				No English
 			</label>
+			<label title="Create vertical labels instead">
+				<input type="checkbox" name="vertical" />
+				Vertical Labels
+			</label>
 		</div>
 		<div class="button-box">
-			<input type="submit" value="Generate" />
+			<input type="submit" value="Generate" title="Press to see how the tags will look" />
 		</div>
 	</form>
 </div>

@@ -1,23 +1,14 @@
 body { 
-	background-color:		#888;
+	background-color:		none;
 }
 
 .name-tag {
-	background-color:		white;
+	background-color:		none;
 	border:					#000 3px solid;
 	margin:					3px;
 	min-width:				400px;
 	position:				relative;
 	text-align:				center;
-}
-
-.name-tag.vertical {
-	direction:				rtl;
-	display:				inline-block;
-	min-width:				0px;
-	min-height:				260px;
-	overflow:				auto;
-	vertical-align:			top;
 }
 
 .name-tag .primary {
@@ -36,28 +27,14 @@ body {
 	right:					5px;
 }
 
-
 #message {
 	background-color:		white;
 	border:					6px solid #000;
 	color:					black;
+	display:				none;
 	font-size:				22px;
 	margin:					20px auto;
 	padding:				20px;
 	text-align:				center;
-	width:					400px;
+	width:					450px;
 }
-
-.name-tag.vertical span {
-	display:				block;
-	float:					right;
-	width:					1em;
-}
-
-.name-tag.vertical .english {
-	left:					5px;
-	right:					auto;
-	width:					auto;
-}
-
-

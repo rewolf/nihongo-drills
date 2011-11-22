@@ -18,6 +18,8 @@
 
 	function print_item ($cheat, $item) {
 		global $item_html;
+
+		$class = isset($_POST["vertical"]) ? "name-tag vertical" : "name-tag";
 		$names = array();
 		if (isset($_POST["show-kanji"]) && isset($item["kanji"])) {
 			$names[] = $item["kanji"];
@@ -34,13 +36,16 @@
 			return;
 		}
 
-		$item_html .= "<div class=\"name-tag\">";
+		$item_html .= "<div class=\"$class\">";
 		$item_html .= "  <span class=\"primary\">".$names[0]."</span>";
 		if (sizeof($names) > 1) {
 			$item_html .= "  <span class=\"secondary\">".$names[1]."</span>";
 		}
 		if (sizeof($names) > 2) {
 			$item_html .= "  <span class=\"tertiary\">".$names[2]."</span>";
+		}
+		if (!isset($_POST["no-english"])) {
+			$item_html .= "  <span class=\"english\">".$cheat."</span>";
 		}
 		$item_html .= "</div>";
 	}
@@ -56,7 +61,18 @@
     <link rel="shortcut icon" href="res/images/favicon.gif" />
     <link rel="stylesheet" href="style/name-tags.css" />
 </head>
-<body onload="window.print()">
+<body>
+	<header id="message">
+		<p>
+			Below are all the tags, generated according to your specifications.  You can safely
+			print this page now, cut the tags out and place them by household items.
+		</p>
+		<hr />
+		<p>
+			Note that some words may not have translations in all the character sets.
+		</p>
+		<button onclick="window.print()">Print Preview</button>
+	</header>
 	<?php echo $item_html ?>
 </body>
 </html>

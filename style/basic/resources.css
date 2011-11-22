@@ -32,10 +32,14 @@
 
 #tag-options {
 	display:					inline-block;
-	margin:						5px auto;
+	margin:						10px auto;
 	text-align:					left;
 }
 
 #tag-options label {
 	display:					block;
+}
+
+#mod-name-tags .button-box {
+	margin-top:					8px;
 }

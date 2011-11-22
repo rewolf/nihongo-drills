@@ -1,6 +1,7 @@
 FOR V1.1.1
 	* hira->kata, kata->hira drills							[x]
 	* name-tag resources   									[ ]
+	* vertical tag representation							[ ]
 	* error handling for load_page fail.. show loading		[ ]
 
 FOR NEXT AFTER THAT
