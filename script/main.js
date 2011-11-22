@@ -2,7 +2,8 @@
 JAP.image.loadBatch("essential",
 	[
 		"res/images/loader2.png",
-		"res/images/htv.png"
+		"res/images/htv.png",
+		"res/images/checkstates.png"
 	]
 );
 
@@ -30,7 +31,6 @@ JAP.image.loadBatch("essential",
 	}, 100);
 
 	function preload() {
-		_.addClass($id("layout-middle", "zero-height"));
 	}
 
 	/*
@@ -283,9 +283,6 @@ JAP.image.loadBatch("essential",
 			JAP.winW = document.documentElement.clientWidth;    
 			JAP.winH = document.documentElement.clientHeight;    
 		}
-
-		$id("screen-block").style.width = JAP.winW  + "px";
-		$id("screen-block").style.height = JAP.winH  + "px";
 
 		// If the screen is big enough, make the header, content, footer fit on screen
 		if (isAppOnePage()) {

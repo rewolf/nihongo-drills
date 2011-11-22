@@ -1,0 +1,84 @@
+<?php
+	global $nametags;
+	$nametags = json_decode(file_get_contents("../name-tags.json"), true);
+	ksort($nametags);
+
+	function insertRooms () {
+		global $nametags;
+		$rooms 		= array_keys($nametags);
+		$selected	= "selected";
+		foreach ($rooms as $r) {
+			echo "
+				<div class=\"ui-check-item room-item $selected\" data-name=\"$r\">
+					<div class=\"ui-check-box room-checkbox \" data-state=\"0\"></div>
+					<span>$r</span>
+				</div>
+			";
+			$selected = "";
+		}
+	}
+
+	function insertItems () {
+		global $nametags;
+		$visible = "";
+		foreach ($nametags as $room=>$items) {
+			ksort($items);
+			foreach ($items as $name=>$translations) {
+				ksort($translations);
+				$tooltip = join("   |   ", array_values($translations));
+				echo "
+					<div class=\"ui-check-item room-item-item $visible\" data-room=\"$room\" title=\"$tooltip\">
+						<input type=\"checkbox\" class=\"nothing room-item-input\" name=\"|$room|$name\"/>
+						<div class=\"ui-check-box\" data-state=\"0\"></div>
+						<span>$name</span>
+					</div>
+				";
+			}
+			$visible = "nothing";
+		}
+	}
+?>
+<div id="mod-name-tags" class="module" data-title="">
+	<h1>Design and Print Name Tags</h1>
+	<p class="mod-instruction">
+		Name tags can be printed and stuck to household items as labels to remember their names and how to pronounce them. First, you can customize or choose how you the want the name-tags to appear and which items you want.  Some household items will have come from the west and are written with katakana usually.  You can choose whether you still want pronunciation in hiragana though if you are not comfortable with katakana yet. Actual names, containing kanji, are also provided.  When you are done, press the "Generate" button to preview the tags.
+	</p>
+	<form method="POST" action="make-tags.php" target="_blank">
+		<div class="list-container">
+			<div id="room-list" class="ui-check-list">
+				 <?php insertRooms(); ?>
+			</div>
+		</div>
+		<div class="list-container">
+			<div id="room-item-list" class="ui-check-list">
+				<?php insertItems(); ?>
+			</div>
+		</div>
+		<div id="room-item-count">No tags are selected</div>
+		<div id="tag-options">
+			<label title="Show the Kanji if available">
+				<input type="checkbox" name="show-kanji" checked/>
+				Show Kanji
+			</label>
+			<label title="Show the Hiragana if available">
+				<input type="checkbox" name="show-hiragana" checked/>
+				Show Hiragana
+			</label>
+			<label title="Show the Katakana if available">
+				<input type="checkbox" name="show-katakana" checked/>
+				Show Katakana
+			</label>
+			<label title="Don't put the english translation">
+				<input type="checkbox" name="no-english" />
+				No English
+			</label>
+			<label title="Create vertical labels instead">
+				<input type="checkbox" name="vertical" />
+				Vertical Labels
+			</label>
+		</div>
+		<div class="button-box">
+			<input type="submit" value="Generate" title="Press to see how the tags will look" />
+		</div>
+	</form>
+</div>

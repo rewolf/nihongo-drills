@@ -1,0 +1,118 @@
+
+.menu-row {
+	clear:					both;
+	overflow:				hidden;
+	width:					100%;
+}
+
+.menu-item {
+	color:					#ccc;
+	cursor:					pointer;
+	display:				block;
+	float:					left;
+	left:					0px;
+	margin:					7px;
+	position:				relative;
+	-webkit-transition:		-webkit-transform .4s linear, left .5s linear;
+	-moz-transition:		-moz-transform .4s linear, left .5s linear;
+	-o-transition:			-o-transform .4s linear, left .5s linear;
+	-ms-transition:			-ms-transform .4s linear, left .5s linear;
+	text-align:				center;
+	text-decoration:		none;
+	transition:				transform .4s linear, left .5s linear;
+}
+
+.menu-item:visited {
+	color:					#ccc;
+}
+
+.offscreen-item {
+	left:					2000px;
+}
+
+.menu-item-icon {
+	display:				inline-block;
+	margin:					0px 15px;
+}
+
+.menu-item-label {
+	line-height:			inherit;
+}
+
+.item-label-kana {
+	font-size:				1.5em;
+}
+
+.panel-link {
+	box-shadow:				inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
+	-moz-box-shadow:		inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
+	-webkit-box-shadow:		inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
+	-o-box-shadow:			inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
+	-ms-box-shadow:			inset 0px 0px 20px 4px rgba(255,255,255,.1), 2px 2px 5px #000;
+}
+
+.panel-link:hover {
+}
+
+/************************************************
+ * ITEM ICONS 
+ ***********************************************/
+
+
+.htv-hira {
+	background-image:		url("../res/images/htv.png");
+	background-position:	-4px 0px;
+	width:					68px;
+}
+.htv-kata {
+	background-image:		url("../res/images/htv.png");
+	background-position:	-319px 0px;
+	width:					67px;
+}
+.htv-arrow {
+	background-image:		url("../res/images/htv.png");
+	background-position:	-181px 0px;
+	width:					33px;
+}
+.htv-voice {
+	background-image:		url("../res/images/htv.png");
+	background-position:	-85px 0px;
+	width:					85px;
+}
+.htv-write {
+	background-image:		url("../res/images/htv.png");
+	background-position:	-219px 0px;
+	width:					100px;
+}
+
+.htv-hira.small {
+	background-image:		url("../res/images/htv-small.png");
+	background-position:	-3px 0px;
+	width:					34px;
+}
+.htv-kata.small {
+	background-image:		url("../res/images/htv-small.png");
+	background-position:	-168px 0px;
+	width:					34px;
+}
+.htv-arrow.small {
+	background-image:		url("../res/images/htv-small.png");
+	background-position:	-94px 0px;
+	width:					17px;
+}
+.htv-voice.small {
+	background-image:		url("../res/images/htv-small.png");
+	background-position:	-46px 0px;
+	width:					43px;
+}
+.htv-write.small {
+	background-image:		url("../res/images/htv-small.png");
+	background-position:	-114px 0px;
+	width:					50px;
+}
+
+.htv-hira.too-small, .htv-kata.too-small, .htv-arrow.too-small, .htv-voice.too-small, .htv-write.too-small {
+	background:				none;
+	height:					0px !important;
+	width:					0px !important;
+}

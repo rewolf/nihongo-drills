@@ -2,7 +2,7 @@ from rewolf.web_builder import WebApp
 import sys
 import os
 
-VERSION 		= "1_1_0_002"
+VERSION 		= "1_1_1"
 LOCAL_SERVER	= "/var/www/nihongo"
 REMOTE_USER		= "angry4dminbn"
 REMOTE_SERVER	= "angrytortoise.com"
@@ -15,23 +15,34 @@ js_files = [
 	"script/page.js",
 	"script/abstract-modules.js",
 	"script/modules.js",
+	"script/resource-modules.js",
 	"script/page-manager.js",
 	"script/main.js"
 ]
 
 css_files = [
 	"style/common.css",
-	"style/desktop.css"
+	"style/basic/main.css",
+	"style/basic/menu.css",
+	"style/basic/drills.css",
+	"style/basic/resources.css",
+	"style/desktop/main.css",
+	"style/desktop/menu.css",
+	"style/desktop/drills.css",
+	"style/desktop/resources.css",
+	"style/name-tags.css",
+	"style/name-tags-print.css"
 ]
 
 
 js_mods = {
-	"hira-main" : [
+	"nd-main" : [
 		"script/common.js", 
 		"script/image.js", 
 		"script/page.js",
 		"script/abstract-modules.js",
 		"script/modules.js",
+		"script/resource-modules.js",
 		"script/page-manager.js",
 		"script/main.js",
 	]
@@ -39,21 +50,41 @@ js_mods = {
 
 css_mods = {
 	"basic" 	: [
-		"style/common.css"
+		"style/common.css",
+		"style/basic/main.css",
+		"style/basic/menu.css",
+		"style/basic/drills.css",
+		"style/basic/resources.css",
 	],
 	"desktop"	: [
-		"style/desktop.css"
+		"style/desktop/main.css",
+		"style/desktop/menu.css",
+		"style/desktop/drills.css",
+		"style/desktop/resources.css",
+	],
+	"name-tags" : [
+		"style/name-tags.css"
+	],
+	"name-tags-print" : [
+		"style/name-tags-print.css"
 	]
 }
 
 pages = {
 	"index.php" : {
 		"js":	[
-			"hira-main"
+			"nd-main"
 		],
 		"css":	[
 			("basic", 		""),
 			("desktop",		"screen and (min-width: 1024px)")
+		]
+	},
+	"make-tags.php" : {
+		"js": [],
+		"css": [
+			("name-tags", ""),
+			("name-tags-print", "print")
 		]
 	}
 }
@@ -65,7 +96,31 @@ res = [
 	"includes",
 	"ajax",
 	"pages",
-	"page-meta.json"
+	"sitemap.xml",
+	"page-meta.json",
+	"name-tags.json",
+]
+
+rename_js = [
+	"settings",
+	"addEvent",
+	"maxCharLine",
+	"minCharLine",
+	"contentNode",
+	"showNextChar",
+	"difficulty",
+	"removeClass",
+	"addClass",
+	"Module",
+	"currentModule",
+	"createElem",
+	"currentPage",
+	"Char_fromVoice",
+	"Char_toVoice",
+	"Char_writeTest",
+	"currentCharIndex"
+]
+rename_css = [
 ]
 
 def main():
@@ -79,6 +134,9 @@ def main():
 
 	app = WebApp("nihongo", VERSION, js_files, css_files, res)
 
+	app.rename("js", rename_js)
+	app.rename("css", rename_css)
+
 	app.build(js_mods, css_mods, pages, minify)
 
 	if "-d" in sys.argv or "--deploy" in sys.argv:
@@ -86,7 +144,7 @@ def main():
 			app.deploy_remote(REMOTE_USER, REMOTE_SERVER, REMOTE_PATH)
 		else:
 			print "Deployment aborted"
-	if "-t" in sys.argv or "--test" in sys.argv:
+	elif "-t" in sys.argv or "--test" in sys.argv:
 		if raw_input("Are you sure you wish to deploy to the testing path on teh remote server? ").lower()=="y":
 			app.deploy_remote(REMOTE_USER, REMOTE_SERVER, TEST_PATH)
 		else:

@@ -1,0 +1,64 @@
+body { 
+	background-color:		#888;
+}
+
+.name-tag {
+	background-color:		white;
+	border:					#000 3px solid;
+	margin:					3px;
+	min-width:				400px;
+	page-break-inside:		avoid;
+	position:				relative;
+	text-align:				center;
+}
+
+.name-tag.vertical {
+	direction:				rtl;
+	display:				inline-block;
+	min-width:				0px;
+	min-height:				260px;
+	overflow:				auto;
+	vertical-align:			top;
+}
+
+.name-tag .primary {
+	display:				block;
+	font-size:				65px;
+}
+.name-tag .secondary, .name-tag .tertiary {
+	font-size:				40px;
+	margin:					0px 20px;
+}
+
+.name-tag .english {
+	bottom:					1px;
+	font-size:				11px;
+	position:				absolute;
+	right:					5px;
+}
+
+
+#message {
+	background-color:		white;
+	border:					6px solid #000;
+	color:					black;
+	font-size:				22px;
+	margin:					20px auto;
+	padding:				20px;
+	text-align:				center;
+	width:					400px;
+}
+
+.name-tag.vertical span {
+	display:				block;
+	float:					right;
+	width:					1em;
+}
+
+.name-tag.vertical .english {
+	left:					5px;
+	right:					auto;
+	width:					auto;
+}
+
+

@@ -13,7 +13,6 @@
 				"menu-label":		"Character Drills",
 				"menu-tooltip":		"Drills to test your memory of characters"
 			},
-
 	
 	"#!/character-drills/hiragana" :
 			{
@@ -47,6 +46,15 @@
 				"menu-icon-1":		"htv-voice",
 				"menu-icon-2":		"htv-arrow",
 				"menu-icon-3":		"htv-write"
+			},
+	"#!/character-drills/hiragana/from-katakana" :
+			{
+				"title"		:		"Match Hiragana and Katakana",
+				"desc"		:		"Test your ability to match up corresponding hiragana characters with katakana",
+				"menu-label":		"Match with Katakana",
+				"menu-icon-1":		"htv-kata",
+				"menu-icon-2":		"htv-arrow",
+				"menu-icon-3":		"htv-hira"
 			},
 
 
@@ -83,15 +91,30 @@
 				"menu-icon-2":		"htv-arrow",
 				"menu-icon-3":		"htv-write"
 			},
+	"#!/character-drills/katakana/from-hiragana" :
+			{
+				"title"		:		"Match Hiragana and Katakana",
+				"desc"		:		"Test your ability to match up corresponding katakana characters with hiragana",
+				"menu-label":		"Match with Hiragana",
+				"menu-icon-1":		"htv-hira",
+				"menu-icon-2":		"htv-arrow",
+				"menu-icon-3":		"htv-kata"
+			},
 
 	"#!/resources" :
 			{
-				"title"		:		"Resources for practising Japanese",
-				"desc"		:		"Download or print resources for practising Japanese such as practising writing paper, labels for everyday items and links for kana keyboard stickers.",
+				"title"		:		"Resources for Learning Japanese",
+				"desc"		:		"A set of resources to assist in learning the Japanese language.  Print out name-tags or labels for everyday household items to help with your vocabulary.",
 				"menu-noicon":		"noicon",
-				"menu-label":		"Resources"
+				"menu-label":		"Resources",
+				"menu-tooltip":		"Get resources to help you learn, like name-tags for household items."
 			},
-
+	"#!/resources/name-tags" :
+			{
+				"title"		:		"Japanese Name Tags for household items",
+				"desc"		:		"Print out name-tags or labels for everyday, household items to help with your vocabulary. There are labels for different rooms of the house.",
+				"menu-label":		"Name Tags"
+			},
 
 
 	"#!/_about" :

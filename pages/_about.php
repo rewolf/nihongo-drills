@@ -1,6 +1,6 @@
 <div class="module" id="about-module">
 	<h3>
-		About this site..
+		About this site.. 
 	</h3>
 	<p>
 		There are plenty of books, audio CDs and online resources that teach the Japanese language.

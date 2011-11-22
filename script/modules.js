@@ -52,7 +52,7 @@
 		JAP.abs.Char_fromVoice.call(this, JAP.HIRAGANA_UNICODE);
 	}
 	Char_Hira_fromVoice.prototype			= new JAP.abs.Char_fromVoice();
-	Char_Hira_toVoice.prototype.constructor = Char_Hira_fromVoice;
+	Char_Hira_fromVoice.prototype.constructor = Char_Hira_fromVoice;
 	Char_Hira_fromVoice.pageHash			= "#!/character-drills/hiragana/from-voice";
 
 	/***************************************************************
@@ -62,7 +62,7 @@
 		JAP.abs.Char_writeTest.call(this, JAP.HIRAGANA_UNICODE);
 	}
 	Char_Hira_writeTest.prototype			= new JAP.abs.Char_writeTest();
-	Char_Hira_toVoice.prototype.constructor = Char_Hira_writeTest;
+	Char_Hira_writeTest.prototype.constructor = Char_Hira_writeTest;
 	Char_Hira_writeTest.pageHash			= "#!/character-drills/hiragana/write-test";
 
 	/***************************************************************
@@ -84,7 +84,7 @@
 		JAP.abs.Char_fromVoice.call(this, JAP.KATAKANA_UNICODE);
 	}
 	Char_Kata_fromVoice.prototype			= new JAP.abs.Char_fromVoice();
-	Char_Kata_toVoice.prototype.constructor = Char_Kata_fromVoice;
+	Char_Kata_fromVoice.prototype.constructor = Char_Kata_fromVoice;
 	Char_Kata_fromVoice.pageHash			= "#!/character-drills/katakana/from-voice";
 
 	/***************************************************************
@@ -94,8 +94,28 @@
 		JAP.abs.Char_writeTest.call(this, JAP.KATAKANA_UNICODE);
 	}
 	Char_Kata_writeTest.prototype			= new JAP.abs.Char_writeTest();
-	Char_Kata_toVoice.prototype.constructor = Char_Kata_writeTest;
+	Char_Kata_writeTest.prototype.constructor = Char_Kata_writeTest;
 	Char_Kata_writeTest.pageHash			= "#!/character-drills/katakana/write-test";
+
+	/***************************************************************
+	 * Character - Katakana from Hiragana
+	 **************************************************************/
+	function Char_Kata_fromHira () {
+		JAP.abs.Char_fromChar.call(this, JAP.KATAKANA_UNICODE, JAP.HIRAGANA_UNICODE);
+	}
+	Char_Kata_fromHira.prototype			= new JAP.abs.Char_fromChar();
+	Char_Kata_fromHira.prototype.constructor = Char_Kata_fromHira;
+	Char_Kata_fromHira.pageHash			= "#!/character-drills/katakana/from-hiragana";
+
+	/***************************************************************
+	 * Character - Katakana to Hiragana
+	 **************************************************************/
+	function Char_Hira_fromKata () {
+		JAP.abs.Char_fromChar.call(this, JAP.HIRAGANA_UNICODE, JAP.KATAKANA_UNICODE);
+	}
+	Char_Hira_fromKata.prototype			= new JAP.abs.Char_fromChar();
+	Char_Hira_fromKata.prototype.constructor= Char_Hira_fromKata;
+	Char_Hira_fromKata.pageHash			= "#!/character-drills/hiragana/from-katakana";
 
 	/***************************************************************
 	 * About
@@ -119,15 +139,29 @@
 	// Set this to identify this class for handling the following hash url
 	Links_Page.pageHash				= "#!/_links";
 
+	/***************************************************************
+	 * Resources
+	 **************************************************************/
+	function NameTags () {
+		JAP.Module.call(this);
+	}
+	NameTags.prototype			= new JAP.Module();
+	NameTags.prototype.constructor = NameTags;
+	// Set this to identify this class for handling the following hash url
+	NameTags.pageHash				= "#!/resources/name-tags";
+
 	// Export to outside
 	ns.Char_Hira_toVoice 		= Char_Hira_toVoice;
 	ns.Char_Hira_fromVoice 		= Char_Hira_fromVoice;
 	ns.Char_Hira_writeTest 		= Char_Hira_writeTest;
+	ns.Char_Hira_fromKata 		= Char_Hira_fromKata;
 	ns.Char_Kata_toVoice 		= Char_Kata_toVoice;
 	ns.Char_Kata_fromVoice 		= Char_Kata_fromVoice;
 	ns.Char_Kata_writeTest 		= Char_Kata_writeTest;
+	ns.Char_Kata_fromHira 		= Char_Kata_fromHira;
 	ns.About_Page				= About_Page;
 	ns.Links_Page				= Links_Page;
+	ns.NameTags					= NameTags;
 
 })(JAP.namespace("JAP.mods"));
 

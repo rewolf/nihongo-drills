@@ -26,11 +26,14 @@
 
 	function loadPage ($path, $hash) {
 		$pageMeta  = getPageMeta("#!/$hash");
+		ob_start();
+		include ($path);
+		$page_content = ob_get_clean();
 		$page_info = array(
 			"type"			=> "module",
 			"title"			=> "Nihongo Drills",
 			"url"			=> "#!/$hash",
-			"content"		=> file_get_contents($path)
+			"content"		=> $page_content
 		);
 		if ($pageMeta) {
 			$page_info["title"] 	= $pageMeta["title"];

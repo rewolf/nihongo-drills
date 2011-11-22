@@ -1,0 +1,40 @@
+body { 
+	background-color:		none;
+}
+
+.name-tag {
+	background-color:		none;
+	border:					#000 3px solid;
+	margin:					3px;
+	min-width:				400px;
+	position:				relative;
+	text-align:				center;
+}
+
+.name-tag .primary {
+	display:				block;
+	font-size:				65px;
+}
+.name-tag .secondary, .name-tag .tertiary {
+	font-size:				40px;
+	margin:					0px 20px;
+}
+
+.name-tag .english {
+	bottom:					1px;
+	font-size:				11px;
+	position:				absolute;
+	right:					5px;
+}
+
+#message {
+	background-color:		white;
+	border:					6px solid #000;
+	color:					black;
+	display:				none;
+	font-size:				22px;
+	margin:					20px auto;
+	padding:				20px;
+	text-align:				center;
+	width:					450px;
+}
