@@ -63,6 +63,22 @@
 			0.7
 		</priority>
 	</url>
+
+
+
+
+	<url>
+		<loc>http://www.nihongodrills.com/#!/resources</loc>
+	</url>
+	<url>
+		<loc>http://www.nihongodrills.com/#!/resources/name-tags</loc>
+		<priority>
+			0.7
+		</priority>
+	</url>
+
+
+
 	<url>
 		<loc>http://www.nihongodrills.com/#!/_about</loc>
 		<priority>

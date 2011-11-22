@@ -1,6 +1,7 @@
 <?php
 	global $nametags;
-	$nametags = json_decode(file_get_contents("../name-tags.json"), true);
+	$inc_path = file_exists("name-tags.json") ? "name-tags.json" : "../name-tags.json";
+	$nametags = json_decode(file_get_contents($inc_path), true);
 	ksort($nametags);
 
 	function insertRooms () {

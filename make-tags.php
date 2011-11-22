@@ -57,7 +57,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" /> 
 	<title>Japanese Item Nametags</title>
-	<meta name="description" content="blah blah" />
+	<meta name="description" content="Generated list of user-customized and user-chosen hiragana / katakana / kanji name-tags or labels for household items as an aid to increase Japanese language while learning Nihongo, the Japanese language." />
     <link rel="shortcut icon" href="res/images/favicon.gif" />
     <link rel="stylesheet" href="style/name-tags.css" />
 </head>
