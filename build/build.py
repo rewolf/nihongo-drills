@@ -30,6 +30,7 @@ css_files = [
 	"style/desktop/menu.css",
 	"style/desktop/drills.css",
 	"style/desktop/resources.css",
+	"style/name-tags.css"
 ]
 
 
@@ -59,6 +60,9 @@ css_mods = {
 		"style/desktop/menu.css",
 		"style/desktop/drills.css",
 		"style/desktop/resources.css",
+	],
+	"name-tags" : [
+		"style/name-tags.css"
 	]
 }
 
@@ -71,6 +75,12 @@ pages = {
 			("basic", 		""),
 			("desktop",		"screen and (min-width: 1024px)")
 		]
+	},
+	"make-tags.php" : {
+		"js": [],
+		"css": [
+			("name-tags", "")
+		]
 	}
 }
 
@@ -82,9 +92,8 @@ res = [
 	"ajax",
 	"pages",
 	"sitemap.xml",
-	"make-tags.php",
 	"page-meta.json",
-	"name-tags.json"
+	"name-tags.json",
 ]
 
 rename_js = [

@@ -54,8 +54,9 @@
 	<title>Japanese Item Nametags</title>
 	<meta name="description" content="blah blah" />
     <link rel="shortcut icon" href="res/images/favicon.gif" />
+    <link rel="stylesheet" href="style/name-tags.css" />
 </head>
-<body>
+<body onload="window.print()">
 	<?php echo $item_html ?>
 </body>
 </html>

@@ -1,0 +1,15 @@
+.name-tag {
+	border:					#555 1px solid;
+	margin:					3px;
+	min-width:				400px;
+	text-align:				center;
+}
+
+.name-tag .primary {
+	display:				block;
+	font-size:				60px;
+}
+.name-tag .secondary, .name-tag .tertiary {
+	font-size:				35px;
+	margin:					0px 20px;
+}
