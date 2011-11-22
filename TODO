@@ -1,8 +1,11 @@
 FOR V1.1.1
 	* hira->kata, kata->hira drills							[x]
 	* name-tag resources   									[ ]
-	* vertical tag representation							[ ]
-	* error handling for load_page fail.. show loading		[ ]
+	* vertical tag representation							[x]
+
+FOR V1.1.2
+	* About text
+	* Links text
 
 FOR NEXT AFTER THAT
 	* generate katakana automatically if not available		[ ]
@@ -16,7 +19,7 @@ FOR NEXT AFTER THAT
 
 THEN
 	* multi-language ability (not necessarily with langs)	[ ]
-	* info pages											[ ]
+	* info pages (teach a bit)								[ ]
 	* cache/web-storage some user data						[ ]
 
 THEN

@@ -37,11 +37,15 @@
 					JAP.pageManager.isBusy = false;
 				}
 			}
+			else {
+				onLoadFail();
+			}
 		}
 	}
 
 	function onLoadFail () {
-		this.isBusy = false;
+		JAP.pageManager.isBusy = false;
+		JAP.pageManager.currentPage.show();
 	}
 
 	function queuePage (pageInfo) {

@@ -1,13 +1,18 @@
+.list-container {
+	background-color:			#fff;
+	box-shadow:					inset 1px 1px 3px #333;
+	display:					inline-block;
+	padding:					3px;
+	resize:						vertical;
+	width:						200px;
+	vertical-align:				top;
+}
+
 .ui-check-list {
 	background-color:			#fff;
-	box-shadow:					inset 1px 1px 3px #444;
-	display:					inline-block;
 	height:						120px;
 	overflow-x:					hidden;
 	overflow-y:					auto;
-	resize:						vertical;
-	vertical-align:				top;
-	width:						200px;
 }
 
 .ui-check-item {
@@ -17,11 +22,12 @@
 }
 
 .ui-check-item.room-item:hover {
-	outline:					#400 1px dashed;
+	background-color:			#ccc;
 }
 
-.ui-check-item.selected {
-	background-color:			#ccc;
+.ui-check-item.selected, .ui-check-item.room-item.selected:hover {
+	background-color:			#822;
+	color:						#fff;
 }
 
 #room-item-count {
