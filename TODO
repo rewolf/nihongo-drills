@@ -4,15 +4,16 @@ FOR V1.1.1
 	* vertical tag representation							[x]
 
 FOR V1.1.2
-	* About text
-	* Links text
+	* About text											[ ]
+	* Links text											[ ]
+	* bigger ads on the side								[ ]
+
+FOR V1.2.0
+	* other characters (g, z, d, b, p)						[ ]
+	* convert between kana + romaji
 
 FOR NEXT AFTER THAT
-	* generate katakana automatically if not available		[ ]
-		for the name-tag resources
-	* room names themselves									[ ]
 	* writing paper resources   							[ ]
-	* other characters (g, z, d, b, p)						[ ]
 	* preload audio for next drill							[ ]
 	* kana tables 											[ ]
 	* Fix styling: content-page drop-shadow overlap			[ ]
