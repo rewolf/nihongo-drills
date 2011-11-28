@@ -18,17 +18,20 @@
 
 	function print_item ($cheat, $item) {
 		global $item_html;
-
-		$class = isset($_POST["vertical"]) ? "name-tag vertical" : "name-tag";
+		# disable vertical if romaji is set
+		$class = isset($_POST["vertical"]) && !isset($_POST["show-romaji"]) ? "name-tag vertical" : "name-tag";
 		$names = array();
-		if (isset($_POST["show-kanji"]) && isset($item["kanji"])) {
-			$names[] = $item["kanji"];
-		}
-		if (isset($_POST["show-hiragana"]) && isset($item["hiragana"])) {
+		if (isset($item["kanji"])) {
+			if (isset($_POST["show-kanji"])) {
+				$names[] = $item["kanji"];
+			}
 			$names[] = $item["hiragana"];
 		}
-		if (isset($_POST["show-katakana"]) && isset($item["katakana"])) {
+		elseif (isset($item["katakana"])) {
 			$names[] = $item["katakana"];
+		}
+		if (isset($_POST["show-romaji"])){
+			$names[] = $item["romaji"];
 		}
 
 		# No names to display
