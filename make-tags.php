@@ -47,7 +47,7 @@
 		if (sizeof($names) > 2) {
 			$item_html .= "  <span class=\"tertiary\">".$names[2]."</span>";
 		}
-		if (!isset($_POST["no-english"])) {
+		if (isset($_POST["show-english"])) {
 			$item_html .= "  <span class=\"english\">".$cheat."</span>";
 		}
 		$item_html .= "</div>";
@@ -59,7 +59,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" /> 
-	<title>Japanese Item Nametags</title>
+	<title>Nihongo Drills: Japanese Name-tags</title>
 	<meta name="description" content="Generated list of user-customized and user-chosen hiragana / katakana / kanji name-tags or labels for household items as an aid to increase Japanese language while learning Nihongo, the Japanese language." />
     <link rel="shortcut icon" href="res/images/favicon.gif" />
     <link rel="stylesheet" href="style/name-tags.css" />

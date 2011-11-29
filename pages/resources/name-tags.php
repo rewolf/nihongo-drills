@@ -50,6 +50,8 @@
 	<p class="mod-instruction">
 		Name tags can be printed and stuck to household items as labels to remember their names and how to pronounce them. First, you can customize or choose how you the want the name-tags to appear and which items you want.  Some household items will have come from the west and are written with katakana usually.  You can choose whether you still want pronunciation in hiragana though if you are not comfortable with katakana yet. Actual names, containing kanji, are also provided.  When you are done, press the "Generate" button to preview the tags.
 	</p>
+	<p>
+		To see some examples of using the name-tags or labels, <a href="name-tag-example.php" target="_blank">click this link</a>
 	<form method="POST" action="make-tags.php" target="_blank">
 		<div class="list-container">
 			<div id="room-list" class="ui-check-list">
@@ -79,9 +81,9 @@
 				<input type="checkbox" name="show-romaji" />
 				Show Romaji (for cheaters!)
 			</label>
-			<label title="Don't put the english translation">
-				<input type="checkbox" name="no-english" />
-				No English
+			<label title="Show the english translation in the bottom corner">
+				<input type="checkbox" name="show-english" />
+				Show English
 			</label>
 			<label title="Create vertical labels instead. Doesn't work with romaji">
 				<input type="checkbox" name="vertical" />
@@ -90,6 +92,9 @@
 		</div>
 		<div class="button-box">
 			<input type="submit" value="Generate" title="Press to see how the tags will look" />
+		</div>
+		<div class="mod-instruction">
+			If you have any requests, complaints or suggestions, pleast let us know on our <a href="http://twitter.com/nihongo_drills" target="_blank">Twitter page</a>.
 		</div>
 	</form>
 </div>

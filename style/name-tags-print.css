@@ -4,7 +4,7 @@ body {
 
 .name-tag {
 	background-color:		none;
-	border:					#000 3px solid;
+	border:					#000 10px solid;
 	margin:					3px;
 	min-width:				400px;
 	position:				relative;
@@ -13,10 +13,10 @@ body {
 
 .name-tag .primary {
 	display:				block;
-	font-size:				65px;
+	font-size:				100px;
 }
 .name-tag .secondary, .name-tag .tertiary {
-	font-size:				40px;
+	font-size:				75px;
 	margin:					0px 20px;
 }
 
