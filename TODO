@@ -1,24 +1,28 @@
 FOR V1.1.1
 	* hira->kata, kata->hira drills							[x]
-	* name-tag resources   									[ ]
+	* name-tag resources   									[x]
 	* vertical tag representation							[x]
 
 FOR V1.1.2
-	* About text											[ ]
-	* Links text											[ ]
-	* bigger ads on the side								[ ]
+	* About text
+	* Links text
+	* extra ads
+	* cache js
+	* order name-tags by height to be more efficient		[ ]
+		in paper use
 
 FOR V1.2.0
-	* other characters (g, z, d, b, p)						[ ]
-	* convert between kana + romaji
-
-FOR NEXT AFTER THAT
+	* generate katakana automatically if not available		[ ]
+		for the name-tag resources
+	* room names themselves									[ ]
 	* writing paper resources   							[ ]
+	* other characters (g, z, d, b, p)						[ ]
+FOR V1.2.1
 	* preload audio for next drill							[ ]
 	* kana tables 											[ ]
 	* Fix styling: content-page drop-shadow overlap			[ ]
 
-THEN
+THEN (V2.0)
 	* multi-language ability (not necessarily with langs)	[ ]
 	* info pages (teach a bit)								[ ]
 	* cache/web-storage some user data						[ ]

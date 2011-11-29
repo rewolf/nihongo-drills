@@ -80,6 +80,14 @@ pages = {
 			("desktop",		"screen and (min-width: 1024px)")
 		]
 	},
+	"name-tag-example.php" : {
+		"js":	[
+		],
+		"css":	[
+			("basic", 		""),
+			("desktop",		"screen and (min-width: 1024px)")
+		]
+	},
 	"make-tags.php" : {
 		"js": [],
 		"css": [

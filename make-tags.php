@@ -18,17 +18,20 @@
 
 	function print_item ($cheat, $item) {
 		global $item_html;
-
-		$class = isset($_POST["vertical"]) ? "name-tag vertical" : "name-tag";
+		# disable vertical if romaji is set
+		$class = isset($_POST["vertical"]) && !isset($_POST["show-romaji"]) ? "name-tag vertical" : "name-tag";
 		$names = array();
-		if (isset($_POST["show-kanji"]) && isset($item["kanji"])) {
-			$names[] = $item["kanji"];
-		}
-		if (isset($_POST["show-hiragana"]) && isset($item["hiragana"])) {
+		if (isset($item["kanji"])) {
+			if (isset($_POST["show-kanji"])) {
+				$names[] = $item["kanji"];
+			}
 			$names[] = $item["hiragana"];
 		}
-		if (isset($_POST["show-katakana"]) && isset($item["katakana"])) {
+		elseif (isset($item["katakana"])) {
 			$names[] = $item["katakana"];
+		}
+		if (isset($_POST["show-romaji"])){
+			$names[] = $item["romaji"];
 		}
 
 		# No names to display
@@ -44,7 +47,7 @@
 		if (sizeof($names) > 2) {
 			$item_html .= "  <span class=\"tertiary\">".$names[2]."</span>";
 		}
-		if (!isset($_POST["no-english"])) {
+		if (isset($_POST["show-english"])) {
 			$item_html .= "  <span class=\"english\">".$cheat."</span>";
 		}
 		$item_html .= "</div>";
@@ -56,7 +59,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" /> 
-	<title>Japanese Item Nametags</title>
+	<title>Nihongo Drills: Japanese Name-tags</title>
 	<meta name="description" content="Generated list of user-customized and user-chosen hiragana / katakana / kanji name-tags or labels for household items as an aid to increase Japanese language while learning Nihongo, the Japanese language." />
     <link rel="shortcut icon" href="res/images/favicon.gif" />
     <link rel="stylesheet" href="style/name-tags.css" />
@@ -66,10 +69,6 @@
 		<p>
 			Below are all the tags, generated according to your specifications.  You can safely
 			print this page now, cut the tags out and place them by household items.
-		</p>
-		<hr />
-		<p>
-			Note that some words may not have translations in all the character sets.
 		</p>
 		<button onclick="window.print()">Print Preview</button>
 	</header>
