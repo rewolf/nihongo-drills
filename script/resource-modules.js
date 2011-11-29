@@ -44,7 +44,7 @@
 		// Catch the form submission to check that at least one nametag is to be drawn
 		_.addEvent(this.form, "submit", function (e) {
 			if (!self.form["show-kanji"].checked && !self.form["show-hiragana"].checked && !self.form["show-katakana"].checked || self.numSelected == 0) {
-				alert("At least one character set must be checked for nametag generation and at least one tags must be selected.");
+				alert("At least one character set must be checked for nametag generation and at least one tag must be selected.");
 				_.cancelEvent(e || window.event);
 			}
 		});

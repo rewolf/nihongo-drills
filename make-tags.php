@@ -70,10 +70,6 @@
 			Below are all the tags, generated according to your specifications.  You can safely
 			print this page now, cut the tags out and place them by household items.
 		</p>
-		<hr />
-		<p>
-			Note that some words may not have translations in all the character sets.
-		</p>
 		<button onclick="window.print()">Print Preview</button>
 	</header>
 	<?php echo $item_html ?>
