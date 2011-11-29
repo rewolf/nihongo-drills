@@ -1,6 +1,6 @@
 FOR V1.1.1
 	* hira->kata, kata->hira drills							[x]
-	* name-tag resources   									[ ]
+	* name-tag resources   									[x]
 	* vertical tag representation							[x]
 
 FOR V1.1.2
@@ -8,6 +8,8 @@ FOR V1.1.2
 	* Links text
 	* extra ads
 	* cache js
+	* order name-tags by height to be more efficient		[ ]
+		in paper use
 
 FOR V1.2.0
 	* generate katakana automatically if not available		[ ]

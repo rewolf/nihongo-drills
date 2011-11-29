@@ -82,7 +82,7 @@
 				Show Romaji (for cheaters!)
 			</label>
 			<label title="Show the english translation in the bottom corner">
-				<input type="checkbox" name="show-english" />
+				<input type="checkbox" name="show-english" checked />
 				Show English
 			</label>
 			<label title="Create vertical labels instead. Doesn't work with romaji">
