@@ -46,6 +46,23 @@ if (isset($for_gbot)) {
     <script type="text/javascript" src="script/main.js"></script>
 </head>
 <body>
+	<div id="header-ad-mobile">
+		<script type="text/javascript">
+		<!--
+			// XHTML should not attempt to parse these strings, declare them CDATA.
+			/* <![CDATA[ */
+			window.googleAfmcRequest = {
+				client: 'ca-mb-pub-2949063356844479',
+				format: '320x50_mb',
+				output: 'html',
+				slotname: '8664397838',
+			};
+			/* ]]> */
+		//-->
+		</script>
+		<script type="text/javascript"    src="http://pagead2.googlesyndication.com/pagead/show_afmc_ads.js"></script>
+	</div>
+
 	<header id="layout-top" class="dark-panel">
 		<a href="#!/" id="header-title">「&nbsp;nihongo / にほんご / japanese&nbsp;」&nbsp;&nbsp; drills</a>
 		<div id="header-links">
@@ -71,6 +88,17 @@ if (isset($for_gbot)) {
 		</div>
 	</header>
 	<div id="layout-middle" class="color-change-anim <?php if (!isset($for_gbot)){echo "nothing";}?>" <?php if (isset($for_gbot)){ echo "style=\"background-color:#222;\"";}?>>
+		<div id="side-ad">
+			<script type="text/javascript"><!--
+				google_ad_client = "ca-pub-2949063356844479";
+				/* Side Ad */
+				google_ad_slot = "4054825401";
+				google_ad_width = 120;
+				google_ad_height = 600;
+				//-->
+			</script>
+		<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+		</div>
 		<?php fillPageContent(); ?>
 	</div>
 	<footer id="layout-bottom" class="dark-panel">

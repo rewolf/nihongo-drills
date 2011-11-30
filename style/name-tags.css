@@ -52,6 +52,7 @@ body {
 .name-tag.vertical span {
 	display:				block;
 	float:					right;
+	word-wrap:				break-word;
 	width:					1em;
 }
 

@@ -4,14 +4,20 @@ FOR V1.1.1
 	* vertical tag representation							[x]
 
 FOR V1.1.2
-	* About text
-	* Links text
-	* extra ads
-	* cache js
-	* order name-tags by height to be more efficient		[ ]
+	* Other browser fixing
+		- loader not working in FF and others				[x]
+		- name-tags have scroll bars						[x]  word-wrap:break-word
+	* name-tag example images not showing					[x]
+	* About text											[ ]
+	* Links text											[ ]
+	* extra ads 											[x]
+	* cache js  											[x]
+	* Redirects for old links eg. word-vth					[ ]
+	* order name-tags by height to be more efficient		[x]
 		in paper use
 
 FOR V1.2.0
+	* a middle stylesheet between basic and desktop			[ ]
 	* generate katakana automatically if not available		[ ]
 		for the name-tag resources
 	* room names themselves									[ ]

@@ -29,7 +29,7 @@
 				}
 				else {
 					if (JAP.pageManager.currentPage) {
-						location.hash = JAP.pageManager.currentPage.url;
+						location.hash = JAP.pageManager.currentPage.pageInfo.url;
 					}
 					else {
 						location.href = "#!/";
@@ -93,6 +93,15 @@
 	
 	PageManager.prototype.showPage = function (pageInfo) {
 		var container		= $id("layout-middle");
+		// Remove old pages
+		var oldMod	= $id("content-pane"),
+			oldMenu	= $id("menu-pane");
+		if (oldMod) {
+			$id("layout-middle").removeChild(oldMod);
+		}
+		if (oldMenu) {
+			$id("layout-middle").removeChild(oldMenu);
+		}
 		if (pageInfo.type == "module") {
 			var found = false;
 			// find the appropriate module handler
@@ -102,6 +111,8 @@
 				// check it is a mod function that matches this url
 				if (mod.pageHash == pageInfo.url) {
 					var obj 		= new mod();
+
+					// Setup new page
 					obj.setup(pageInfo);
 					pageInfo.handler = obj;
 					this.lastPage	 = this.currentPage;

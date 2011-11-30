@@ -29,6 +29,10 @@ header {
 	float:					left;
 }
 
+#header-ad-mobile {
+	display:				none;
+}
+
 /************************************************
  * FOOTER
  ***********************************************/
@@ -98,6 +102,10 @@ footer {
 	-o-transition:			background-color 1s ease, height .5s linear;
 	-ms-transition:			background-color 1s ease, height .5s linear;
 	transition:				background-color 1s ease, height .5s linear;
+}
+
+#side-ad {
+	display:				block;
 }
 
 #content-pane {

@@ -1,7 +1,46 @@
 <?php
 
-	$nametags = json_decode(file_get_contents("name-tags.json"), true);
-	$item_html= "";
+	class Item {
+		public $room;
+		public $room_data;
+		public $item_data;
+		public $item;
+		public $max_length;
+
+		public function __construct ($room, $item) {
+			global $nametags;
+			$this->room 		= $room;
+			$this->item 		= $item;
+			$this->room_data 	= $nametags[$room];
+			$this->item_data	= $this->room_data[$item];
+
+			$this->max_length 	= 0;
+
+			$C = .75;  # height proportion from secondary label to primary. 75% of size
+			$primary = true;
+
+			if (isset($this->item_data["kanji"])) {
+				$l = strlen($this->item_data["kanji"]);
+				$this->max_length = max($this->max_length, $l);
+				$primary = false;
+			}
+			if (isset($this->item_data["katakana"]) && $primary) {  # if kanji were available, katakana is not shown
+				$l = strlen($this->item_data["katakana"]);
+				$this->max_length = max($this->max_length, $l);
+				$primary = false;
+			}
+			if (isset($this->item_data["hiragana"])) {
+				$l = strlen($this->item_data["hiragana"]) * ($primary ? 1 : $C);  # hiragana length, scaled if its a secondary label
+				$this->max_length = max($this->max_length, $l);
+				$primary = false;
+			}
+		}
+	}
+
+	$nametags 	= json_decode(file_get_contents("name-tags.json"), true);
+	$item_html	= "";
+
+	$ordered_ar	= array();
 
 	foreach ($_POST as $k=>$v) {
 		if ($k[0]=="|") {
@@ -12,8 +51,30 @@
 			$room	= $nametags[$room_n];
 			$item	= $room[$item_n];
 
-			print_item($item_n, $item);
+			$it		= new Item($room_n, $item_n);
+
+			# insert in ordered position if vertical alignment
+			if (isset($_POST["vertical"]) && sizeof($ordered_ar) > 0 ) {
+				$found = false;
+				foreach ($ordered_ar as $i => $v) {
+					if ($it->max_length < $v->max_length) {
+						array_splice($ordered_ar, $i, 0, array($it));
+						$found = true;
+						break;
+					}
+				}
+				if (!$found) {
+					$ordered_ar[] = $it;
+				}
+			}
+			else {
+				$ordered_ar[] = $it;
+			}
 		}
+	}
+
+	foreach ($ordered_ar as $k=>$v) {
+		print_item($v->item, $v->item_data);
 	}
 
 	function print_item ($cheat, $item) {
@@ -70,7 +131,7 @@
 			Below are all the tags, generated according to your specifications.  You can safely
 			print this page now, cut the tags out and place them by household items.
 		</p>
-		<button onclick="window.print()">Print Preview</button>
+		<button onclick="window.print()">Print</button>
 	</header>
 	<?php echo $item_html ?>
 </body>

@@ -100,7 +100,7 @@
 	Module.prototype.setup = function (pageInfo) {
 		Page.prototype.setup.call(this, pageInfo);
 		this.container	= $id("layout-middle");
-		this.container.innerHTML ="";
+		//this.container.innerHTML ="";
 		var html		= pageInfo.content;
 
 		this.contentNode 			= document.createElement("div");
@@ -247,13 +247,13 @@
 		Page.prototype.setup.call(this, pageInfo);
 
 		this.container	= $id("layout-middle");
-		this.container.innerHTML = "";
+		//this.container.innerHTML = "";
 		var html		= pageInfo.content;
 
 		this.node 			= document.createElement("div");
 		
 		this.node.id		= "menu-pane";
-		this.node.className	= "menu-"+pageInfo.url.substr(pageInfo.url.lastIndexOf("/")+1);
+		this.node.className	= "page menu-"+pageInfo.url.substr(pageInfo.url.lastIndexOf("/")+1);
 
 		this.hasIcons		= !pageInfo.noicon;
 		
@@ -345,6 +345,8 @@
 		}
 
 		this.resize();
+
+		_.addClass($id("side-ad"), "zero-opacity");
 	};
 
 	Menu.prototype.hide = function () {
@@ -359,7 +361,7 @@
 				};
 			}(this.items[this.items.length - 1 - i]), (i%3) * 200 + parseInt(i/3)*100);
 		}
-
+		_.removeClass($id("side-ad"), "zero-opacity");
 	};
 	
 	// Provide interface for other class
