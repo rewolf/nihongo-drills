@@ -2,7 +2,6 @@
 	require_once ("menu_builder.php");
 	$page_text = "";
 
-
 	function loadPage ($path) {
 		ob_start();
 		include ($path);
@@ -22,7 +21,7 @@
 		}
 		else if (!file_exists($path) && !file_exists("$path.php")){
 			# Tell the Bot that this page is invalid
-			header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found $path.php");
+			header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found");
 			die();
 		}
 		else if (is_dir($path)) {
