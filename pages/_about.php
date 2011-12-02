@@ -5,12 +5,16 @@
 	<p>
 		There are plenty of books, audio CDs and online resources that teach the Japanese language.
 		The aim of this site is not to teach but to provide repetitive drills, or tests,  to help you
-		memorise the fundamentals of the language, namely, the hiragana characters.
+		memorise and practise the fundamentals of the language, namely, the kana characters.
 	</p>
 	<p>
 		This site aims to avoid the use of <a href="http://en.wikipedia.org/wiki/Romanization_of_Japanese">rōmaji characters</a> so that the learner's brain
-		forms direct associations between sounds/syllables and <a href="http://en.wikipedia.org/wiki/Hiragana">hiragana characters</a> rather than
+		forms direct associations between sounds/syllables and <a href="http://en.wikipedia.org/wiki/Hiragana">kana</a> rather than
 		wasting time converting to/from the romanization.
+	</p>
+	<p>
+		I would be honoured if you told your classmates and friends learning Japanese about this site. I hope
+		that it can help you and them.
 	</p>
 	<p>
 		Note that the audio clips may not pronounce the characters/words correctly, but are good

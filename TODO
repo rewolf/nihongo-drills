@@ -8,8 +8,8 @@ FOR V1.1.2
 		- loader not working in FF and others				[x]
 		- name-tags have scroll bars						[x]  word-wrap:break-word
 	* name-tag example images not showing					[x]
-	* About text											[ ]
-	* Links text											[ ]
+	* About text											[/]
+	* Links text											[/]
 	* extra ads 											[x]
 	* cache js  											[x]
 	* Redirects for old links eg. word-vth					[x]
