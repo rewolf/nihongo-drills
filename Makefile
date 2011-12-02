@@ -26,3 +26,6 @@ testall:
 
 run:
 	google-chrome localhost/nihongo
+
+clean:
+	rm -Rf /var/www/nihongo/*
