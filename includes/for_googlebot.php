@@ -15,9 +15,23 @@
 		$path = "pages/$hash";
 
 		$for_gbot = true;
-
 		if ($hash=="") {
 			$page_text = loadMenu($hash,"pages/");
+		}
+		else if ($hash=="links") {
+			header($_SERVER["SERVER_PROTOCOL"]." 301 Moved Permanently");
+			header("Location: http://www.nihongodrills.com/#!/_links");
+			die();
+		}
+		else if ($hash=="char-vth") {
+			header($_SERVER["SERVER_PROTOCOL"]." 301 Moved Permanently");
+			header("Location: http://www.nihongodrills.com/#!/character-drills/hiragana/from-voice");
+			die();
+		}
+		else if ($hash=="char-htv") {
+			header($_SERVER["SERVER_PROTOCOL"]." 301 Moved Permanently");
+			header("Location: http://www.nihongodrills.com/#!/character-drills/hiragana/to-voice");
+			die();
 		}
 		else if (!file_exists($path) && !file_exists("$path.php")){
 			# Tell the Bot that this page is invalid

@@ -12,7 +12,7 @@ FOR V1.1.2
 	* Links text											[ ]
 	* extra ads 											[x]
 	* cache js  											[x]
-	* Redirects for old links eg. word-vth					[ ]
+	* Redirects for old links eg. word-vth					[x]
 	* order name-tags by height to be more efficient		[x]
 		in paper use
 
