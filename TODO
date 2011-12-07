@@ -17,6 +17,7 @@ FOR V1.1.2
 		in paper use
 
 FOR V1.2.0
+	* add video links from links to youtube					[ ]
 	* a middle stylesheet between basic and desktop			[ ]
 	* generate katakana automatically if not available		[ ]
 		for the name-tag resources
