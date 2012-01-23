@@ -178,6 +178,10 @@
 					readT = dt - 1000;
 				}
 				this.settings.readDelay.value = readT;
+				this.nextBut.setAttribute("disabled","disabled");
+			}
+			else {
+				this.nextBut.removeAttribute("disabled");
 			}
 		}
 		// READ DELAY
@@ -223,6 +227,7 @@
 		clearTimeout(this.readTimer);
 		this.changeTimer = null;
 		this.readTimer = null;
+		this.audio.pause();
 	};
 	
 
@@ -233,6 +238,8 @@
 			chosen		= last,
 			self		= this,
 			ch;
+
+		pushDrillEvent(this.pageInfo.url);
 
 		if (minV == maxV - 5 && maxV/5 == 11 && chosen==minV) { // only one option to choose from
 			return;
@@ -395,6 +402,7 @@
 
 	Char_fromVoice.prototype.hide = function () {
 		JAP.Module.prototype.hide.call(this);
+		this.audio.pause();
 	};
 
 	Char_fromVoice.prototype.showNextChar = function () {
@@ -404,6 +412,8 @@
 			chosen		= last,
 			self		= this,
 			ch;
+	
+		pushDrillEvent(this.pageInfo.url);
 
 		if (minV == maxV - 5 && maxV/5 == 11 && chosen==minV) { // only one option to choose from
 			return;
@@ -611,6 +621,7 @@
 
 	Char_writeTest.prototype.hide = function () {
 		JAP.Module.prototype.hide.call(this);
+		this.audio.pause();
 	};
 
 	Char_writeTest.prototype.showNextChar = function (force) {
@@ -620,6 +631,8 @@
 			chosen		= last,
 			self		= this,
 			ch;
+
+		pushDrillEvent(this.pageInfo.url);
 
 		if (this.isCharShown || force) {
 			this.isCharShown = false;
@@ -917,6 +930,7 @@
 
 	Char_fromChar.prototype.hide = function () {
 		JAP.Module.prototype.hide.call(this);
+		this.audio.pause();
 	};
 
 	Char_fromChar.prototype.showNextChar = function () {
@@ -925,6 +939,8 @@
 			last		= this.currentCharIndex,
 			chosen		= last,
 			self		= this;
+
+		pushDrillEvent(this.pageInfo.url);
 
 		if (minV == maxV - 5 && maxV/5 == 11 && chosen==minV) { // only one option to choose from
 			return;
@@ -995,6 +1011,15 @@
 	Char_fromChar.prototype.playClip = function () {
 		this.audio.play();
 	};
+
+	// PUSH AN EVENT TO ANALYTICS 
+	function pushDrillEvent (label) {
+		label = label.substr(label.lastIndexOf("/",label.lastIndexOf("/")-1)+1);
+		if (location.href.indexOf("nihongodrills.com") != -1) {
+		//	console.log("Pushing drill event for: "+label);
+			_gaq.push(["_trackEvent", "Drill", "Next", label]);
+		}
+	}
 
 	// Export to outside
 	ns.Char_toVoice 		= Char_toVoice;

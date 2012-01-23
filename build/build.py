@@ -2,7 +2,7 @@ from rewolf.web_builder import WebApp
 import sys
 import os
 
-VERSION 		= "1_1_2"
+VERSION 		= "1_1_3"
 LOCAL_SERVER	= "/var/www/nihongo"
 REMOTE_USER		= "angry4dminbn"
 REMOTE_SERVER	= "angrytortoise.com"

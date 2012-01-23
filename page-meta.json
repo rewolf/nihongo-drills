@@ -22,8 +22,8 @@
 			},
 	"#!/character-drills/hiragana/to-voice" :
 			{
-				"title"		:		"Hiragana Character-to-Voice Drill",
-				"desc"		:		"Test your ability to recognise characters and pronounce the corresponding sounds or syllables.  This page displays random hiragana characters for you to identify verbally",
+				"title"		:		"Hiragana Flash-card Drill",
+				"desc"		:		"Test your ability to recognise characters and pronounce the corresponding sounds or syllables by identifying the flash-card.  This page displays random hiragana characters for you to identify verbally",
 				"menu-label":		"Speak the Character",
 				"menu-icon-1":		"htv-hira",
 				"menu-icon-2":		"htv-arrow",
@@ -66,8 +66,8 @@
 			},
 	"#!/character-drills/katakana/to-voice" :
 			{
-				"title"		:		"Katakana Character-to-Voice Drill",
-				"desc"		:		"Test your ability to recognise characters and pronounce the corresponding sounds or syllables.  This page displays random katakana characters for you to identify verbally",
+				"title"		:		"Katakana Flash-card Drill",
+				"desc"		:		"Test your ability to recognise characters and pronounce the corresponding sounds or syllables by identifying the flash-card.  This page displays random katakana characters for you to identify verbally",
 				"menu-label":		"Speak the Character",
 				"menu-icon-1":		"htv-kata",
 				"menu-icon-2":		"htv-arrow",

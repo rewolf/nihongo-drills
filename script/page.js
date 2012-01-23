@@ -10,6 +10,7 @@
 		this.pageInfo	= null;
 		this.visible	= false;
 		this.hideTime	= 0;
+		this.pageHash	= "";
 	}
 	Page.prototype.setup = function(pageInfo) {
 		this.pageInfo	= pageInfo;

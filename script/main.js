@@ -347,6 +347,19 @@ JAP.image.loadBatch("essential",
 		ns.oldHash	= newHash;
 	}
 
+	ns.showNotification = function (msg, delay) {
+		if (!delay) {
+			delay = 5000;
+		}
+		_.removeClass($id("header-notification"), "hide");
+		$id("header-notification").innerHTML = msg;
+		setTimeout(function () {ns.hideNotification();}, delay);
+	};
+
+	ns.hideNotification = function () {
+		_.addClass($id("header-notification"), "hide");
+	};
+
 	ns.loadHashBang		= loadHashBang;
 	ns.isAppOnePage		= isAppOnePage;
 

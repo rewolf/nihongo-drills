@@ -32,6 +32,9 @@ header {
 #header-ad-mobile {
 	display:				none;
 }
+#header-notification {
+	width:					300px;
+}
 
 /************************************************
  * FOOTER

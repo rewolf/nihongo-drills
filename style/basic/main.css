@@ -89,6 +89,7 @@ header {
 
 #header-title  {
 	color:					#f00;
+	text-shadow:			0px -2px rgba(0,0,0,.75);
 	text-decoration:		none;
 }
 #header-title:hover  {
@@ -100,6 +101,42 @@ header {
 }
 
 #header-ad-mobile {
+}
+
+#header-notification-holder {
+	float:					none;
+	clear:					both;
+	height:					0px;
+	margin:					auto auto;
+	padding:				5px;
+	position:				relative;
+	width:					150px;
+}
+#header-notification {
+	border:					2px solid #040;
+	border-top:				none;
+	background-color:		#333;
+	color:					#090;
+	font-family:			Arial;
+	font-size:				14px;
+	font-variant:			small-caps;
+	line-height:			normal;
+	overflow:				hidden;
+	padding:				5px;
+	position:				absolute;
+	text-align:				center;
+	transition:				all 1s ease;
+	width:					100%;
+	z-index:				100;
+	-webkit-transition:				all 1s ease;
+	-moz-transition:				all 1s ease;
+	-o-transition:				all 1s ease;
+	-ms-transition:				all 1s ease;
+}
+#header-notification.hide {
+	height:					0px !important;
+	border:					0px solid #040;
+	padding:				0px;
 }
 
 /************************************************
@@ -274,6 +311,19 @@ footer {
 	margin-left:			0px;
 	margin-bottom:			-2px;
 	width:					84px;
+}
+.button-box button:disabled, .button-box input[type="submit"]:disabled {
+	background-color:		#555;
+	border:					2px solid #555;
+	border-radius:			5px;
+	box-shadow:				1px 1px 1px #555;
+	color:					#333;
+	cursor:					normal;
+	font-size:				12px;
+	height:					23px !important;
+	margin-right:			2px;
+	margin-left:			2px;
+	width:					80px !important;
 }
 
 

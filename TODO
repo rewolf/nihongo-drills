@@ -16,23 +16,35 @@ FOR V1.1.2
 	* order name-tags by height to be more efficient		[x]
 		in paper use
 
+FOR V1.1.3
+	* Analytics												[x]
+	* make a call for ajax link calls						[x]
+	* add events tracking for certain in-page stuff			[x]
+	* mention "flashcard" in the to-voice ones				[x]
+	* disable Next when automated nexting					[x]
+	* stop sound when changing menus!!						[x]
+	* If no connectivity go back correctly					[x]
+		- show a notification								[x]
+	* if there is a problem during loading?					[/]
+
 FOR V1.2.0
 	* add video links from links to youtube					[ ]
 	* a middle stylesheet between basic and desktop			[ ]
 	* generate katakana automatically if not available		[ ]
 		for the name-tag resources
 	* room names themselves									[ ]
+	* kana tables which play audio onclick					[ ]
 	* writing paper resources   							[ ]
 	* other characters (g, z, d, b, p)						[ ]
 FOR V1.2.1
 	* preload audio for next drill							[ ]
-	* kana tables 											[ ]
 	* Fix styling: content-page drop-shadow overlap			[ ]
 
 THEN (V2.0)
 	* multi-language ability (not necessarily with langs)	[ ]
 	* info pages (teach a bit)								[ ]
 	* cache/web-storage some user data						[ ]
+	* kanji
 
 THEN
 	* word-drills

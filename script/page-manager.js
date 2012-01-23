@@ -26,6 +26,7 @@
 					};
 					
 					queuePage(pageMap[data.url]);
+					JAP.main.hideNotification();
 				}
 				else {
 					if (JAP.pageManager.currentPage) {
@@ -45,7 +46,15 @@
 
 	function onLoadFail () {
 		JAP.pageManager.isBusy = false;
-		JAP.pageManager.currentPage.show();
+		if (JAP.pageManager.currentPage) {
+			history.back();
+		}
+		else {
+			location.hash = "#!/";
+		}
+	//	location.hash = JAP.pageManager.currentPage.pageInfo.url;
+	//	JAP.pageManager.currentPage.show();
+		JAP.main.showNotification("Cannot load page.  Check internet connection.");
 	}
 
 	function queuePage (pageInfo) {
@@ -119,6 +128,8 @@
 					this.currentPage = obj;
 					found 			 = true;
 					this.currentPage.show();
+
+					pushAnalytics(pageInfo.url);
 					break;
 				}
 			}
@@ -139,9 +150,17 @@
 			pageInfo.handler = menu;
 			this.currentPage = menu;
 			this.currentPage.show();
+			pushAnalytics(pageInfo.url);
 		}
 		this.isBusy = false;
 	};
+
+	function pushAnalytics(page) {
+		if (location.href.indexOf("nihongodrills.com") != -1) {
+		//	console.log("Pushing: "+page);
+			_gaq.push(['_trackPageview', page]);
+		}
+	}
 
 	// singleton
 	ns.pageManager 		= new PageManager();
