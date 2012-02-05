@@ -37,9 +37,9 @@
 	 * Character - Hiragana - to voice
 	 **************************************************************/
 	function Char_Hira_toVoice () {
-		JAP.abs.Char_toVoice.call(this, JAP.HIRAGANA_UNICODE);
+		JAP.abs.Char_toVoice.call(this, "hiragana");
 	}
-	Char_Hira_toVoice.prototype				= new JAP.abs.Char_toVoice();
+	Char_Hira_toVoice.prototype				= new JAP.abs.Char_toVoice("hiragana");
 	Char_Hira_toVoice.prototype.constructor = Char_Hira_toVoice;
 	// Set this to identify this class for handling the following hash url
 	Char_Hira_toVoice.pageHash				= "#!/character-drills/hiragana/to-voice";
@@ -49,7 +49,7 @@
 	 * Character - Hiragana - from voice
 	 **************************************************************/
 	function Char_Hira_fromVoice () {
-		JAP.abs.Char_fromVoice.call(this, JAP.HIRAGANA_UNICODE);
+		JAP.abs.Char_fromVoice.call(this, "hiragana");
 	}
 	Char_Hira_fromVoice.prototype			= new JAP.abs.Char_fromVoice();
 	Char_Hira_fromVoice.prototype.constructor = Char_Hira_fromVoice;
@@ -59,7 +59,7 @@
 	 * Character - Hiragana - write test
 	 **************************************************************/
 	function Char_Hira_writeTest () {
-		JAP.abs.Char_writeTest.call(this, JAP.HIRAGANA_UNICODE);
+		JAP.abs.Char_writeTest.call(this, "hiragana");
 	}
 	Char_Hira_writeTest.prototype			= new JAP.abs.Char_writeTest();
 	Char_Hira_writeTest.prototype.constructor = Char_Hira_writeTest;
@@ -69,7 +69,7 @@
 	 * Character - Katakana - to voice
 	 **************************************************************/
 	function Char_Kata_toVoice () {
-		JAP.abs.Char_toVoice.call(this, JAP.KATAKANA_UNICODE);
+		JAP.abs.Char_toVoice.call(this, "katakana");
 	}
 	Char_Kata_toVoice.prototype				= new JAP.abs.Char_toVoice();
 	Char_Kata_toVoice.prototype.constructor = Char_Kata_toVoice;
@@ -81,7 +81,7 @@
 	 * Character - Katakana - from voice
 	 **************************************************************/
 	function Char_Kata_fromVoice () {
-		JAP.abs.Char_fromVoice.call(this, JAP.KATAKANA_UNICODE);
+		JAP.abs.Char_fromVoice.call(this, "katakana");
 	}
 	Char_Kata_fromVoice.prototype			= new JAP.abs.Char_fromVoice();
 	Char_Kata_fromVoice.prototype.constructor = Char_Kata_fromVoice;
@@ -91,7 +91,7 @@
 	 * Character - Katakana - write test
 	 **************************************************************/
 	function Char_Kata_writeTest () {
-		JAP.abs.Char_writeTest.call(this, JAP.KATAKANA_UNICODE);
+		JAP.abs.Char_writeTest.call(this, "katakana");
 	}
 	Char_Kata_writeTest.prototype			= new JAP.abs.Char_writeTest();
 	Char_Kata_writeTest.prototype.constructor = Char_Kata_writeTest;
@@ -101,7 +101,7 @@
 	 * Character - Katakana from Hiragana
 	 **************************************************************/
 	function Char_Kata_fromHira () {
-		JAP.abs.Char_fromChar.call(this, JAP.KATAKANA_UNICODE, JAP.HIRAGANA_UNICODE);
+		JAP.abs.Char_fromChar.call(this, "hiragana");
 	}
 	Char_Kata_fromHira.prototype			= new JAP.abs.Char_fromChar();
 	Char_Kata_fromHira.prototype.constructor = Char_Kata_fromHira;
@@ -111,7 +111,7 @@
 	 * Character - Katakana to Hiragana
 	 **************************************************************/
 	function Char_Hira_fromKata () {
-		JAP.abs.Char_fromChar.call(this, JAP.HIRAGANA_UNICODE, JAP.KATAKANA_UNICODE);
+		JAP.abs.Char_fromChar.call(this, "katakana");
 	}
 	Char_Hira_fromKata.prototype			= new JAP.abs.Char_fromChar();
 	Char_Hira_fromKata.prototype.constructor= Char_Hira_fromKata;

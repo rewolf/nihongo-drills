@@ -34,11 +34,11 @@
 		if (this.settings.useGoogle.checked) {
 			var src1	= document.createElement("source");
 
-			src1.src = "ajax/get_audio.php?tl=ja&text=" + encodeURIComponent(String.fromCharCode(this.currentCharCode));
+			src1.src = "ajax/get_audio.php?tl=ja&text=" + encodeURIComponent(this.currentChar.character);
 			this.audio.appendChild(src1);
 		}
 		else {
-			var filename = "hiragana_"+pad(parseInt(this.currentCharIndex/5)+1)+"_"+pad(this.currentCharIndex%5+1);
+			var filename = this.currentChar.audio;
 			var src1	= document.createElement("source");
 			var src2	= document.createElement("source");
 
@@ -49,17 +49,151 @@
 		}
 	}
 
+	// Called when min line select box is change
+	function commonUpdateMaxBox (mod) {
+		var minV = parseInt(mod.settings.minCharLine.value),
+			maxV = parseInt(mod.settings.maxCharLine.value);
+		
+		// repopulate max vals with valids
+		mod.settings.maxCharLine.innerHTML = "";
+		for (var i = minV-1; i < MAX_LINE; i++) {
+			commonAddOption(mod.settings.maxCharLine, i+1, i+1 + " ("+LINE_LETTERS[i]+")");
+		}
+
+		if (maxV >= minV) {
+			mod.settings.maxCharLine.value = maxV;
+		}
+	}
+
+	// Called when the sample character set must be change due to min/max line select boxes
+	function commonChangeCharMap (mod) {
+		var minV 	= mod.settings.minCharLine.value,
+			maxV 	= mod.settings.maxCharLine.value,
+			dakuon	= mod.settings.dakuon.checked,
+			yoon	= mod.settings.yoon.checked;
+
+		mod.characterMap		= JAP.buildCharList(mod.charMapSet, dakuon, yoon, minV, maxV);
+	}
+
+	// Util func to help building UI
+	function commonAddOption (sel, val, label) {
+		var opt  = document.createElement("option");
+		opt.value = val;
+		opt.innerHTML = label;
+		sel.appendChild(opt);
+	}
+
+	// Builds the common settings for all tools
+	function commonBuildSettings (mod, conf) {
+		var s 	= mod.settings;
+
+		// Bind the listener
+		function onChange (e) {
+			var evt = e || window.event;
+			mod.checkSettings(evt.target || evt.srcElement);
+		}
+
+		if ("line-range" 	in conf) {
+			s.minCharLine		= s.createElem("select", "hira-chtv-line-min", "Min hiragana line", "Lets you omit beginning lines of hiragana that you may know. For example, to omit the vowels, set this to 2.");
+			s.maxCharLine		= s.createElem("select", "hira-chtv-line", "Max hiragana line", "Setting this will allow you to limit the possible characters in the test. If you only know the first three lines of hiragana, choose 3: Characters on lines above 3 will not appear.");
+
+			// Hira Line
+			for (var i = 0; i < MAX_LINE; i++) {
+				commonAddOption(s.minCharLine, i+1, LINE_LETTERS[i].length>0 ? i+1 + " ("+LINE_LETTERS[i]+")" : i+1 +"");
+			}
+			for (var i = 0; i < MAX_LINE; i++) {
+				commonAddOption(s.maxCharLine, i+1, LINE_LETTERS[i].length>0 ? i+1 + " ("+LINE_LETTERS[i]+")" : i+1 +"");
+			}
+			s.maxCharLine.value = MAX_LINE;
+
+			_.addEvent(s.minCharLine, "change", onChange);
+			_.addEvent(s.maxCharLine, "change", onChange);
+		}
+
+		if ("dakuon-check" 	in conf) {
+			s.dakuon			= s.createElem("input",  "setting-dakuon", "Dakuon/Handakuon", "Enable voiced (dakuon and handakuon) characters. ie. those with ten-ten (dakuten) or maru (handakuten).",true);
+			s.dakuon.setAttribute("checked");
+			_.addEvent(s.dakuon, "change", onChange);
+		}
+
+		if ("yoon-check" 	in conf) {
+			s.yoon			= s.createElem("input",  "setting-yoon", "Yoon", "Enable the combined characters. eg. きょ or ちゅ.", true);
+			_.addEvent(s.yoon, "change", onChange);
+		}
+
+		if ("auto-timers" 	in conf) {
+			s.changeDelay	= s.createElem("select", "hira-chtv-change", "Auto change delay", "This will set the characters to change automatically after the given period of time.");
+			s.readDelay		= s.createElem("select", "hira-chtv-read", "Auto read delay", "The correct pronunciation will automatically be played after the chosen period of time");
+
+			// Add delays
+			commonAddOption(s.changeDelay, 0, "Never");
+			for (var i = 1; i < 5; i+=.5){
+				commonAddOption(s.changeDelay, i * 1000, i + "s");
+			}
+
+			commonAddOption(s.readDelay, 0, "Never");
+			for (var i = .25; i < 2; i+=.25){
+				commonAddOption(s.readDelay, i*1000, i + "s");
+			}
+			_.addEvent(s.changeDelay, "change", onChange);
+			_.addEvent(s.readDelay, "change", onChange);
+		}
+
+		if ("google-speech" in conf) {
+			s.useGoogle		= s.createElem("input",  "hira-chtv-speech", "Use Google speech", "Check this to use Google's pronunciation rather than the default audio clips.", true);
+
+			_.addEvent(s.useGoogle, "change", onChange);
+		}
+
+		if ("choice-grid" 	in conf) {
+			s.choiceGrid		= s.createElem("select", "hira-cvth-difficulty", "Grid size", "Affects the number of possible characters shown");
+			for (var i = 1 ; i <= 6; i++){
+				commonAddOption(s.choiceGrid, i, "3 x " + i);
+			}
+			s.choiceGrid.value = 4;
+			_.addEvent(s.choiceGrid, "change", onChange);
+		}
+	}
+
+	// Common callback for processing settings changes on drills
+	function commonCheckSettings (mod, obj, forceAudio, forceNext) {
+		// HIRA LINE
+		if (mod.settings.minCharLine && obj == mod.settings.minCharLine) {
+			commonUpdateMaxBox (mod);
+			commonChangeCharMap (mod);
+			mod.showNextChar(forceNext);
+		}
+		if (mod.settings.maxCharLine && obj == mod.settings.maxCharLine) {
+			commonChangeCharMap (mod);
+		}
+		// Toggle (han)dakuon
+		if (mod.settings.dakuon && obj == mod.settings.dakuon) {
+			commonChangeCharMap (mod);
+			mod.showNextChar(forceNext);
+		}
+		// Toggle yoon on
+		if (mod.settings.yoon && obj == mod.settings.yoon) {
+			commonChangeCharMap (mod);
+			mod.showNextChar(forceNext);
+		}
+		// Use Google
+		if (mod.settings.useGoogle && obj == mod.settings.useGoogle) {
+			// Change the loaded audio
+			mod.loadAudio(forceAudio);
+		}
+	}
+
 
 	/***************************************************************
 	 * Handles modules that drill character-to-voice recognition
 	 **************************************************************/
 	function Char_toVoice (charMap) {
 		JAP.Module.call(this);
+		this.charMapSet			= charMap;
 		this.changeTimer		= null;
 		this.readTimer			= null;
-		this.currentCharCode	= null;
 		this.currentCharIndex 	= null;
-		this.characterMap		= charMap;
+		this.characterMap		= JAP.buildCharList(charMap, true, false, 1,11);
 	}
 	Char_toVoice.prototype			= new JAP.Module();
 	Char_toVoice.prototype.constructor = Char_toVoice;
@@ -94,64 +228,20 @@
 	};
 
 	Char_toVoice.prototype.buildSettings = function() {
-		var s 	= this.settings,
-			self= this;
-		s.minCharLine		= s.createElem("select", "hira-chtv-line-min", "Min hiragana line", "Lets you omit beginning lines of hiragana that you may know. For example, to omit the vowels, set this to 2.");
-		s.maxCharLine		= s.createElem("select", "hira-chtv-line", "Max hiragana line", "Setting this will allow you to limit the possible characters in the test. If you only know the first three lines of hiragana, choose 3: Characters on lines above 3 will not appear.");
-		s.changeDelay	= s.createElem("select", "hira-chtv-change", "Auto change delay", "This will set the characters to change automatically after the given period of time.");
-		s.readDelay		= s.createElem("select", "hira-chtv-read", "Auto read delay", "The correct pronunciation will automatically be played after the chosen period of time");
-		s.useGoogle		= s.createElem("input",  "hira-chtv-speech", "Use Google speech", "Check this to use Google's pronunciation rather than the default audio clips.", true);
-
-		// Add delays
-		var option 		= document.createElement("option");
-		option.value	= 0;
-		option.innerHTML= "Never";
-		s.changeDelay.appendChild(option);
-		for (var i = 1; i < 5; i+=.5){
-			option = document.createElement("option");
-			option.innerHTML = i + "s";
-			option.value	= i*1000;
-			s.changeDelay.appendChild(option);
-		}
-		option 			= document.createElement("option");
-		option.value	= 0;
-		option.innerHTML= "Never";
-		s.readDelay.appendChild(option);
-		for (var i = .25; i < 2; i+=.25){
-			option = document.createElement("option");
-			option.value	= i*1000;
-			option.innerHTML = i + "s";
-			s.readDelay.appendChild(option);
-		}
-		// Hira Line
-		for (var i = 0; i < MAX_LINE; i++) {
-			option = document.createElement("option");
-			option.value = i+1;
-			option.innerHTML = LINE_LETTERS[i].length>0 ? i+1 + " ("+LINE_LETTERS[i]+")" : i+1 +"";
-			s.minCharLine.appendChild(option);
-		}
-		for (var i = 0; i < MAX_LINE; i++) {
-			option = document.createElement("option");
-			option.value = i+1;
-			option.innerHTML = LINE_LETTERS[i].length>0 ? i+1 + " ("+LINE_LETTERS[i]+")" : i+1 +"";
-			s.maxCharLine.appendChild(option);
-		}
-		
-		// Bind the listener
-		function onChange (e) {
-			var evt = e || window.event;
-			self.checkSettings(evt.target || evt.srcElement);
-		}
-
-		_.addEvent(s.changeDelay, "change", onChange);
-		_.addEvent(s.readDelay, "change", onChange);
-		_.addEvent(s.minCharLine, "change", onChange);
-		_.addEvent(s.maxCharLine, "change", onChange);
-		_.addEvent(s.useGoogle, "change", onChange);
+		commonBuildSettings(this, {
+			"line-range"	: 1,
+			"dakuon-check"	: 1,
+			"yoon-check"	: 1,
+			"auto-timers"	: 1,
+			"google-speech"	: 1
+		});
 	};
 
 	Char_toVoice.prototype.checkSettings = function (obj) {
 		var self = this;
+
+		commonCheckSettings (this, obj, false, false);
+
 		// CHANGE DELAY
 		if (obj == this.settings.changeDelay) {
 			if (this.changeTimer) {
@@ -191,29 +281,6 @@
 				this.readTimer = null;
 			}
 		}
-		// HIRA LINE
-		if (obj == this.settings.minCharLine) {
-			var minV = this.settings.minCharLine.value,
-				maxV = this.settings.maxCharLine.value;
-			
-			// repopulate max vals with valids
-			this.settings.maxCharLine.innerHTML = "";
-			for (var i = minV-1; i < MAX_LINE; i++) {
-				option = document.createElement("option");
-				option.value = i+1;
-				option.innerHTML = i+1 + " ("+LINE_LETTERS[i]+")";
-				this.settings.maxCharLine.appendChild(option);
-			}
-
-			if (maxV >= minV) {
-				this.settings.maxCharLine.value = maxV;
-			}
-		}
-		// Use Google
-		if (obj == this.settings.useGoogle) {
-			// Change the loaded audio
-			this.loadAudio();
-		}
 	};
 
 	Char_toVoice.prototype.show = function () {
@@ -241,17 +308,15 @@
 
 		pushDrillEvent(this.pageInfo.url);
 
-		if (minV == maxV - 5 && maxV/5 == 11 && chosen==minV) { // only one option to choose from
+		if (this.characterMap.length<=1) { // only one option to choose from
 			return;
 		}
-		var range = maxV - minV;
-		while (this.characterMap[chosen]==0 || chosen==last) {
-			chosen	= parseInt(Math.random() * range + minV);
+		while (chosen==last) {
+			chosen	= parseInt(Math.random() * this.characterMap.length);
 		}
-		ch = this.characterMap[chosen];
-		this.charDiv.innerHTML = "&#"+ch+";";
+		this.currentChar	 	= this.characterMap[chosen];
 		this.currentCharIndex 	= chosen;
-		this.currentCharCode	= ch;
+		this.charDiv.innerHTML 	= this.currentChar.charCode;
 
 		if (this.settings.changeDelay.value > 0) {
 			this.changeTimer = setTimeout(function(){self.showNextChar();}, this.settings.changeDelay.value);
@@ -275,10 +340,11 @@
 	 **************************************************************/
 	function Char_fromVoice (charMap) {
 		JAP.Module.call(this);
+		this.charMapSet			= charMap;
 		this.currentCharCell 	= null;
-		this.characterMap		= charMap;
-		this.currentCharCode	= null;
 		this.currentCharIndex 	= null;
+		this.characterMap		= JAP.buildCharList(charMap, true, false, 1, 11);
+		this.choiceCharacterMap	= JAP.buildCharList(charMap, true, false, 1, 11);
 	}
 	Char_fromVoice.prototype		= new JAP.Module();
 	Char_fromVoice.prototype.constructor = Char_fromVoice;
@@ -319,76 +385,31 @@
 	};
 
 	Char_fromVoice.prototype.buildSettings = function() {
-		var s 	= this.settings,
-			self= this;
-		s.minCharLine		= s.createElem("select", "hira-cvth-line-min", "Min hiragana line", "Lets you omit beginning lines of hiragana that you may know. For example, to omit the vowels, set this to 2.");
-		s.maxCharLine		= s.createElem("select", "hira-cvth-line", "Max hiragana line", "Setting this will allow you to limit the possible characters in the test. If you only know the first three lines of hiragana, choose 3: Characters on lines above 3 will not appear.");
-		s.useGoogle			= s.createElem("input",  "hira-cvth-speech", "Use Google speech", "Check this to use Google's pronunciation rather than the default audio clips.", true);
-		s.difficulty		= s.createElem("select", "hira-cvth-difficulty", "Choice grid", "Affects the number of possible characters shown");
-
-		function addOption (sel, val, label) {
-			var opt  = document.createElement("option");
-			opt.value = val;
-			opt.innerHTML = label;
-			sel.appendChild(opt);
-		}
-
-		addOption(s.difficulty, 1, "3 x 1");
-		addOption(s.difficulty, 2, "3 x 2");
-		addOption(s.difficulty, 3, "3 x 3");
-		addOption(s.difficulty, 4, "3 x 4");
-		addOption(s.difficulty, 5, "3 x 5");
-		addOption(s.difficulty, 6, "3 x 6");
-		s.difficulty.value = 4;
-
-		// Hira Line
-		for (var i = 0; i < MAX_LINE; i++) {
-			addOption(s.minCharLine, i+1, LINE_LETTERS[i].length>0 ? i+1 + " ("+LINE_LETTERS[i]+")" : i+1 +"");
-		}
-		for (var i = 0; i < MAX_LINE; i++) {
-			addOption(s.maxCharLine, i+1, LINE_LETTERS[i].length>0 ? i+1 + " ("+LINE_LETTERS[i]+")" : i+1 +"");
-		}
-		
-		// Bind the listener
-		function onChange (e) {
-			var evt = e || window.event;
-			self.checkSettings(evt.target || evt.srcElement);
-		}
-		_.addEvent(s.minCharLine, "change", onChange);
-		_.addEvent(s.maxCharLine, "change", onChange);
-		_.addEvent(s.useGoogle, "change", onChange);
-		_.addEvent(s.difficulty, "change", onChange);
+		commonBuildSettings(this, {
+			"line-range"	: 1,
+			"dakuon-check"	: 1,
+			"yoon-check"	: 1,
+			"google-speech"	: 1,
+			"choice-grid"	: 1
+		});
 	};
 	
 	Char_fromVoice.prototype.checkSettings = function (obj) {
-		var self = this;
-		// HIRA LINE
-		if (obj == this.settings.minCharLine) {
-			var minV = this.settings.minCharLine.value,
-				maxV = this.settings.maxCharLine.value;
-			
-			// repopulate max vals with valids
-			this.settings.maxCharLine.innerHTML = "";
-			for (var i = minV-1; i < MAX_LINE; i++) {
-				option = document.createElement("option");
-				option.value = i+1;
-				option.innerHTML = i+1 + " ("+LINE_LETTERS[i]+")";
-				this.settings.maxCharLine.appendChild(option);
-			}
+		commonCheckSettings (this, obj, true, false);
 
-			if (maxV >= minV) {
-				this.settings.maxCharLine.value = maxV;
-			}
-			this.showNextChar();
-		}
 		// Char table changed
-		if (obj == this.settings.difficulty) {
+		if (obj == this.settings.choiceGrid) {
 			this.createChoiceTable();
 		}
-		// Use Google
-		if (obj == this.settings.useGoogle) {
-			// Change the loaded audio
-			this.loadAudio(true);
+		if (obj == this.settings.dakuon) {
+			this.choiceCharacterMap	= JAP.buildCharList(
+				this.charMapSet,
+				this.settings.dakuon.checked, this.settings.yoon.checked, 1,11);
+		}
+		if (obj == this.settings.yoon) {
+			this.choiceCharacterMap	= JAP.buildCharList(
+				this.charMapSet,
+				this.settings.dakuon.checked, this.settings.yoon.checked, 1,11);
 		}
 	};
 
@@ -415,16 +436,14 @@
 	
 		pushDrillEvent(this.pageInfo.url);
 
-		if (minV == maxV - 5 && maxV/5 == 11 && chosen==minV) { // only one option to choose from
+		if (this.characterMap.length<=1) { // only one option to choose from
 			return;
 		}
-		var range = maxV - minV;
-		while (this.characterMap[chosen]==0 || chosen==last) {
-			chosen	= parseInt(Math.random() * range + minV);
+		while (chosen==last) {
+			chosen	= parseInt(Math.random() * this.characterMap.length);
 		}
-		ch = this.characterMap[chosen];
+		this.currentChar	 	= this.characterMap[chosen];
 		this.currentCharIndex 	= chosen;
-		this.currentCharCode	= ch;
 
 		this.createChoiceTable();
 
@@ -435,8 +454,8 @@
 	Char_fromVoice.prototype.createChoiceTable = function () {
 		var table = document.createElement("table"),
 			row	  = document.createElement("tr"),
-			count = this.settings.difficulty.value,
-			copy  = this.characterMap.slice(0),
+			count = this.settings.choiceGrid.value,
+			copy  = this.choiceCharacterMap.slice(0),
 			self  = this,
 			place = parseInt(Math.random() * count * 3);
 
@@ -447,6 +466,8 @@
 			copy[idx] = copy[i];
 			copy[i]	  = tmp;
 		}
+		// create the table element of count x 3 elements where count
+		// is the chosen "size"/difficulty
 		for (var i = 0, j = 0; i < count * 3; i++, j++) {
 
 			if (i % (count)==0) {
@@ -455,15 +476,17 @@
 			}
 			var cell = document.createElement("td");
 			if (i==place) {
-				cell.innerHTML = "&#" + this.currentCharCode + ";";
+				// This is where to insert the correct answer
+				cell.innerHTML = this.currentChar.charCode;
 				this.currentCharCell = cell;
 				_.addEvent(cell, "click", function(e) {
 					self.showNextChar();
 				});
 			}
 			else {
-				while (this.currentCharCode==copy[j] || copy[j]==0) j++;
-				cell.innerHTML = "&#" + copy[j] + ";";
+				// Fill it with a random char
+				if (this.currentChar.charCode==copy[j].charCode) j++;
+				cell.innerHTML = copy[j].charCode;
 				_.addEvent(cell, "click", function(e) {
 					var evt = e || window.event, target = evt.target || evt.srcElement;
 					_.addClass(target, "wrong-cell");
@@ -487,10 +510,11 @@
 	 **************************************************************/
 	function Char_writeTest (charMap) {
 		JAP.Module.call(this);
+		this.charMapSet			= charMap;
 		this.charIsShown 		= false;
-		this.currentCharCode	= null;
 		this.currentCharIndex 	= null;
-		this.characterMap		= charMap;
+		this.characterMap		= JAP.buildCharList(charMap, true, false, 1,11);
+		this.currentChar		= null;
 	}
 	Char_writeTest.prototype		= new JAP.Module();
 	Char_writeTest.prototype.constructor = Char_writeTest;
@@ -542,76 +566,19 @@
 
 	Char_writeTest.prototype.resize = function () {
 		JAP.Module.prototype.resize.call(this);
-/*
-		if (JAP.main.isAppOnePage()) {
-			this.canvas.width	= "100px";
-			this.canvas.height	= "100px";
-		}
-		else {
-			this.canvas.width	= "100px";
-			this.canvas.height	= "100px";
-		}
-*/
 	};
 
 	Char_writeTest.prototype.buildSettings = function() {
-		var s 	= this.settings,
-			self= this;
-		s.minCharLine		= s.createElem("select", "hira-cvth-line-min", "Min hiragana line", "Lets you omit beginning lines of hiragana that you may know. For example, to omit the vowels, set this to 2.");
-		s.maxCharLine		= s.createElem("select", "hira-cvth-line", "Max hiragana line", "Setting this will allow you to limit the possible characters in the test. If you only know the first three lines of hiragana, choose 3: Characters on lines above 3 will not appear.");
-		s.useGoogle			= s.createElem("input",  "hira-cvth-speech", "Use Google speech", "Check this to use Google's pronunciation rather than the default audio clips.", true);
-
-		function addOption (sel, val, label) {
-			var opt  = document.createElement("option");
-			opt.value = val;
-			opt.innerHTML = label;
-			sel.appendChild(opt);
-		}
-
-		// Hira Line
-		for (var i = 0; i < MAX_LINE; i++) {
-			addOption(s.minCharLine, i+1, LINE_LETTERS[i].length>0 ? i+1 + " ("+LINE_LETTERS[i]+")" : i+1 +"");
-		}
-		for (var i = 0; i < MAX_LINE; i++) {
-			addOption(s.maxCharLine, i+1, LINE_LETTERS[i].length>0 ? i+1 + " ("+LINE_LETTERS[i]+")" : i+1 +"");
-		}
-		
-		// Bind the listener
-		function onChange (e) {
-			var evt = e || window.event;
-			self.checkSettings(evt.target || evt.srcElement);
-		}
-		_.addEvent(s.minCharLine, "change", onChange);
-		_.addEvent(s.maxCharLine, "change", onChange);
-		_.addEvent(s.useGoogle, "change", onChange);
+		commonBuildSettings(this, {
+			"line-range"	: 1,
+			"dakuon-check"	: 1,
+			"yoon-check"	: 1,
+			"google-speech"	: 1
+		});
 	};
 	
 	Char_writeTest.prototype.checkSettings = function (obj) {
-		var self = this;
-		// HIRA LINE
-		if (obj == this.settings.minCharLine) {
-			var minV = this.settings.minCharLine.value,
-				maxV = this.settings.maxCharLine.value;
-			
-			// repopulate max vals with valids
-			this.settings.maxCharLine.innerHTML = "";
-			for (var i = minV-1; i < MAX_LINE; i++) {
-				option = document.createElement("option");
-				option.value = i+1;
-				option.innerHTML = i+1 + " ("+LINE_LETTERS[i]+")";
-				this.settings.maxCharLine.appendChild(option);
-			}
-
-			if (maxV >= minV) {
-				this.settings.maxCharLine.value = maxV;
-			}
-			this.showNextChar(true);
-		}
-		// Use Google
-		if (obj == this.settings.useGoogle) {
-			// Change the loaded audio
-			this.loadAudio(true);
-		}
+		commonCheckSettings (this, obj, true, true);
 	};
 
 	Char_writeTest.prototype.show = function () {
@@ -640,20 +607,18 @@
 			this.nextBut.innerHTML = "Show";		
 			this.eraseCanvas();
 
-			if (minV == maxV - 5 && maxV/5 == 11 && chosen==minV) { // only one option to choose from
+			if (this.characterMap.length<=1) { // only one option to choose from
 				return;
 			}
-			var range = maxV - minV;
-			while (this.characterMap[chosen]==0 || chosen==last) {
-				chosen	= parseInt(Math.random() * range + minV);
+			while (chosen==last) {
+				chosen	= parseInt(Math.random() * this.characterMap.length);
 			}
-			ch = this.characterMap[chosen];
+			this.currentChar	 	= this.characterMap[chosen];
 			this.currentCharIndex 	= chosen;
-			this.currentCharCode	= ch;
-			this.charDiv.innerHTML = "&#"+ch+";";
+			this.charDiv.innerHTML 	= this.currentChar.charCode;
 
-			this.vidLink.href		= "http://www.youtube.com/results?search_query=%22How+to+write+Hiragana+%E3%80%8C+"+encodeURIComponent(String.fromCharCode(this.currentCharCode))+"+%E3%80%8D+%22+STROKE+ORDER";
-			this.vidLink.innerHTML	= "Videos on Writing this character";//&#" + this.currentCharCode+";";
+			this.vidLink.href		= "http://www.youtube.com/results?search_query=%22How+to+write+Hiragana+%E3%80%8C+"+encodeURIComponent(this.currentChar.character)+"+%E3%80%8D+%22+STROKE+ORDER";
+			this.vidLink.innerHTML	= "Videos on Writing this character";
 
 			this.audio.pause();
 			this.loadAudio(true);
@@ -798,14 +763,14 @@
 	/***************************************************************
 	 * Handles modules that drill character-to-character recognition
 	 **************************************************************/
-	function Char_fromChar (toCharMap, fromCharMap) {
+	function Char_fromChar (charMap) {
 		JAP.Module.call(this);
+		this.charMapSet			= charMap;
 		this.currentCharCell 	= null;
-		this.characterMapFrom	= fromCharMap;
-		this.characterMapTo		= toCharMap;
-		this.currentCharCodeFrom= null;
-		this.currentCharCodeTo	= null;
+		this.characterMap		= JAP.buildCharList(charMap, true, false, 1,11);
+		this.characterMapTo		= JAP.buildCharList(charMap=="hiragana"?"katakana":"hiragana", true, false, 1, 11);
 		this.currentCharIndex 	= null;
+		this.currentChar		= null;
 	}
 	Char_fromChar.prototype		= new JAP.Module();
 	Char_fromChar.prototype.constructor = Char_fromChar;
@@ -847,76 +812,30 @@
 	};
 
 	Char_fromChar.prototype.buildSettings = function() {
-		var s 	= this.settings,
-			self= this;
-		s.minCharLine		= s.createElem("select", "", "Min hiragana line", "Lets you omit beginning lines of hiragana that you may know. For example, to omit the vowels, set this to 2.");
-		s.maxCharLine		= s.createElem("select", "", "Max hiragana line", "Setting this will allow you to limit the possible characters in the test. If you only know the first three lines of hiragana, choose 3: Characters on lines above 3 will not appear.");
-		s.useGoogle			= s.createElem("input",  "", "Use Google speech", "Check this to use Google's pronunciation rather than the default audio clips.", true);
-		s.difficulty		= s.createElem("select", "", "Choice grid", "Affects the number of possible characters shown");
-
-		function addOption (sel, val, label) {
-			var opt  = document.createElement("option");
-			opt.value = val;
-			opt.innerHTML = label;
-			sel.appendChild(opt);
-		}
-
-		addOption(s.difficulty, 1, "3 x 1");
-		addOption(s.difficulty, 2, "3 x 2");
-		addOption(s.difficulty, 3, "3 x 3");
-		addOption(s.difficulty, 4, "3 x 4");
-		addOption(s.difficulty, 5, "3 x 5");
-		addOption(s.difficulty, 6, "3 x 6");
-		s.difficulty.value = 4;
-
-		// Hira Line
-		for (var i = 0; i < MAX_LINE; i++) {
-			addOption(s.minCharLine, i+1, LINE_LETTERS[i].length>0 ? i+1 + " ("+LINE_LETTERS[i]+")" : i+1 +"");
-		}
-		for (var i = 0; i < MAX_LINE; i++) {
-			addOption(s.maxCharLine, i+1, LINE_LETTERS[i].length>0 ? i+1 + " ("+LINE_LETTERS[i]+")" : i+1 +"");
-		}
-		
-		// Bind the listener
-		function onChange (e) {
-			var evt = e || window.event;
-			self.checkSettings(evt.target || evt.srcElement);
-		}
-		_.addEvent(s.minCharLine, "change", onChange);
-		_.addEvent(s.maxCharLine, "change", onChange);
-		_.addEvent(s.useGoogle, "change", onChange);
-		_.addEvent(s.difficulty, "change", onChange);
+		commonBuildSettings(this, {
+			"line-range"	: 1,
+			"dakuon-check"	: 1,
+			"yoon-check"	: 1,
+			"google-speech"	: 1,
+			"choice-grid"	: 1
+		});
 	};
 	
 	Char_fromChar.prototype.checkSettings = function (obj) {
-		var self = this;
-		// HIRA LINE
-		if (obj == this.settings.minCharLine) {
-			var minV = this.settings.minCharLine.value,
-				maxV = this.settings.maxCharLine.value;
-			
-			// repopulate max vals with valids
-			this.settings.maxCharLine.innerHTML = "";
-			for (var i = minV-1; i < MAX_LINE; i++) {
-				option = document.createElement("option");
-				option.value = i+1;
-				option.innerHTML = i+1 + " ("+LINE_LETTERS[i]+")";
-				this.settings.maxCharLine.appendChild(option);
-			}
+		commonCheckSettings (this, obj, false, false);
 
-			if (maxV >= minV) {
-				this.settings.maxCharLine.value = maxV;
-			}
+		// Toggle (han)dakuon
+		if (obj == this.settings.dakuon || obj == this.settings.yoon) {
+			// refresh option table too
+			this.characterMapTo		= JAP.buildCharList(
+				this.charMapSet=="hiragana"?"katakana":"hiragana", 
+				this.settings.dakuon.checked, this.settings.yoon.checked, 1,11);
+
 			this.showNextChar();
 		}
 		// Char table changed
-		if (obj == this.settings.difficulty) {
+		if (obj == this.settings.choiceGrid) {
 			this.createChoiceTable();
-		}
-		// Use Google
-		if (obj == this.settings.useGoogle) {
-			// Change the loaded audio
-			this.loadAudio();
 		}
 	};
 
@@ -942,17 +861,15 @@
 
 		pushDrillEvent(this.pageInfo.url);
 
-		if (minV == maxV - 5 && maxV/5 == 11 && chosen==minV) { // only one option to choose from
+		if (this.characterMap.length<=1) { // only one option to choose from
 			return;
 		}
-		var range = maxV - minV;
-		while (this.characterMapFrom[chosen]==0 || chosen==last) {
-			chosen	= parseInt(Math.random() * range + minV);
+		while (chosen==last) {
+			chosen	= parseInt(Math.random() * this.characterMap.length);
 		}
+		this.currentChar	 	= this.characterMap[chosen];
 		this.currentCharIndex 	= chosen;
-		this.currentCharCodeFrom= this.characterMapFrom[chosen];
-		this.currentCharCodeTo	= this.characterMapTo[chosen];
-		this.charDiv.innerHTML = "&#"+this.characterMapFrom[chosen]+";";
+		this.charDiv.innerHTML	= this.currentChar.charCode;
 
 		this.createChoiceTable();
 
@@ -963,7 +880,7 @@
 	Char_fromChar.prototype.createChoiceTable = function () {
 		var table = document.createElement("table"),
 			row	  = document.createElement("tr"),
-			count = this.settings.difficulty.value,
+			count = this.settings.choiceGrid.value,
 			copy  = this.characterMapTo.slice(0),
 			self  = this,
 			place = parseInt(Math.random() * count * 3);
@@ -983,17 +900,17 @@
 				row = document.createElement("tr");
 			}
 			var cell = document.createElement("td");
-			// place to insert the correct answer
 			if (i==place) {
-				cell.innerHTML = "&#" + this.currentCharCodeTo + ";";
+				// place to insert the correct answer
+				cell.innerHTML = this.currentChar.corresponding;
 				this.currentCharCell = cell;
 				_.addEvent(cell, "click", function(e) {
 					self.showNextChar();
 				});
 			}
 			else {
-				while (this.currentCharCodeTo==copy[j] || copy[j]==0) j++;
-				cell.innerHTML = "&#" + copy[j] + ";";
+				if (this.currentChar.corresponding==copy[j].charCode) j++;
+				cell.innerHTML =  copy[j].charCode;
 				_.addEvent(cell, "click", function(e) {
 					var evt = e || window.event, target = evt.target || evt.srcElement;
 					_.addClass(target, "wrong-cell");

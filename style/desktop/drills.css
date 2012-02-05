@@ -69,9 +69,10 @@
 
 .random-char-holder {
 	font-size:				80px;
+	letter-spacing:			-.3em;
 	margin:					40px auto;
 	min-height:				100px;
-	width:					100px;
+	max-width:				120px;
 }
 .random-char-holder.no-margin {
 	margin:					5px auto;

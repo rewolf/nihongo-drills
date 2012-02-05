@@ -29,16 +29,21 @@ FOR V1.1.3
 
 FOR V1.2.0
 	* add video links from links to youtube					[ ]
-	* a middle stylesheet between basic and desktop			[ ]
-	* generate katakana automatically if not available		[ ]
-		for the name-tag resources
-	* room names themselves									[ ]
 	* kana tables which play audio onclick					[ ]
-	* writing paper resources   							[ ]
 	* other characters (g, z, d, b, p)						[ ]
+	* Settting up keyboard input							[ ]
+	* Link from each to-voice to opposite char set			[ ]  eg. "Click for equivalent hiragana drill"
+
 FOR V1.2.1
+	* a middle stylesheet between basic and desktop			[ ]
+	* writing paper resources   							[ ]
+	* check name tag generator
+
+FOR V1.2.2
 	* preload audio for next drill							[ ]
+	* room names themselves									[ ]
 	* Fix styling: content-page drop-shadow overlap			[ ]
+	* Options state should be save on back/forward			[ ]
 
 THEN (V2.0)
 	* multi-language ability (not necessarily with langs)	[ ]

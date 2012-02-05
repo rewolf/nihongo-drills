@@ -529,6 +529,10 @@ document.head 	= document.head || document.getElementsByTagName("head")[0];
 		return true;
 	}
 
+	ns.pad	= function (n) {
+		return n < 10 ? "0" + n : n;
+	};
+
 	window.$id		= ns.getId;
 	window.$cls		= ns.getCls;
 	window.$tag		= ns.getTag;
